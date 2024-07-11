@@ -17,13 +17,9 @@ namespace PersonalHub.Api
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            var configuration = builder.Configuration;
-            var connectionString = configuration.GetConnectionString("PersonalHubDbContext");
-
-
             builder.Services.AddDbContext<PersonalHubDbContext>(options =>
             {
-                options.UseSqlServer(connectionString);
+                options.UseSqlServer(builder.Configuration.GetConnectionString("PersonalHubDbContext"));
             });
 
             var app = builder.Build();
