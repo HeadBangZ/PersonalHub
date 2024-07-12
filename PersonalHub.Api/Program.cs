@@ -17,6 +17,15 @@ namespace PersonalHub.Api
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            // TODO: Change the CORS policy
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    b => b.AllowAnyHeader()
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod());
+            });
+
             builder.Services.AddDbContext<PersonalHubDbContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("PersonalHubDbContext"));
@@ -48,6 +57,8 @@ namespace PersonalHub.Api
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors("AllowAll");
 
             app.UseAuthorization();
 
