@@ -15,12 +15,10 @@ namespace PersonalHub.Application.Mappings
         {
             return new UserDto
             {
-                Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Email = user.Email,
-                Password = user.Password,
                 CreatedAt = user.CreatedAt,
+                UpdatedAt = user.UpdatedAt,
             };
         }
 
@@ -28,12 +26,10 @@ namespace PersonalHub.Application.Mappings
         {
             return new User
             {
-                Id = UserId.NewUserId,
                 FirstName = userDto.FirstName,
                 LastName = userDto.LastName,
-                Email = userDto.Email,
-                Password = userDto.Password,
-                CreatedAt = new DateTime()
+                CreatedAt = userDto.CreatedAt,
+                UpdatedAt = userDto.UpdatedAt,
             };
         }
     }

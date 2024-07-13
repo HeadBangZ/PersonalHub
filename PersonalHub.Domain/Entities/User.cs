@@ -1,19 +1,23 @@
 ﻿using PersonalHub.Domain.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
 namespace PersonalHub.Domain.Entities
 {
-    public class User
+    public class User : IdentityUser
     {
-        public UserId Id { get; set; } = UserId.NewUserId;
+        [Required]
+        [StringLength(50)]
         public string FirstName { get; set; }
+        [Required]
+        [StringLength(75)]
         public string LastName { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
+        [Required]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM-yyyy}")]
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM-yyyy}")]
+        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
     }
 }

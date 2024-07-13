@@ -1,26 +1,23 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using PersonalHub.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PersonalHub.Domain.ValueObjects;
 
 namespace PersonalHub.Infrastructure.Data.Contexts
 {
-    public class PersonalHubDbContext : DbContext
+    public class PersonalHubDbContext : IdentityDbContext<User>
     {
         public PersonalHubDbContext(DbContextOptions<PersonalHubDbContext> options) : base(options) { }
 
-        public DbSet<User> Users { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<User>()
-                .Property(x => x.Id)
-                .HasConversion(id => id.Value, value => new(value));
+                .Property(x => x.Id);
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(PersonalHubDbContext).Assembly);
         }
+        public DbSet<User> Users { get; set; }
     }
 }
