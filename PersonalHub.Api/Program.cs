@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PersonalHub.Infrastructure;
-using PersonalHub.Infrastructure.Data;
+using PersonalHub.Infrastructure.Data.Contexts;
 
 namespace PersonalHub.Api
 {
