@@ -21,6 +21,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\PersonalHub.Application\PersonalHub.Application.csproj" />
 		<ProjectReference Include="..\PersonalHub.Domain\PersonalHub.Domain.csproj" />
 	</ItemGroup>
 

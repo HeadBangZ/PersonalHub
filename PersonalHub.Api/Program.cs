@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using PersonalHub.Application.Contracts;
+using PersonalHub.Application.Services;
 using PersonalHub.Domain.Entities;
 using PersonalHub.Infrastructure;
 using PersonalHub.Infrastructure.Data.Contexts;
+using PersonalHub.Infrastructure.Data.Repositories.Auth;
 using System.Text;
 
 namespace PersonalHub.Api
@@ -30,6 +33,11 @@ namespace PersonalHub.Api
                     .AllowAnyMethod());
             });
 
+            // Scopes
+            builder.Services.AddScoped<IAuthManager, AuthManager>();
+            builder.Services.AddScoped<AuthService>();
+
+            // Db Context
             builder.Services.AddDbContext<PersonalHubDbContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("PersonalHubDbContext"));
@@ -54,7 +62,7 @@ namespace PersonalHub.Api
                 };
             });
 
-            builder.Services.AddIdentityApiEndpoints<User>(options =>
+            builder.Services.AddIdentityApiEndpoints<ApiUser>(options =>
             {
                 // TODO: Change the password rules
                 options.Password.RequiredLength = 8;
@@ -75,16 +83,13 @@ namespace PersonalHub.Api
                 app.UseSwaggerUI();
             }
 
-            app.UseAuthentication();
-            app.UseAuthorization();
-            app.MapIdentityApi<User>();
-
-            app.UseHttpsRedirection();
-
             app.UseCors("AllowAll");
 
+            app.UseAuthentication();
             app.UseAuthorization();
+            app.MapIdentityApi<ApiUser>();
 
+            app.UseHttpsRedirection();
 
             app.MapControllers();
 

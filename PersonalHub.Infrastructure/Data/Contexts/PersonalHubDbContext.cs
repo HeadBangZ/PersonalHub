@@ -5,7 +5,7 @@ using PersonalHub.Domain.ValueObjects;
 
 namespace PersonalHub.Infrastructure.Data.Contexts
 {
-    public class PersonalHubDbContext : IdentityDbContext<User>
+    public class PersonalHubDbContext : IdentityDbContext<ApiUser>
     {
         public PersonalHubDbContext(DbContextOptions<PersonalHubDbContext> options) : base(options) { }
 
@@ -13,11 +13,11 @@ namespace PersonalHub.Infrastructure.Data.Contexts
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<User>()
+            modelBuilder.Entity<ApiUser>()
                 .Property(x => x.Id);
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(PersonalHubDbContext).Assembly);
         }
-        public DbSet<User> Users { get; set; }
+        public DbSet<ApiUser> Users { get; set; }
     }
 }
