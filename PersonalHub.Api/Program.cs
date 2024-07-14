@@ -1,7 +1,10 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using PersonalHub.Domain.Entities;
 using PersonalHub.Infrastructure;
 using PersonalHub.Infrastructure.Data.Contexts;
+using System.Text;
 
 namespace PersonalHub.Api
 {
@@ -32,9 +35,28 @@ namespace PersonalHub.Api
                 options.UseSqlServer(builder.Configuration.GetConnectionString("PersonalHubDbContext"));
             });
 
-            builder.Services.AddAuthentication();
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
+                    ValidAudience = builder.Configuration["JwtSettings:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Key"])),
+                };
+            });
+
             builder.Services.AddIdentityApiEndpoints<User>(options =>
             {
+                // TODO: Change the password rules
                 options.Password.RequiredLength = 8;
                 options.Password.RequireUppercase = false;
                 options.Password.RequireNonAlphanumeric = false;
@@ -42,23 +64,9 @@ namespace PersonalHub.Api
                 options.SignIn.RequireConfirmedEmail = true;
             }).AddEntityFrameworkStores<PersonalHubDbContext>();
 
+            builder.Services.AddAuthorization();
+
             var app = builder.Build();
-
-            //using (var scope = app.Services.CreateScope())
-            //{
-            //    var dbContext = scope.ServiceProvider.GetRequiredService<PersonalHubDbContext>();
-
-            //    try
-            //    {
-            //        dbContext.Database.EnsureCreated(); // Try to ensure the database exists or migrated
-            //        Console.WriteLine("Database connection successful.");
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        Console.WriteLine($"Database connection failed: {ex.Message}");
-            //        throw; // Rethrow the exception to halt execution
-            //    }
-            //}
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -67,6 +75,7 @@ namespace PersonalHub.Api
                 app.UseSwaggerUI();
             }
 
+            app.UseAuthentication();
             app.UseAuthorization();
             app.MapIdentityApi<User>();
 
