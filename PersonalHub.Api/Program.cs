@@ -34,7 +34,7 @@ namespace PersonalHub.Api
             });
 
             // Scopes
-            builder.Services.AddScoped<IAuthManager, AuthManager>();
+            builder.Services.AddScoped<IAuthRepository, AuthRepository>();
             builder.Services.AddScoped<AuthService>();
 
             // Db Context

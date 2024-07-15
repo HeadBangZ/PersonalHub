@@ -6,23 +6,23 @@ using PersonalHub.Application.Contracts;
 
 namespace PersonalHub.Infrastructure.Data.Repositories.Auth
 {
-    public class AuthManager : IAuthManager
+    public class AuthRepository : IAuthRepository
     {
         private readonly UserManager<ApiUser> _userManager;
 
-        public AuthManager(UserManager<ApiUser> userManager)
+        public AuthRepository(UserManager<ApiUser> userManager)
         {
             _userManager = userManager;
         }
 
-        public async Task<IEnumerable<IdentityError>> Register(CreateApiUserDto createApiUserDto)
+        public async Task<ApiUser> FindUserByEmail(string email)
         {
-            ApiUser user = createApiUserDto.ToApiUser();
+            return await _userManager.FindByEmailAsync(email);
+        }
 
-            var result = await _userManager.CreateAsync(user, createApiUserDto.Password);
-
-            // TODO: Add role to use when Roles are created
-
+        public async Task<IEnumerable<IdentityError>> Register(ApiUser user, string password)
+        {
+            var result = await _userManager.CreateAsync(user, password);
             return result.Errors;
         }
     }
