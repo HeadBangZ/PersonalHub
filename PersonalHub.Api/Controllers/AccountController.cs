@@ -36,5 +36,22 @@ namespace PersonalHub.Api.Controllers
 
             return Ok();
         }
+
+        [HttpPost]
+        [Route("Login")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult> Login([FromBody] LoginApiUserDto loginApiUserDto)
+        {
+            var isValidUser = await _authService.AuthenticateUser(loginApiUserDto);
+
+            if (!isValidUser)
+            {
+                return Unauthorized();
+            }
+
+            return Ok();
+        }
     }
 }

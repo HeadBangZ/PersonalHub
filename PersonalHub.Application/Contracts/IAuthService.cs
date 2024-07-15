@@ -11,5 +11,6 @@ namespace PersonalHub.Application.Contracts
     public interface IAuthService
     {
         Task<IEnumerable<IdentityError>> Register(CreateApiUserDto createApiUserDto);
+        Task<bool> AuthenticateUser(LoginApiUserDto loginApiUserDto);
     }
 }

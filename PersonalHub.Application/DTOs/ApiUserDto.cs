@@ -23,4 +23,9 @@ namespace PersonalHub.Application.DTOs
         [Required][EmailAddress] string Email,
         [Required][DataType(DataType.Password)] string Password
     );
+
+    public record LoginApiUserDto(
+        [Required] string Email,
+        [Required] string Password
+    );
 }

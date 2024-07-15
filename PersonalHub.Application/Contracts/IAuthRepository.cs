@@ -11,7 +11,8 @@ namespace PersonalHub.Infrastructure.Data.Repositories.Auth
 {
     public interface IAuthRepository
     {
-        Task<IEnumerable<IdentityError>> Register(ApiUser user, string password);
         Task<ApiUser> FindUserByEmail(string email);
+        Task<IEnumerable<IdentityError>> Register(ApiUser user, string password);
+        Task<bool> ValidateCredentials(ApiUser user, string password);
     }
 }
