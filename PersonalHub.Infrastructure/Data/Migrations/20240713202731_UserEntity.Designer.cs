@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PersonalHub.Infrastructure.Data.Contexts;
 
@@ -11,9 +12,11 @@ using PersonalHub.Infrastructure.Data.Contexts;
 namespace PersonalHub.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(PersonalHubDbContext))]
-    partial class PersonalHubDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240713202731_UserEntity")]
+    partial class UserEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -155,7 +158,7 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("PersonalHub.Domain.Entities.ApiUser", b =>
+            modelBuilder.Entity("PersonalHub.Domain.Entities.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -216,7 +219,7 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("UpdatedAt")
+                    b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserName")
@@ -247,7 +250,7 @@ namespace PersonalHub.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("PersonalHub.Domain.Entities.ApiUser", null)
+                    b.HasOne("PersonalHub.Domain.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -256,7 +259,7 @@ namespace PersonalHub.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("PersonalHub.Domain.Entities.ApiUser", null)
+                    b.HasOne("PersonalHub.Domain.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -271,7 +274,7 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PersonalHub.Domain.Entities.ApiUser", null)
+                    b.HasOne("PersonalHub.Domain.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -280,7 +283,7 @@ namespace PersonalHub.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("PersonalHub.Domain.Entities.ApiUser", null)
+                    b.HasOne("PersonalHub.Domain.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

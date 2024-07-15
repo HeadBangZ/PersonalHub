@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PersonalHub.Infrastructure.Data.Contexts;
 
@@ -11,9 +12,11 @@ using PersonalHub.Infrastructure.Data.Contexts;
 namespace PersonalHub.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(PersonalHubDbContext))]
-    partial class PersonalHubDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240714202753_RegistrationApiUser")]
+    partial class RegistrationApiUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -171,6 +174,7 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -200,6 +204,10 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");

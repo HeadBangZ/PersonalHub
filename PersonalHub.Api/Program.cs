@@ -1,6 +1,13 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using PersonalHub.Application.Contracts;
+using PersonalHub.Application.Services;
+using PersonalHub.Domain.Entities;
 using PersonalHub.Infrastructure;
 using PersonalHub.Infrastructure.Data.Contexts;
+using PersonalHub.Infrastructure.Data.Repositories.Auth;
+using System.Text;
 
 namespace PersonalHub.Api
 {
@@ -26,28 +33,48 @@ namespace PersonalHub.Api
                     .AllowAnyMethod());
             });
 
+            // Scopes
+            builder.Services.AddScoped<IAuthRepository, AuthRepository>();
+            builder.Services.AddScoped<AuthService>();
+
+            // Db Context
             builder.Services.AddDbContext<PersonalHubDbContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("PersonalHubDbContext"));
             });
 
-            var app = builder.Build();
-
-            using (var scope = app.Services.CreateScope())
+            builder.Services.AddAuthentication(options =>
             {
-                var dbContext = scope.ServiceProvider.GetRequiredService<PersonalHubDbContext>();
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
+                    ValidAudience = builder.Configuration["JwtSettings:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Key"])),
+                };
+            });
 
-                try
-                {
-                    dbContext.Database.EnsureCreated(); // Try to ensure the database exists or migrated
-                    Console.WriteLine("Database connection successful.");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Database connection failed: {ex.Message}");
-                    throw; // Rethrow the exception to halt execution
-                }
-            }
+            builder.Services.AddIdentityApiEndpoints<ApiUser>(options =>
+            {
+                // TODO: Change the password rules
+                options.Password.RequiredLength = 8;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.User.RequireUniqueEmail = true;
+                options.SignIn.RequireConfirmedEmail = true;
+            }).AddEntityFrameworkStores<PersonalHubDbContext>();
+
+            builder.Services.AddAuthorization();
+
+            var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -56,12 +83,13 @@ namespace PersonalHub.Api
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
-
             app.UseCors("AllowAll");
 
+            app.UseAuthentication();
             app.UseAuthorization();
+            app.MapIdentityApi<ApiUser>();
 
+            app.UseHttpsRedirection();
 
             app.MapControllers();
 
