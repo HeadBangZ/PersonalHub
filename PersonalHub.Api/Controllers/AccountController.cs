@@ -44,14 +44,14 @@ namespace PersonalHub.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> Login([FromBody] LoginApiUserDto loginApiUserDto)
         {
-            var isValidUser = await _authService.AuthenticateUser(loginApiUserDto);
+            var authResponse = await _authService.AuthenticateUser(loginApiUserDto);
 
-            if (!isValidUser)
+            if (authResponse == null)
             {
                 return Unauthorized();
             }
 
-            return Ok();
+            return Ok(authResponse);
         }
     }
 }

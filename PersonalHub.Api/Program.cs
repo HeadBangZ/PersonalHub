@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using PersonalHub.Application.Contracts;
 using PersonalHub.Application.Services;
+using PersonalHub.Application.Utilities;
 using PersonalHub.Domain.Entities;
 using PersonalHub.Infrastructure;
 using PersonalHub.Infrastructure.Data.Contexts;
@@ -43,11 +44,18 @@ namespace PersonalHub.Api
                 options.UseSqlServer(builder.Configuration.GetConnectionString("PersonalHubDbContext"));
             });
 
+            // JWT Token Generator
+            builder.Services.AddSingleton(new JwtTokenGenerator(
+                builder.Configuration["JwtSettings:Key"],
+                builder.Configuration["JwtSettings:Issuer"],
+                builder.Configuration["JwtSettings:Audience"],
+                int.Parse(builder.Configuration["JwtSettings:DurationInMinutes"])
+            ));
+
             builder.Services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
@@ -56,6 +64,7 @@ namespace PersonalHub.Api
                     ValidateAudience = true,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
+                    ClockSkew = TimeSpan.Zero,
                     ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
                     ValidAudience = builder.Configuration["JwtSettings:Audience"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Key"])),

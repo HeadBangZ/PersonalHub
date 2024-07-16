@@ -3,6 +3,10 @@ using PersonalHub.Application.DTOs;
 using PersonalHub.Domain.Entities;
 using PersonalHub.Application.Extensions;
 using PersonalHub.Application.Contracts;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.Extensions.Configuration;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace PersonalHub.Infrastructure.Data.Repositories.Auth
 {

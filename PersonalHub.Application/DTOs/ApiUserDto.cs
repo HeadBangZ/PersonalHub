@@ -28,4 +28,9 @@ namespace PersonalHub.Application.DTOs
         [Required] string Email,
         [Required] string Password
     );
+
+    public record AuthResponseDto(
+        string Id,
+        string Token
+    );
 }
