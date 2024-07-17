@@ -13,15 +13,15 @@ namespace PersonalHub.Application.Services
     public class AuthService : IAuthService
     {
         private readonly IAuthRepository _authRepository;
-        private readonly JwtTokenGenerator _tokenGenerator;
+        private readonly TokenService _tokenGenerator;
 
-        public AuthService(IAuthRepository authRepository, JwtTokenGenerator tokenGenerator)
+        public AuthService(IAuthRepository authRepository, TokenService tokenGenerator)
         {
             _authRepository = authRepository;
             _tokenGenerator = tokenGenerator;
         }
 
-        public async Task<AuthResponseDto> AuthenticateUser(LoginApiUserDto loginApiUserDto)
+        public async Task<AuthResponseDto?> AuthenticateUser(LoginApiUserDto loginApiUserDto)
         {
             var user = await _authRepository.FindUserByEmail(loginApiUserDto.Email);
             if (user == null)
@@ -36,7 +36,7 @@ namespace PersonalHub.Application.Services
                 return default;
             }
 
-            string token = await _tokenGenerator.GenerateToken(user);
+            string token = await _tokenGenerator.GenerateToken();
 
             return new AuthResponseDto(user.Id, token);
         }
