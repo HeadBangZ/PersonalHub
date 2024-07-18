@@ -18,8 +18,7 @@ The Infrastructure layer contains implementation details related to external sys
 ### Tests
 The Tests layer includes various tests to ensure the quality and correctness of the application. This layer can be further subdivived based on the types of tests.
 
-
-#### Libraries
+### Libraries
 JWT
 Elastic Search
 Entity Framework
