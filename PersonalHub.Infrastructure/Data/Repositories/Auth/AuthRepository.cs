@@ -22,6 +22,12 @@ namespace PersonalHub.Infrastructure.Data.Repositories.Auth
         public async Task<IEnumerable<IdentityError>> Register(ApiUser user, string password)
         {
             var result = await _userManager.CreateAsync(user, password);
+
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, "Owner");
+            }
+
             return result.Errors;
         }
 

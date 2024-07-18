@@ -53,7 +53,7 @@ namespace PersonalHub.Application.Utilities
         {
             await _userManager.RemoveAuthenticationTokenAsync(user, _loginProvider, _refreshToken);
             var newRefreshToken = await _userManager.GenerateUserTokenAsync(user, _loginProvider, _refreshToken);
-            var result = await _userManager.SetAuthenticationTokenAsync(user, _loginProvider, _refreshToken, newRefreshToken);
+            await _userManager.SetAuthenticationTokenAsync(user, _loginProvider, _refreshToken, newRefreshToken);
             return newRefreshToken;
         }
 

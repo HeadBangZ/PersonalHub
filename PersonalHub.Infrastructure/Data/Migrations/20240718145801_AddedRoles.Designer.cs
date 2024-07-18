@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PersonalHub.Infrastructure.Data.Contexts;
 
@@ -11,9 +12,11 @@ using PersonalHub.Infrastructure.Data.Contexts;
 namespace PersonalHub.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(PersonalHubDbContext))]
-    partial class PersonalHubDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240718145801_AddedRoles")]
+    partial class AddedRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,13 +54,13 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "830575af-6397-4421-87fc-d220abfa304a",
+                            Id = "7fe2022c-d2f2-40c4-b84f-6ba209324476",
                             Name = "Owner",
                             NormalizedName = "OWNER"
                         },
                         new
                         {
-                            Id = "092fb279-ead4-45ab-ac49-0d62644a8810",
+                            Id = "762ede49-e69a-4490-a7dd-830f38811889",
                             Name = "User",
                             NormalizedName = "USER"
                         });

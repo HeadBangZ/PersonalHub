@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using PersonalHub.Application.Contracts;
@@ -45,11 +46,12 @@ namespace PersonalHub.Api
             });
 
             // JWT Token Generator
-            builder.Services.AddSingleton(new JwtTokenGenerator(
+            builder.Services.AddScoped<TokenService>(provider => new TokenService(
                 builder.Configuration["JwtSettings:Key"],
                 builder.Configuration["JwtSettings:Issuer"],
                 builder.Configuration["JwtSettings:Audience"],
-                int.Parse(builder.Configuration["JwtSettings:DurationInMinutes"])
+                int.Parse(builder.Configuration["JwtSettings:DurationInMinutes"]),
+                provider.GetRequiredService<UserManager<ApiUser>>()
             ));
 
             builder.Services.AddAuthentication(options =>
