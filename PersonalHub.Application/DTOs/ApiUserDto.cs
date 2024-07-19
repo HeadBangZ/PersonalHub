@@ -31,6 +31,7 @@ namespace PersonalHub.Application.DTOs
 
     public record AuthResponseDto(
         string Id,
-        string Token
+        string Token,
+        string RefreshToken
     );
 }

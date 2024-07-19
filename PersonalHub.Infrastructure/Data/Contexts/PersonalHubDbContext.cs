@@ -1,13 +1,18 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using PersonalHub.Domain.Entities;
 using PersonalHub.Domain.ValueObjects;
+using PersonalHub.Infrastructure.Data.Configurations;
 
 namespace PersonalHub.Infrastructure.Data.Contexts
 {
     public class PersonalHubDbContext : IdentityDbContext<ApiUser>
     {
-        public PersonalHubDbContext(DbContextOptions<PersonalHubDbContext> options) : base(options) { }
+        public PersonalHubDbContext(DbContextOptions<PersonalHubDbContext> options) : base(options)
+        {
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -15,9 +20,10 @@ namespace PersonalHub.Infrastructure.Data.Contexts
 
             modelBuilder.Entity<ApiUser>()
                 .Property(x => x.Id);
-
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(PersonalHubDbContext).Assembly);
         }
         public DbSet<ApiUser> Users { get; set; }
     }
 }
+
+

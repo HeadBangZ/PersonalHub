@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PersonalHub.Infrastructure.Data.Repositories
+namespace PersonalHub.Infrastructure.Repositories
 {
     public interface IGenericRepository<T> where T : class
     {
