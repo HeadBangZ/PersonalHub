@@ -6,7 +6,7 @@ namespace PersonalHub.Application.Contracts
     public interface ITokenService
     {
         Task<string> GenerateToken(ApiUser user);
-        Task<string> RefreshToken(ApiUser user);
+        Task<string> CreateRefreshToken(ApiUser user);
         Task<AuthResponseDto> VerifyRefreshToken(AuthResponseDto request);
     }
 }

@@ -7,8 +7,9 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using System.IdentityModel.Tokens.Jwt;
+using PersonalHub.Infrastructure.Data.Repositories.Auth;
 
-namespace PersonalHub.Infrastructure.Data.Repositories.Auth
+namespace PersonalHub.Infrastructure.Repositories.Auth
 {
     public class AuthRepository : IAuthRepository
     {

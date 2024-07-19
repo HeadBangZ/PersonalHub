@@ -4,11 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using PersonalHub.Application.Contracts;
 using PersonalHub.Application.Services;
-using PersonalHub.Application.Utilities;
 using PersonalHub.Domain.Entities;
 using PersonalHub.Infrastructure;
 using PersonalHub.Infrastructure.Data.Contexts;
 using PersonalHub.Infrastructure.Data.Repositories.Auth;
+using PersonalHub.Infrastructure.Repositories.Auth;
+using PersonalHub.Infrastructure.Services;
 using System.Text;
 
 namespace PersonalHub.Api
@@ -47,7 +48,9 @@ namespace PersonalHub.Api
 
             builder.Services.AddIdentityCore<ApiUser>()
                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<PersonalHubDbContext>();
+                .AddTokenProvider<DataProtectorTokenProvider<ApiUser>>("https://localhost:7149/")
+                .AddEntityFrameworkStores<PersonalHubDbContext>()
+                .AddDefaultTokenProviders();
 
             builder.Services.AddAuthentication(options =>
             {
@@ -79,13 +82,18 @@ namespace PersonalHub.Api
             }).AddEntityFrameworkStores<PersonalHubDbContext>();
 
             // JWT Token Generator
-            builder.Services.AddScoped(provider => new TokenService(
-                builder.Configuration["JwtSettings:Key"],
-                builder.Configuration["JwtSettings:Issuer"],
-                builder.Configuration["JwtSettings:Audience"],
-                int.Parse(builder.Configuration["JwtSettings:DurationInMinutes"]),
-                provider.GetRequiredService<UserManager<ApiUser>>()
-            ));
+            builder.Services.AddScoped<ITokenService, TokenService>(provider =>
+            {
+                var configuration = provider.GetRequiredService<IConfiguration>();
+                var userManager = provider.GetRequiredService<UserManager<ApiUser>>();
+                return new TokenService(
+                    configuration["JwtSettings:Key"],
+                    configuration["JwtSettings:Issuer"],
+                    configuration["JwtSettings:Audience"],
+                    int.Parse(configuration["JwtSettings:DurationInMinutes"]),
+                    userManager
+                );
+            });
 
             builder.Services.AddAuthorization();
 

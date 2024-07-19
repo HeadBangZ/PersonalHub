@@ -12,7 +12,7 @@ using PersonalHub.Application.DTOs;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 
-namespace PersonalHub.Application.Utilities
+namespace PersonalHub.Infrastructure.Services
 {
     public class TokenService : ITokenService
     {
@@ -63,7 +63,7 @@ namespace PersonalHub.Application.Utilities
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public async Task<string> RefreshToken(ApiUser user)
+        public async Task<string> CreateRefreshToken(ApiUser user)
         {
             await _userManager.RemoveAuthenticationTokenAsync(user, _loginProvider, _refreshToken);
             var newRefreshToken = await _userManager.GenerateUserTokenAsync(user, _loginProvider, _refreshToken);
@@ -71,10 +71,35 @@ namespace PersonalHub.Application.Utilities
             return newRefreshToken;
         }
 
-        public Task<AuthResponseDto> VerifyRefreshToken(AuthResponseDto request)
+        public async Task<AuthResponseDto?> VerifyRefreshToken(AuthResponseDto request)
         {
-            throw new NotImplementedException();
+            var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
+            var tokenContent = jwtSecurityTokenHandler.ReadJwtToken(request.Token);
+            var username = tokenContent.Claims.ToList().FirstOrDefault(q => q.Type == JwtRegisteredClaimNames.Email)?.Value;
 
+            var user = await _userManager.FindByNameAsync(username);
+
+            if (user == null || user.Id != request.Id)
+            {
+                return null;
+            }
+
+            var isValidRefreshToken = await _userManager.VerifyUserTokenAsync(user, _loginProvider, _refreshToken, request.RefreshToken);
+
+            if (!isValidRefreshToken)
+            {
+                await _userManager.UpdateSecurityStampAsync(user);
+                return null;
+            }
+
+            var token = await GenerateToken(user);
+            var newRefreshToken = await CreateRefreshToken(user);
+            return new AuthResponseDto
+            (
+                Id: user.Id,
+                Token: token,
+                RefreshToken: newRefreshToken
+            );
         }
     }
 }

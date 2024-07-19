@@ -5,7 +5,7 @@ using PersonalHub.Application.Services;
 
 namespace PersonalHub.Api.Controllers
 {
-    [Route("api/account")]
+    [Route("api/accounts")]
     [ApiController]
     public class AccountController : ControllerBase
     {
@@ -45,6 +45,23 @@ namespace PersonalHub.Api.Controllers
         public async Task<ActionResult> Login([FromBody] LoginApiUserDto loginApiUserDto)
         {
             var authResponse = await _authService.AuthenticateUser(loginApiUserDto);
+
+            if (authResponse == null)
+            {
+                return Unauthorized();
+            }
+
+            return Ok(authResponse);
+        }
+
+        [HttpPost]
+        [Route("refreshtoken")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult> RefreshToken([FromBody] AuthResponseDto request)
+        {
+            var authResponse = await _authService.VerifyRefreshToken(request);
 
             if (authResponse == null)
             {

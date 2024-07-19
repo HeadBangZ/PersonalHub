@@ -3,19 +3,16 @@ using Microsoft.Extensions.Configuration;
 using PersonalHub.Application.Contracts;
 using PersonalHub.Application.DTOs;
 using PersonalHub.Application.Extensions;
-using PersonalHub.Application.Utilities;
-using PersonalHub.Domain.Entities;
 using PersonalHub.Infrastructure.Data.Repositories.Auth;
-using System.Text;
 
 namespace PersonalHub.Application.Services
 {
     public class AuthService : IAuthService
     {
         private readonly IAuthRepository _authRepository;
-        private readonly TokenService _tokenGenerator;
+        private readonly ITokenService _tokenGenerator;
 
-        public AuthService(IAuthRepository authRepository, TokenService tokenGenerator)
+        public AuthService(IAuthRepository authRepository, ITokenService tokenGenerator)
         {
             _authRepository = authRepository;
             _tokenGenerator = tokenGenerator;
@@ -37,8 +34,14 @@ namespace PersonalHub.Application.Services
             }
 
             string token = await _tokenGenerator.GenerateToken(user);
+            var refreshToken = await _tokenGenerator.CreateRefreshToken(user);
 
-            return new AuthResponseDto(user.Id, token);
+            return new AuthResponseDto
+            (
+                Id: user.Id,
+                Token: token,
+                RefreshToken: refreshToken
+            );
         }
 
         public async Task<IEnumerable<IdentityError>> Register(CreateApiUserDto createApiUserDto)
@@ -47,6 +50,11 @@ namespace PersonalHub.Application.Services
             user.UserName = createApiUserDto.Email;
 
             return await _authRepository.Register(user, createApiUserDto.Password);
+        }
+
+        public async Task<AuthResponseDto> VerifyRefreshToken(AuthResponseDto request)
+        {
+            return await _tokenGenerator.VerifyRefreshToken(request);
         }
     }
 }
