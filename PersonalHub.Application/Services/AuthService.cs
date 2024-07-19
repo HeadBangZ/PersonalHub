@@ -36,7 +36,7 @@ namespace PersonalHub.Application.Services
                 return default;
             }
 
-            string token = await _tokenGenerator.GenerateToken();
+            string token = await _tokenGenerator.GenerateToken(user);
 
             return new AuthResponseDto(user.Id, token);
         }

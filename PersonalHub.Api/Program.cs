@@ -45,14 +45,9 @@ namespace PersonalHub.Api
                 options.UseSqlServer(builder.Configuration.GetConnectionString("PersonalHubDbContext"));
             });
 
-            // JWT Token Generator
-            builder.Services.AddScoped<TokenService>(provider => new TokenService(
-                builder.Configuration["JwtSettings:Key"],
-                builder.Configuration["JwtSettings:Issuer"],
-                builder.Configuration["JwtSettings:Audience"],
-                int.Parse(builder.Configuration["JwtSettings:DurationInMinutes"]),
-                provider.GetRequiredService<UserManager<ApiUser>>()
-            ));
+            builder.Services.AddIdentityCore<ApiUser>()
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<PersonalHubDbContext>();
 
             builder.Services.AddAuthentication(options =>
             {
@@ -80,8 +75,17 @@ namespace PersonalHub.Api
                 options.Password.RequireUppercase = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.User.RequireUniqueEmail = true;
-                options.SignIn.RequireConfirmedEmail = true;
+                options.SignIn.RequireConfirmedEmail = false;
             }).AddEntityFrameworkStores<PersonalHubDbContext>();
+
+            // JWT Token Generator
+            builder.Services.AddScoped<TokenService>(provider => new TokenService(
+                builder.Configuration["JwtSettings:Key"],
+                builder.Configuration["JwtSettings:Issuer"],
+                builder.Configuration["JwtSettings:Audience"],
+                int.Parse(builder.Configuration["JwtSettings:DurationInMinutes"]),
+                provider.GetRequiredService<UserManager<ApiUser>>()
+            ));
 
             builder.Services.AddAuthorization();
 

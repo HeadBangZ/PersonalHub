@@ -10,6 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 using PersonalHub.Application.Contracts;
 using PersonalHub.Application.DTOs;
 using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace PersonalHub.Application.Utilities
 {
@@ -34,14 +35,27 @@ namespace PersonalHub.Application.Utilities
             _userManager = userManager;
         }
 
-        public async Task<string> GenerateToken()
+        public async Task<string> GenerateToken(ApiUser user)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_key));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha512Signature);
 
+            var roles = await _userManager.GetRolesAsync(user);
+            var roleClaims = roles.Select(x => new Claim(ClaimTypes.Role, x)).ToList();
+            var userClaims = await _userManager.GetClaimsAsync(user);
+
+            var claims = new List<Claim>
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim("uid", user.Id)
+            };
+
             var token = new JwtSecurityToken(
                 issuer: _issuer,
                 audience: _audience,
+                claims: claims,
                 expires: DateTime.Now.AddMinutes(_durationInMinutes),
                 signingCredentials: credentials
             );
