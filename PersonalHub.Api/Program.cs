@@ -79,7 +79,7 @@ namespace PersonalHub.Api
             }).AddEntityFrameworkStores<PersonalHubDbContext>();
 
             // JWT Token Generator
-            builder.Services.AddScoped<TokenService>(provider => new TokenService(
+            builder.Services.AddScoped(provider => new TokenService(
                 builder.Configuration["JwtSettings:Key"],
                 builder.Configuration["JwtSettings:Issuer"],
                 builder.Configuration["JwtSettings:Audience"],
