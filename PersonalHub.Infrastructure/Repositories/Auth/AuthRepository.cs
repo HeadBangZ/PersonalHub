@@ -26,7 +26,7 @@ namespace PersonalHub.Infrastructure.Repositories.Auth
 
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, "Owner");
+                await _userManager.AddToRoleAsync(user, "User");
             }
 
             return result.Errors;

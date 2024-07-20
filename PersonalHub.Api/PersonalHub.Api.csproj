@@ -17,6 +17,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\PersonalHub.Application\PersonalHub.Application.csproj" />
 		<ProjectReference Include="..\PersonalHub.Infrastructure\PersonalHub.Infrastructure.csproj" />
 	</ItemGroup>
 
