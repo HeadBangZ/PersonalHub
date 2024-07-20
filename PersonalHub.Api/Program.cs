@@ -6,10 +6,12 @@ using PersonalHub.Application.Contracts;
 using PersonalHub.Application.Services;
 using PersonalHub.Domain.Entities;
 using PersonalHub.Infrastructure;
+using PersonalHub.Infrastructure.Data.Configurations;
 using PersonalHub.Infrastructure.Data.Contexts;
 using PersonalHub.Infrastructure.Data.Repositories.Auth;
 using PersonalHub.Infrastructure.Repositories.Auth;
 using PersonalHub.Infrastructure.Services;
+using System.Runtime;
 using System.Text;
 
 namespace PersonalHub.Api
@@ -26,6 +28,8 @@ namespace PersonalHub.Api
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
             // TODO: Change the CORS policy
             builder.Services.AddCors(options =>

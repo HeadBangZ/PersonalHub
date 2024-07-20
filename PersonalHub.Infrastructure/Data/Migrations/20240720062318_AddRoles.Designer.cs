@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PersonalHub.Infrastructure.Data.Contexts;
 
@@ -11,9 +12,11 @@ using PersonalHub.Infrastructure.Data.Contexts;
 namespace PersonalHub.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(PersonalHubDbContext))]
-    partial class PersonalHubDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240720062318_AddRoles")]
+    partial class AddRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,7 +60,7 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                         },
                         new
                         {
-                            Id = "397f19e8-4956-4aee-a94a-d8fe131348b4",
+                            Id = "f1bb691e-8494-4aa1-b71f-6580d385ed42",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -148,13 +151,6 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "a11429d5-dcd7-485f-a20e-3ad10848c6e3",
-                            RoleId = "d7a0819a-90fb-4395-bd51-e6b64414b447"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -255,27 +251,6 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "a11429d5-dcd7-485f-a20e-3ad10848c6e3",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "9ff36cdc-9678-4d95-b707-4584aafe4708",
-                            CreatedAt = new DateTime(2024, 7, 20, 6, 24, 11, 64, DateTimeKind.Utc).AddTicks(6228),
-                            Email = "nordvigprivat@gmail.com",
-                            EmailConfirmed = true,
-                            FirstName = "Thomas",
-                            LastName = "Hermansen",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "NORDVIGPRIVAT@GMAIL.COM",
-                            NormalizedUserName = "NORDVIGPRIVAT@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPalPnE0jfc1KWvczOAtqcYsz7/cX4XtwIStx/SPoSBl+7cbpqMwr5K5LJs5IB3UYQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "63344902-2cc5-47d5-8e86-055314dc26f8",
-                            TwoFactorEnabled = false,
-                            UserName = "nordvigprivat@gmail.com"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

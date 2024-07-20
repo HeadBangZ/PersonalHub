@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PersonalHub.Infrastructure.Data.Contexts;
 
@@ -11,9 +12,11 @@ using PersonalHub.Infrastructure.Data.Contexts;
 namespace PersonalHub.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(PersonalHubDbContext))]
-    partial class PersonalHubDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240720062343_AddUser")]
+    partial class AddUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,7 +60,7 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                         },
                         new
                         {
-                            Id = "397f19e8-4956-4aee-a94a-d8fe131348b4",
+                            Id = "3afb3d01-2248-414c-bb56-520f5522ba94",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -148,13 +151,6 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "a11429d5-dcd7-485f-a20e-3ad10848c6e3",
-                            RoleId = "d7a0819a-90fb-4395-bd51-e6b64414b447"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -261,8 +257,8 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                         {
                             Id = "a11429d5-dcd7-485f-a20e-3ad10848c6e3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9ff36cdc-9678-4d95-b707-4584aafe4708",
-                            CreatedAt = new DateTime(2024, 7, 20, 6, 24, 11, 64, DateTimeKind.Utc).AddTicks(6228),
+                            ConcurrencyStamp = "27508946-c96a-44ac-82ac-cb7b84adb252",
+                            CreatedAt = new DateTime(2024, 7, 20, 6, 23, 42, 923, DateTimeKind.Utc).AddTicks(7137),
                             Email = "nordvigprivat@gmail.com",
                             EmailConfirmed = true,
                             FirstName = "Thomas",
@@ -270,9 +266,9 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "NORDVIGPRIVAT@GMAIL.COM",
                             NormalizedUserName = "NORDVIGPRIVAT@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPalPnE0jfc1KWvczOAtqcYsz7/cX4XtwIStx/SPoSBl+7cbpqMwr5K5LJs5IB3UYQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDT63WlSyPwi1UoK9vqy+4GRQ3s+F+QDAcvV3IN39w5ylThet7lY9ZmfGe+bvgj9vw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "63344902-2cc5-47d5-8e86-055314dc26f8",
+                            SecurityStamp = "c7e2478e-9b5d-4d61-8fd8-31c958a73edc",
                             TwoFactorEnabled = false,
                             UserName = "nordvigprivat@gmail.com"
                         });
