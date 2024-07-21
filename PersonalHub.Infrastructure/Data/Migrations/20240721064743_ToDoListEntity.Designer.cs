@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PersonalHub.Infrastructure.Data.Contexts;
 
@@ -11,9 +12,11 @@ using PersonalHub.Infrastructure.Data.Contexts;
 namespace PersonalHub.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(PersonalHubDbContext))]
-    partial class PersonalHubDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240721064743_ToDoListEntity")]
+    partial class ToDoListEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,7 +60,7 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                         },
                         new
                         {
-                            Id = "86b2a70d-46c0-496d-ae97-bceedf437a64",
+                            Id = "a59d5bc8-157c-47c4-a8ea-bee35e85b60e",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -261,8 +264,8 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                         {
                             Id = "a11429d5-dcd7-485f-a20e-3ad10848c6e3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a48123eb-9178-4a9b-bf88-bbf0a2ec521a",
-                            CreatedAt = new DateTime(2024, 7, 21, 6, 50, 46, 286, DateTimeKind.Utc).AddTicks(9226),
+                            ConcurrencyStamp = "13a355a5-ce79-4c97-bd53-f7308f72d2bb",
+                            CreatedAt = new DateTime(2024, 7, 21, 6, 47, 43, 2, DateTimeKind.Utc).AddTicks(4252),
                             Email = "nordvigprivat@gmail.com",
                             EmailConfirmed = true,
                             FirstName = "Thomas",
@@ -270,9 +273,9 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "NORDVIGPRIVAT@GMAIL.COM",
                             NormalizedUserName = "NORDVIGPRIVAT@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAECMuej4l0NGIpEZJIrnt4fOmXZ8TXt5bY1WOKPdHdwgBzr35Jcf4kZgJb8cx50TTPQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEK9965yuRXdOXz6ojEOfP2kQV2yQixElUokT1oc8fZpbdFTK/3v9lPKmHipCDiEv7A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2e1dba79-d2cb-4e51-b8c3-3d98d38a0889",
+                            SecurityStamp = "b4913ce3-6df2-4c87-b312-b8d6ea7e7cdf",
                             TwoFactorEnabled = false,
                             UserName = "nordvigprivat@gmail.com"
                         });
@@ -311,7 +314,7 @@ namespace PersonalHub.Infrastructure.Data.Migrations
 
                     b.HasIndex("ToDoListId");
 
-                    b.ToTable("ToDoItems");
+                    b.ToTable("ToDoItem");
                 });
 
             modelBuilder.Entity("PersonalHub.Domain.Entities.ToDoList", b =>
