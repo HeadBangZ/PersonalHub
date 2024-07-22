@@ -1,5 +1,4 @@
-﻿using PersonalHub.Domain.ValueObjects;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 
 namespace PersonalHub.Domain.Entities

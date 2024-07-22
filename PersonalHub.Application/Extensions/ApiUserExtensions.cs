@@ -23,18 +23,6 @@ namespace PersonalHub.Application.Extensions
             );
         }
 
-        public static ApiUser ToApiUser(this ApiUserDto apiUserDto)
-        {
-            return new ApiUser
-            {
-                FirstName = apiUserDto.FirstName,
-                LastName = apiUserDto.LastName,
-                Email = apiUserDto.Email,
-                CreatedAt = apiUserDto.CreatedAt,
-                UpdatedAt = apiUserDto.UpdatedAt,
-            };
-        }
-
         public static ApiUser ToApiUser(this CreateApiUserDto createApiUserDto)
         {
             return new ApiUser

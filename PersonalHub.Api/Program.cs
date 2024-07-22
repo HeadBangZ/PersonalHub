@@ -3,12 +3,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using PersonalHub.Application.Contracts;
+using PersonalHub.Application.Contracts.Repositories;
 using PersonalHub.Application.Services;
 using PersonalHub.Domain.Entities;
 using PersonalHub.Infrastructure;
 using PersonalHub.Infrastructure.Data.Configurations;
 using PersonalHub.Infrastructure.Data.Contexts;
-using PersonalHub.Infrastructure.Data.Repositories.Auth;
+using PersonalHub.Infrastructure.Repositories;
 using PersonalHub.Infrastructure.Repositories.Auth;
 using PersonalHub.Infrastructure.Services;
 using System.Runtime;
@@ -41,8 +42,12 @@ namespace PersonalHub.Api
             });
 
             // Scopes
+            builder.Services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
             builder.Services.AddScoped<IAuthRepository, AuthRepository>();
+            builder.Services.AddScoped<IToDoListRepository, ToDoListRepository>();
+
             builder.Services.AddScoped<AuthService>();
+            builder.Services.AddScoped<ToDoListService>();
 
             // Db Context
             builder.Services.AddDbContext<PersonalHubDbContext>(options =>

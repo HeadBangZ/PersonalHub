@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PersonalHub.Infrastructure.Data.Repositories.Auth
+namespace PersonalHub.Application.Contracts.Repositories
 {
     public interface IAuthRepository
     {
