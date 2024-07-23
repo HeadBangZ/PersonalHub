@@ -43,5 +43,21 @@ namespace PersonalHub.Api.Controllers
 
             return Ok(toDoList);
         }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<ToDoListDto>> GetAllToDoLists()
+        {
+            var toDoLists = await _toDoListService.GetAllToDoLists();
+
+            if (!toDoLists.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(toDoLists);
+        }
     }
 }

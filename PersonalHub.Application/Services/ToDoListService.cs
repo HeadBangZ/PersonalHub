@@ -36,5 +36,17 @@ namespace PersonalHub.Application.Services
 
             return toDoListDto;
         }
+
+        public async Task<List<ToDoListDto>> GetAllToDoLists()
+        {
+            var toDoListDtos = new List<ToDoListDto>();
+            var toDoLists = await _toDoListRepository.GetAllAsync();
+
+            foreach (var toDoList in toDoLists)
+            {
+                toDoListDtos.Add(toDoList.ToToDoListDto());
+            }
+            return toDoListDtos;
+        }
     }
 }
