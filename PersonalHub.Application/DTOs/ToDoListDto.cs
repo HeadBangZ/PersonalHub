@@ -22,4 +22,10 @@ namespace PersonalHub.Application.DTOs
         DateTime CreatedAt,
         DateTime? UpdatedAt
     );
+
+    public record UpdateToDoListDto(
+        [Required] string Id,
+        [Required][StringLength(75)] string Name,
+        string? Description
+    );
 }

@@ -14,8 +14,4 @@
 		<ProjectReference Include="..\PersonalHub.Domain\PersonalHub.Domain.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Utilities\" />
-	</ItemGroup>
-
 </Project>

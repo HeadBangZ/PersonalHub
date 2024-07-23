@@ -2,6 +2,8 @@
 using PersonalHub.Application.Contracts.Repositories;
 using PersonalHub.Application.DTOs;
 using PersonalHub.Application.Extensions;
+using PersonalHub.Application.Utilities;
+using PersonalHub.Domain.Entities;
 using PersonalHub.Domain.ValueObjects;
 
 namespace PersonalHub.Application.Services
@@ -22,7 +24,7 @@ namespace PersonalHub.Application.Services
             return toDoList.ToToDoListDto();
         }
 
-        public async Task<ToDoListDto> GetToDoList(string id)
+        public async Task<ToDoListDto?> GetToDoList(string id)
         {
             var toDoListId = new ToDoListId(Guid.Parse(id));
             var toDoList = await _toDoListRepository.GetAsync(toDoListId);
@@ -47,6 +49,12 @@ namespace PersonalHub.Application.Services
                 toDoListDtos.Add(toDoList.ToToDoListDto());
             }
             return toDoListDtos;
+        }
+
+        public async Task<bool> ToDoListExist(string id)
+        {
+            var toDoListId = new ToDoListId(Guid.Parse(id));
+            return await _toDoListRepository.Exists(toDoListId);
         }
     }
 }
