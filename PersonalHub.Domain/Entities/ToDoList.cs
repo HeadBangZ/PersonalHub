@@ -27,6 +27,14 @@ namespace PersonalHub.Domain.Entities
             Description = description;
         }
 
+        public ToDoList(ToDoListId id, string name, string? description, DateTime updatedAt)
+        {
+            Id = id;
+            Name = name;
+            Description = description;
+            UpdatedAt = updatedAt;
+        }
+
         public ToDoList(ToDoListId id, string name, string? description, List<ToDoItem> items, DateTime createdAt, DateTime? updatedAt)
         {
             Id = id;

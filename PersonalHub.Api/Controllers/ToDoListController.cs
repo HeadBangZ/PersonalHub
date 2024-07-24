@@ -59,5 +59,10 @@ namespace PersonalHub.Api.Controllers
 
             return Ok(toDoLists);
         }
+
+        private async Task<bool> EntityExist(string id)
+        {
+            return await _toDoListService.ToDoListExist(id);
+        }
     }
 }
