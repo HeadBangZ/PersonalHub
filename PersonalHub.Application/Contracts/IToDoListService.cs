@@ -14,6 +14,7 @@ namespace PersonalHub.Application.Contracts
         Task<ToDoListDto> AddAsync(CreateToDoListDto toDoListDto);
         Task<ToDoListDto?> GetToDoList(string id);
         Task<List<ToDoListDto>> GetAllToDoLists();
+        Task DeleteToDoList(string id);
         Task<bool> ToDoListExist(string id);
     }
 }
