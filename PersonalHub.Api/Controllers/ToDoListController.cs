@@ -60,9 +60,22 @@ namespace PersonalHub.Api.Controllers
             return Ok(toDoLists);
         }
 
-        private async Task<bool> EntityExist(string id)
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> DeleteToDoList([FromRoute] string id)
         {
-            return await _toDoListService.ToDoListExist(id);
+            var exists = await _toDoListService.ToDoListExist(id);
+
+            if (!exists)
+            {
+                return NotFound();
+            }
+
+            await _toDoListService.DeleteToDoList(id);
+
+            return NoContent();
         }
     }
 }

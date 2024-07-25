@@ -24,7 +24,7 @@ namespace PersonalHub.Application.Extensions
             );
         }
 
-        public static ToDoList? ToToDoList(this ToDoListDto toDoListDto)
+        public static ToDoList ToToDoList(this ToDoListDto toDoListDto)
         {
             return new ToDoList(
                toDoListDto.Id,

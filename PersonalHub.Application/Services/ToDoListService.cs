@@ -51,6 +51,13 @@ namespace PersonalHub.Application.Services
             return toDoListDtos;
         }
 
+        public async Task DeleteToDoList(string id)
+        {
+            var toDoListId = new ToDoListId(Guid.Parse(id));
+
+            await _toDoListRepository.DeleteAsync(toDoListId);
+        }
+
         public async Task<bool> ToDoListExist(string id)
         {
             var toDoListId = new ToDoListId(Guid.Parse(id));
