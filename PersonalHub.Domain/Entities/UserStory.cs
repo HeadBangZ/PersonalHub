@@ -1,17 +1,18 @@
-﻿using PersonalHub.Domain.ValueObjects;
+﻿using PersonalHub.Domain.Contracts;
+using PersonalHub.Domain.ValueObjects;
 using System.ComponentModel.DataAnnotations;
 using System.Net.Http;
 
 namespace PersonalHub.Domain.Entities
 {
-    public class ToDoList
+    public class UserStory
     {
-        public ToDoListId Id { get; private set; } = ToDoListId.NewToDoListId;
+        public UserStoryId Id { get; private set; } = UserStoryId.NewUserStoryId;
         [Required]
         [StringLength(75)]
         public string Name { get; set; }
         public string? Description { get; set; }
-        public List<ToDoItem> Items { get; private set; } = new List<ToDoItem>();
+        public List<StoryTask> Items { get; private set; } = new List<StoryTask>();
         [Required]
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:dd/MM-yyyy}")]
@@ -21,22 +22,23 @@ namespace PersonalHub.Domain.Entities
         [DisplayFormat(DataFormatString = "{0:dd/MM-yyyy}")]
         public DateTime? UpdatedAt { get; set; }
 
-        public ToDoList(string name, string? description)
+        public UserStory(string name, string? description)
         {
             Name = name;
             Description = description;
             CreatedAt = DateTime.Now;
         }
 
-        public ToDoList(ToDoListId id, string name, string? description, DateTime updatedAt)
+        public UserStory(UserStoryId id, string name, string? description, DateTime createdAt, DateTime updatedAt)
         {
             Id = id;
             Name = name;
             Description = description;
+            CreatedAt = createdAt;
             UpdatedAt = updatedAt;
         }
 
-        public ToDoList(ToDoListId id, string name, string? description, List<ToDoItem> items, DateTime createdAt, DateTime? updatedAt)
+        public UserStory(UserStoryId id, string name, string? description, List<StoryTask> items, DateTime createdAt, DateTime? updatedAt)
         {
             Id = id;
             Name = name;

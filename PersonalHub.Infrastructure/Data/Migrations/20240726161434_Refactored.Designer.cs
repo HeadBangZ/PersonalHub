@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PersonalHub.Infrastructure.Data.Contexts;
 
@@ -11,9 +12,11 @@ using PersonalHub.Infrastructure.Data.Contexts;
 namespace PersonalHub.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(PersonalHubDbContext))]
-    partial class PersonalHubDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240726161434_Refactored")]
+    partial class Refactored
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,7 +60,7 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                         },
                         new
                         {
-                            Id = "ed6808cf-be0e-4475-9f0b-1ee5f436c946",
+                            Id = "7184fc63-aeeb-46e4-a9ad-960a3518d417",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -261,8 +264,8 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                         {
                             Id = "a11429d5-dcd7-485f-a20e-3ad10848c6e3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5bedf0b8-d61a-428a-bad1-42d7e4ef4a2c",
-                            CreatedAt = new DateTime(2024, 7, 26, 16, 59, 36, 889, DateTimeKind.Utc).AddTicks(1711),
+                            ConcurrencyStamp = "2c3fb406-42f3-4bdb-b9b5-01058c81b1a3",
+                            CreatedAt = new DateTime(2024, 7, 26, 16, 14, 34, 318, DateTimeKind.Utc).AddTicks(8394),
                             Email = "nordvigprivat@gmail.com",
                             EmailConfirmed = true,
                             FirstName = "Thomas",
@@ -270,9 +273,9 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "NORDVIGPRIVAT@GMAIL.COM",
                             NormalizedUserName = "NORDVIGPRIVAT@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIH7LcRxK1hPfgCeslLjAIH2Wd8GAy85icsflACHljsc7lu/V1+95mlOu7Fl4pYrhA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFweimf0an/czZmeK4lZFXaPm7KJ8+yidqHp7F7mbnU9xzQpOKi1VApEUQAQ31zsPQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d02636ea-f32b-4e42-bf43-dd61f7788a25",
+                            SecurityStamp = "5f5fb38a-73cd-4691-acc4-68eaba07d87b",
                             TwoFactorEnabled = false,
                             UserName = "nordvigprivat@gmail.com"
                         });

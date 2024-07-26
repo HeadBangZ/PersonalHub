@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace PersonalHub.Domain.ValueObjects
 {
-    public readonly record struct ToDoListId(Guid Value)
+    public readonly record struct UserStoryId(Guid Value)
     {
-        public static ToDoListId NewToDoListId => new(Guid.NewGuid());
+        public static UserStoryId NewUserStoryId => new(Guid.NewGuid());
         public override string ToString() => this.Value.ToString();
     }
 }

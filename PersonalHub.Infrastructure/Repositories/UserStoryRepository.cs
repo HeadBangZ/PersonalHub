@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace PersonalHub.Infrastructure.Repositories
 {
-    public class ToDoListRepository : GenericRepository<ToDoList, ToDoListId>, IToDoListRepository
+    public class UserStoryRepository : GenericRepository<UserStory, UserStoryId>, IUserStoryRepository
     {
         private readonly PersonalHubDbContext _context;
 
-        public ToDoListRepository(PersonalHubDbContext context) : base(context)
+        public UserStoryRepository(PersonalHubDbContext context) : base(context)
         {
             _context = context;
         }
