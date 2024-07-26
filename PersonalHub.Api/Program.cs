@@ -44,10 +44,10 @@ namespace PersonalHub.Api
             // Scopes
             builder.Services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
             builder.Services.AddScoped<IAuthRepository, AuthRepository>();
-            builder.Services.AddScoped<IToDoListRepository, ToDoListRepository>();
+            builder.Services.AddScoped<IUserStoryRepository, UserStoryRepository>();
 
             builder.Services.AddScoped<AuthService>();
-            builder.Services.AddScoped<ToDoListService>();
+            builder.Services.AddScoped<UserStoryService>();
 
             // Db Context
             builder.Services.AddDbContext<PersonalHubDbContext>(options =>

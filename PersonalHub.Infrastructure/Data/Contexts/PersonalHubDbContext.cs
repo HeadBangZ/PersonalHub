@@ -19,8 +19,8 @@ namespace PersonalHub.Infrastructure.Data.Contexts
         }
 
         public DbSet<ApiUser> Users { get; set; }
-        public DbSet<ToDoList> ToDoLists { get; set; }
-        public DbSet<ToDoItem> ToDoItems { get; set; }
+        public DbSet<UserStory> UserStories { get; set; }
+        public DbSet<StoryTask> StoryTasks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -33,25 +33,25 @@ namespace PersonalHub.Infrastructure.Data.Contexts
             modelBuilder.Entity<ApiUser>()
                 .Property(x => x.Id);
 
-            // ToDoList
-            modelBuilder.Entity<ToDoList>()
+            // UserStory
+            modelBuilder.Entity<UserStory>()
                 .Property(x => x.Id)
-                .HasConversion(id => id.Value, id => new ToDoListId(id));
+                .HasConversion(id => id.Value, id => new UserStoryId(id));
 
-            modelBuilder.Entity<ToDoList>()
+            modelBuilder.Entity<UserStory>()
                 .HasMany(x => x.Items)
-                .WithOne(x => x.ToDoList)
-                .HasForeignKey(x => x.ToDoListId)
+                .WithOne(x => x.UserStory)
+                .HasForeignKey(x => x.UserStoryId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // ToDoItems
-            modelBuilder.Entity<ToDoItem>()
+            // UserStoryItems
+            modelBuilder.Entity<StoryTask>()
                 .Property(x => x.Id)
-                .HasConversion(id => id.Value, id => new ToDoItemId(id));
+                .HasConversion(id => id.Value, id => new StoryTaskId(id));
 
-            modelBuilder.Entity<ToDoItem>()
-                .Property(x => x.ToDoListId)
-                .HasConversion(id => id.Value, id => new ToDoListId(id));
+            modelBuilder.Entity<StoryTask>()
+                .Property(x => x.UserStoryId)
+                .HasConversion(id => id.Value, id => new UserStoryId(id));
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(PersonalHubDbContext).Assembly);
         }

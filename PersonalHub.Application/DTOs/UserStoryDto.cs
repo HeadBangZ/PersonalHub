@@ -1,4 +1,6 @@
-﻿using PersonalHub.Domain.Entities;
+﻿using PersonalHub.Domain.Contracts;
+using PersonalHub.Domain.Entities;
+using PersonalHub.Domain.Enums;
 using PersonalHub.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
@@ -9,23 +11,22 @@ using System.Threading.Tasks;
 
 namespace PersonalHub.Application.DTOs
 {
-    public record CreateToDoListDto(
+    public record CreateUserStoryDto(
         [Required][StringLength(75)] string Name,
         string? Description
     );
 
-    public record ToDoListDto(
-        ToDoListId Id,
+    public record UserStoryDto(
+        UserStoryId Id,
         string Name,
         string? Description,
-        List<ToDoItem> Items,
+        List<StoryTask> Items,
         DateTime CreatedAt,
         DateTime? UpdatedAt
     );
 
-    public record UpdateToDoListDto(
-        [Required] string Id,
-        [Required][StringLength(75)] string Name,
+    public record UpdateUserStoryDto(
+        string? Name,
         string? Description
     );
 }
