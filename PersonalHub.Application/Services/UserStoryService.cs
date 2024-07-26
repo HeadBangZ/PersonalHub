@@ -74,8 +74,16 @@ namespace PersonalHub.Application.Services
                 return;
             }
 
-            userStory.Name = userStoryDto.Name;
-            userStory.Description = userStoryDto.Description;
+            if (!string.IsNullOrEmpty(userStoryDto.Name))
+            {
+                userStory.Name = userStoryDto.Name;
+            }
+
+            if (!string.IsNullOrEmpty(userStoryDto.Description))
+            {
+                userStory.Description = userStoryDto.Description;
+            }
+
             userStory.UpdatedAt = DateTime.UtcNow;
 
             await _userStoryRepository.UpdateAsync(userStory);
