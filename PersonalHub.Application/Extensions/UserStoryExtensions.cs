@@ -43,17 +43,6 @@ namespace PersonalHub.Application.Extensions
                userStoryDto.Description
             );
         }
-
-        public static UserStory ToUserStory(this UpdateUserStoryDto userStoryDto, UserStory existingUserStory)
-        {
-            return new UserStory(
-                existingUserStory.Id,
-                userStoryDto.Name,
-                userStoryDto.Description,
-                existingUserStory.CreatedAt,
-                DateTime.Now
-            );
-        }
     }
 }
 
