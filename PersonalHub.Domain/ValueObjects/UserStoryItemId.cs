@@ -11,9 +11,9 @@ namespace PersonalHub.Domain.ValueObjects
         Guid Value { get; }
     }
 
-    public readonly record struct StoryTaskId(Guid Value) : IUserStoryItemId
+    public readonly record struct StoryItemId(Guid Value) : IUserStoryItemId
     {
-        public static StoryTaskId NewStoryTaskId => new(Guid.NewGuid());
+        public static StoryItemId NewStoryItemId => new(Guid.NewGuid());
     }
 
 }

@@ -20,7 +20,7 @@ namespace PersonalHub.Infrastructure.Data.Contexts
 
         public DbSet<ApiUser> Users { get; set; }
         public DbSet<UserStory> UserStories { get; set; }
-        public DbSet<StoryTask> StoryTasks { get; set; }
+        public DbSet<StoryItem> StoryItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -45,11 +45,11 @@ namespace PersonalHub.Infrastructure.Data.Contexts
                 .OnDelete(DeleteBehavior.Cascade);
 
             // UserStoryItems
-            modelBuilder.Entity<StoryTask>()
+            modelBuilder.Entity<StoryItem>()
                 .Property(x => x.Id)
-                .HasConversion(id => id.Value, id => new StoryTaskId(id));
+                .HasConversion(id => id.Value, id => new StoryItemId(id));
 
-            modelBuilder.Entity<StoryTask>()
+            modelBuilder.Entity<StoryItem>()
                 .Property(x => x.UserStoryId)
                 .HasConversion(id => id.Value, id => new UserStoryId(id));
 

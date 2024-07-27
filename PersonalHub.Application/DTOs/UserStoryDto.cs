@@ -20,7 +20,7 @@ namespace PersonalHub.Application.DTOs
         UserStoryId Id,
         string Name,
         string? Description,
-        List<StoryTask> Items,
+        List<StoryItem> Items,
         DateTime CreatedAt,
         DateTime? UpdatedAt
     );

@@ -57,7 +57,7 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                         },
                         new
                         {
-                            Id = "ed6808cf-be0e-4475-9f0b-1ee5f436c946",
+                            Id = "d6cafe38-226c-4602-91bc-1e97c76f4648",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -261,8 +261,8 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                         {
                             Id = "a11429d5-dcd7-485f-a20e-3ad10848c6e3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5bedf0b8-d61a-428a-bad1-42d7e4ef4a2c",
-                            CreatedAt = new DateTime(2024, 7, 26, 16, 59, 36, 889, DateTimeKind.Utc).AddTicks(1711),
+                            ConcurrencyStamp = "89dd6f2f-3b0d-4f28-83a8-43381f778e34",
+                            CreatedAt = new DateTime(2024, 7, 27, 6, 8, 12, 275, DateTimeKind.Utc).AddTicks(3312),
                             Email = "nordvigprivat@gmail.com",
                             EmailConfirmed = true,
                             FirstName = "Thomas",
@@ -270,15 +270,15 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "NORDVIGPRIVAT@GMAIL.COM",
                             NormalizedUserName = "NORDVIGPRIVAT@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIH7LcRxK1hPfgCeslLjAIH2Wd8GAy85icsflACHljsc7lu/V1+95mlOu7Fl4pYrhA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAED3O6CwEzlqhLKLa2BMPPse0pUAJeIIX4rIgtJ9ysEp3S9UHt6/lznrEh9O/zGyYaw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d02636ea-f32b-4e42-bf43-dd61f7788a25",
+                            SecurityStamp = "32d32817-a279-458f-9e60-dd87018ed08a",
                             TwoFactorEnabled = false,
                             UserName = "nordvigprivat@gmail.com"
                         });
                 });
 
-            modelBuilder.Entity("PersonalHub.Domain.Entities.StoryTask", b =>
+            modelBuilder.Entity("PersonalHub.Domain.Entities.StoryItem", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
@@ -314,7 +314,7 @@ namespace PersonalHub.Infrastructure.Data.Migrations
 
                     b.HasIndex("UserStoryId");
 
-                    b.ToTable("StoryTasks");
+                    b.ToTable("StoryItems");
                 });
 
             modelBuilder.Entity("PersonalHub.Domain.Entities.UserStory", b =>
@@ -392,7 +392,7 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PersonalHub.Domain.Entities.StoryTask", b =>
+            modelBuilder.Entity("PersonalHub.Domain.Entities.StoryItem", b =>
                 {
                     b.HasOne("PersonalHub.Domain.Entities.UserStory", "UserStory")
                         .WithMany("Items")
