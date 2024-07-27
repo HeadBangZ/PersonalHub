@@ -7,7 +7,7 @@ namespace PersonalHub.Domain.Entities
 {
     public class StoryItem
     {
-        public StoryItemId Id { get; private set; } = new StoryItemId();
+        public StoryItemId Id { get; private set; } = StoryItemId.NewStoryItemId;
 
         [Required]
         [StringLength(75)]
