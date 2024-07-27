@@ -6,7 +6,7 @@ using PersonalHub.Domain.ValueObjects;
 
 namespace PersonalHub.Api.Controllers
 {
-    [Route("api/userstory")]
+    [Route("api/userstories")]
     [ApiController]
     public class UserStoryController : ControllerBase
     {
@@ -25,7 +25,7 @@ namespace PersonalHub.Api.Controllers
         {
             var userStory = await _userStoryService.AddUserStory(userStoryDto);
 
-            return Created($"~/api/userstory/{userStory.Id}", userStory);
+            return Created($"~/api/userstories/{userStory.Id}", userStory);
         }
 
         [HttpGet("{id}")]

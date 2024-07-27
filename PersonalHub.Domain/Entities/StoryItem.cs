@@ -5,26 +5,37 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PersonalHub.Domain.Entities
 {
-    public class StoryTask
+    public class StoryItem
     {
-        public StoryTaskId Id { get; set; }
+        public StoryItemId Id { get; private set; } = new StoryItemId();
+
         [Required]
         [StringLength(75)]
         public string Name { get; set; }
+
         public string Description { get; set; }
-        public ItemType Type { get; set; }
-        public int Priority { get; set; }
-        public bool IsCompleted { get; set; }
+
+        [Required]
+        public ItemType Type { get; set; } = ItemType.Task;
+
+        [Required]
+        public UserStoryPriority Priority { get; set; } = UserStoryPriority.None;
+
+        public bool IsCompleted { get; set; } = false;
+
         [Required]
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
+
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? UpdatedAt { get; set; }
+
         [Required]
         public UserStoryId UserStoryId { get; set; }
-        public UserStory UserStory { get; set; }
+
+        public UserStory? UserStory { get; set; }
     }
 }
