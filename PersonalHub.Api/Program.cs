@@ -45,9 +45,11 @@ namespace PersonalHub.Api
             builder.Services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
             builder.Services.AddScoped<IAuthRepository, AuthRepository>();
             builder.Services.AddScoped<IUserStoryRepository, UserStoryRepository>();
+            builder.Services.AddScoped<IStoryItemRepository, StoryItemRepository>();
 
             builder.Services.AddScoped<AuthService>();
             builder.Services.AddScoped<UserStoryService>();
+            builder.Services.AddScoped<StoryItemService>();
 
             // Db Context
             builder.Services.AddDbContext<PersonalHubDbContext>(options =>

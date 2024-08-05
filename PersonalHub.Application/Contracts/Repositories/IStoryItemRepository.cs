@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PersonalHub.Application.Contracts.Repositories
 {
-    public interface IStoryItemRepository : IGenericRepository<StoryItem, StoryItemId>
+    public interface IUserStoryRepository : IGenericRepository<UserStory, UserStoryId>
     {
     }
 }

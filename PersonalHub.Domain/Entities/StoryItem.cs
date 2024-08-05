@@ -13,13 +13,13 @@ namespace PersonalHub.Domain.Entities
         [StringLength(75)]
         public string Name { get; set; }
 
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         [Required]
         public ItemType Type { get; set; } = ItemType.Task;
 
         [Required]
-        public UserStoryPriority Priority { get; set; } = UserStoryPriority.None;
+        public Priority Priority { get; set; } = Priority.None;
 
         public bool IsCompleted { get; set; } = false;
 
@@ -37,5 +37,34 @@ namespace PersonalHub.Domain.Entities
         public UserStoryId UserStoryId { get; set; }
 
         public UserStory? UserStory { get; set; }
+
+        private StoryItem()
+        {
+            IsCompleted = false;
+            Type = ItemType.Task;
+            Priority = Priority.None;
+        }
+
+        public StoryItem(StoryItemId id, string name, string? description, ItemType type, Priority priority, bool isCompleted, DateTime createdAt, DateTime? updatedAt, UserStoryId userStoryId) : this()
+        {
+            Id = id;
+            Name = name;
+            Description = description;
+            Type = type;
+            Priority = priority;
+            IsCompleted = isCompleted;
+            CreatedAt = createdAt;
+            UpdatedAt = updatedAt;
+            UserStoryId = userStoryId;
+        }
+
+        public StoryItem(string name, string? description, ItemType type, Priority priority, UserStoryId userStoryId) : this()
+        {
+            Name = name;
+            Description = description;
+            Type = type;
+            Priority = priority;
+            UserStoryId = userStoryId;
+        }
     }
 }

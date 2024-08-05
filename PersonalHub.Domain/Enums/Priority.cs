@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PersonalHub.Domain.Enums
 {
-    public enum UserStoryPriority
+    public enum Priority
     {
         None,
         Low,
