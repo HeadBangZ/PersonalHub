@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PersonalHub.Infrastructure.Data.Contexts;
 
@@ -11,9 +12,11 @@ using PersonalHub.Infrastructure.Data.Contexts;
 namespace PersonalHub.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(PersonalHubDbContext))]
-    partial class PersonalHubDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240806172703_refactor")]
+    partial class refactor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,7 +60,7 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                         },
                         new
                         {
-                            Id = "79c02be9-a0c3-4290-94f0-888a31bb8a61",
+                            Id = "62ee272f-4635-41b2-a430-d253b972f44d",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -261,8 +264,8 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                         {
                             Id = "a11429d5-dcd7-485f-a20e-3ad10848c6e3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6897a1a7-15b4-4598-8661-17ff9f15116c",
-                            CreatedAt = new DateTime(2024, 8, 6, 17, 44, 8, 671, DateTimeKind.Utc).AddTicks(3681),
+                            ConcurrencyStamp = "3ffaf02c-0b87-4937-aebe-497a2bbffed5",
+                            CreatedAt = new DateTime(2024, 8, 6, 17, 27, 2, 798, DateTimeKind.Utc).AddTicks(2951),
                             Email = "nordvigprivat@gmail.com",
                             EmailConfirmed = true,
                             FirstName = "Thomas",
@@ -270,9 +273,9 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "NORDVIGPRIVAT@GMAIL.COM",
                             NormalizedUserName = "NORDVIGPRIVAT@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGdv5/F0rEfec7You36J3/1C+HaLHPt7p9YY6j2hL8ciqMNFuN//vclSJCoD4O6ZtA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENdlLvGfiImLXp8QgzMxeG2QUbOd2pOzIqyCKtYE/dAjzSm+lIgXzD6M3glH+Eq98Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e3a6b228-a11a-4df9-9192-3fe50fa2d99c",
+                            SecurityStamp = "5e2cbb75-a0d8-42bd-aa06-205bf9875257",
                             TwoFactorEnabled = false,
                             UserName = "nordvigprivat@gmail.com"
                         });
@@ -311,9 +314,14 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                     b.Property<Guid>("UserStoryId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("UserStoryId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("UserStoryId");
+
+                    b.HasIndex("UserStoryId1");
 
                     b.ToTable("StoryItems");
                 });
@@ -401,6 +409,12 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                         .HasForeignKey("UserStoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("PersonalHub.Domain.Entities.UserStory", "UserStory")
+                        .WithMany()
+                        .HasForeignKey("UserStoryId1");
+
+                    b.Navigation("UserStory");
                 });
 
             modelBuilder.Entity("PersonalHub.Domain.Entities.UserStory", b =>

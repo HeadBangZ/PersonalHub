@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PersonalHub.Infrastructure.Repositories
 {
-    public class GenericRepository<TEntity, TKey> : IGenericRepository<TEntity, TKey> where TEntity : class
+    public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         private readonly PersonalHubDbContext _context;
 
@@ -18,39 +18,39 @@ namespace PersonalHub.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<TEntity> AddAsync(TEntity entity)
+        public async Task<T> AddAsync(T entity)
         {
             await _context.AddAsync(entity);
             await _context.SaveChangesAsync();
             return entity;
         }
 
-        public async Task DeleteAsync(TKey id)
+        public async Task DeleteAsync(Guid id)
         {
             var entity = await GetAsync(id);
-            _context.Set<TEntity>().Remove(entity);
+            _context.Set<T>().Remove(entity);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> Exists(TKey id)
+        public async Task<bool> Exists(Guid id)
         {
             var entity = await GetAsync(id);
             return entity != null;
         }
 
-        public async Task<List<TEntity>> GetAllAsync()
+        public async Task<List<T>> GetAllAsync()
         {
-            return await _context.Set<TEntity>().ToListAsync();
+            return await _context.Set<T>().ToListAsync();
         }
 
-        public async Task<TEntity?> GetAsync(TKey id)
+        public async Task<T?> GetAsync(Guid id)
         {
             if (id == null) return null;
 
-            return await _context.Set<TEntity>().FindAsync(id);
+            return await _context.Set<T>().FindAsync(id);
         }
 
-        public async Task UpdateAsync(TEntity entity)
+        public async Task UpdateAsync(T entity)
         {
             _context.Update(entity);
             await _context.SaveChangesAsync();

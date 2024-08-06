@@ -1,41 +1,36 @@
-﻿using PersonalHub.Domain.Contracts;
-using PersonalHub.Domain.Enums;
-using PersonalHub.Domain.ValueObjects;
+﻿using PersonalHub.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace PersonalHub.Domain.Entities
+namespace PersonalHub.Domain.Entities;
+
+public class StoryItem
 {
-    public class StoryItem
-    {
-        public StoryItemId Id { get; private set; } = StoryItemId.NewStoryItemId;
+    public Guid Id { get; private set; } = new();
 
-        [Required]
-        [StringLength(75)]
-        public string Name { get; set; }
+    [Required]
+    public Guid UserStoryId { get; set; }
 
-        public string Description { get; set; }
+    [Required]
+    [StringLength(75)]
+    public string Name { get; set; }
 
-        [Required]
-        public ItemType Type { get; set; } = ItemType.Task;
+    public string Description { get; set; }
 
-        [Required]
-        public UserStoryPriority Priority { get; set; } = UserStoryPriority.None;
+    [Required]
+    public ItemType Type { get; set; } = ItemType.Task;
 
-        public bool IsCompleted { get; set; } = false;
+    [Required]
+    public Priority Priority { get; set; } = Priority.None;
 
-        [Required]
-        [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public bool IsCompleted { get; set; } = false;
+
+    [Required]
+    [DataType(DataType.DateTime)]
+    [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
 
-        [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
-        public DateTime? UpdatedAt { get; set; }
-
-        [Required]
-        public UserStoryId UserStoryId { get; set; }
-
-        public UserStory? UserStory { get; set; }
-    }
+    [DataType(DataType.DateTime)]
+    [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+    public DateTime? UpdatedAt { get; set; }
 }
