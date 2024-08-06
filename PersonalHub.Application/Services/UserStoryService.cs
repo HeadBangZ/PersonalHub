@@ -2,91 +2,87 @@
 using PersonalHub.Application.Contracts.Repositories;
 using PersonalHub.Application.DTOs;
 using PersonalHub.Application.Extensions;
-using PersonalHub.Application.Utilities;
-using PersonalHub.Domain.Entities;
-using PersonalHub.Domain.ValueObjects;
 
-namespace PersonalHub.Application.Services
+namespace PersonalHub.Application.Services;
+
+public class UserStoryService : IUserStoryService
 {
-    public class UserStoryService : IUserStoryService
+    private readonly IUserStoryRepository _userStoryRepository;
+    public UserStoryService(IUserStoryRepository userStoryRepository)
     {
-        private readonly IUserStoryRepository _userStoryRepository;
-        public UserStoryService(IUserStoryRepository userStoryRepository)
+        _userStoryRepository = userStoryRepository;
+    }
+
+    public async Task<UserStoryDto> AddUserStory(CreateUserStoryDto userStoryDto)
+    {
+        var userStory = userStoryDto.ToUserStory();
+
+        await _userStoryRepository.AddAsync(userStory);
+        return userStory.ToUserStoryDto();
+    }
+
+    public async Task<UserStoryDto?> GetUserStory(string id)
+    {
+        var userStoryId = Guid.Parse(id);
+        var userStory = await _userStoryRepository.GetAsync(userStoryId);
+
+        if (userStory == null)
         {
-            _userStoryRepository = userStoryRepository;
+            return null;
         }
 
-        public async Task<UserStoryDto> AddUserStory(CreateUserStoryDto userStoryDto)
-        {
-            var userStory = userStoryDto.ToUserStory();
+        var userStoryDto = userStory.ToUserStoryDto();
 
-            await _userStoryRepository.AddAsync(userStory);
-            return userStory.ToUserStoryDto();
+        return userStoryDto;
+    }
+
+    public async Task<List<UserStoryDto>> GetAllUserStories()
+    {
+        var userStoryDtos = new List<UserStoryDto>();
+        var userStories = await _userStoryRepository.GetAllAsync();
+
+        foreach (var userStory in userStories)
+        {
+            userStoryDtos.Add(userStory.ToUserStoryDto());
+        }
+        return userStoryDtos;
+    }
+
+    public async Task DeleteUserStory(string id)
+    {
+        var userStoryId = Guid.Parse(id);
+
+        await _userStoryRepository.DeleteAsync(userStoryId);
+    }
+
+    public async Task<bool> UserStoryExist(string id)
+    {
+        var userStoryId = Guid.Parse(id);
+        return await _userStoryRepository.Exists(userStoryId);
+    }
+
+    public async Task UpdateUserStory(string id, UpdateUserStoryDto userStoryDto)
+    {
+        var userStoryId = Guid.Parse(id);
+        var userStory = await _userStoryRepository.GetAsync(userStoryId);
+
+        if (userStory == null)
+        {
+            return;
         }
 
-        public async Task<UserStoryDto?> GetUserStory(string id)
+        if (!string.IsNullOrEmpty(userStoryDto.Name))
         {
-            var userStoryId = new UserStoryId(Guid.Parse(id));
-            var userStory = await _userStoryRepository.GetAsync(userStoryId);
-
-            if (userStory == null)
-            {
-                return null;
-            }
-
-            var userStoryDto = userStory.ToUserStoryDto();
-
-            return userStoryDto;
+            userStory.Name = userStoryDto.Name;
         }
 
-        public async Task<List<UserStoryDto>> GetAllUserStories()
+        if (!string.IsNullOrEmpty(userStoryDto.Description))
         {
-            var userStoryDtos = new List<UserStoryDto>();
-            var userStories = await _userStoryRepository.GetAllAsync();
-
-            foreach (var userStory in userStories)
-            {
-                userStoryDtos.Add(userStory.ToUserStoryDto());
-            }
-            return userStoryDtos;
+            userStory.Description = userStoryDto.Description;
         }
 
-        public async Task DeleteUserStory(string id)
-        {
-            var userStoryId = new UserStoryId(Guid.Parse(id));
+        userStory.UpdatedAt = DateTime.UtcNow;
 
-            await _userStoryRepository.DeleteAsync(userStoryId);
-        }
-
-        public async Task<bool> UserStoryExist(string id)
-        {
-            var userStoryId = new UserStoryId(Guid.Parse(id));
-            return await _userStoryRepository.Exists(userStoryId);
-        }
-
-        public async Task UpdateUserStory(string id, UpdateUserStoryDto userStoryDto)
-        {
-            var userStoryId = new UserStoryId(Guid.Parse(id));
-            var userStory = await _userStoryRepository.GetAsync(userStoryId);
-
-            if (userStory == null)
-            {
-                return;
-            }
-
-            if (!string.IsNullOrEmpty(userStoryDto.Name))
-            {
-                userStory.Name = userStoryDto.Name;
-            }
-
-            if (!string.IsNullOrEmpty(userStoryDto.Description))
-            {
-                userStory.Description = userStoryDto.Description;
-            }
-
-            userStory.UpdatedAt = DateTime.UtcNow;
-
-            await _userStoryRepository.UpdateAsync(userStory);
-        }
+        await _userStoryRepository.UpdateAsync(userStory);
     }
 }

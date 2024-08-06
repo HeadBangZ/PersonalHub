@@ -1,11 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using PersonalHub.Domain.Entities;
-using PersonalHub.Domain.ValueObjects;
 using PersonalHub.Infrastructure.Data.Configurations;
-using System.Text.Json;
 
 namespace PersonalHub.Infrastructure.Data.Contexts
 {
@@ -35,23 +32,20 @@ namespace PersonalHub.Infrastructure.Data.Contexts
 
             // UserStory
             modelBuilder.Entity<UserStory>()
-                .Property(x => x.Id)
-                .HasConversion(id => id.Value, id => new UserStoryId(id));
+                .Property(x => x.Id);
 
             modelBuilder.Entity<UserStory>()
-                .HasMany(x => x.Items)
-                .WithOne(x => x.UserStory)
-                .HasForeignKey(x => x.UserStoryId)
+                .HasMany(u => u.Items)
+                .WithOne()
+                .HasForeignKey(s => s.UserStoryId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             // UserStoryItems
             modelBuilder.Entity<StoryItem>()
-                .Property(x => x.Id)
-                .HasConversion(id => id.Value, id => new StoryItemId(id));
+                .Property(x => x.Id);
 
             modelBuilder.Entity<StoryItem>()
-                .Property(x => x.UserStoryId)
-                .HasConversion(id => id.Value, id => new UserStoryId(id));
+                .Property(x => x.UserStoryId);
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(PersonalHubDbContext).Assembly);
         }
