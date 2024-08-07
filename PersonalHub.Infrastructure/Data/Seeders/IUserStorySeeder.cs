@@ -1,5 +1,4 @@
-﻿
-namespace PersonalHub.Infrastructure.Data.Seeders
+﻿namespace PersonalHub.Infrastructure.Data.Seeders
 {
     public interface IUserStorySeeder
     {
