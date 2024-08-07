@@ -12,7 +12,7 @@ public class UserStory
 
     public string? Description { get; set; }
 
-    public List<StoryItem> Items { get; private set; } = new List<StoryItem>();
+    public List<StoryItem> Items { get; set; } = new List<StoryItem>();
 
     [Required]
     [DataType(DataType.DateTime)]
@@ -24,7 +24,10 @@ public class UserStory
     [DisplayFormat(DataFormatString = "{0:dd/MM-yyyy}")]
     public DateTime? UpdatedAt { get; set; }
 
+    public UserStory()
+    {
 
+    }
     public UserStory(string name, string? description)
     {
         Name = name;

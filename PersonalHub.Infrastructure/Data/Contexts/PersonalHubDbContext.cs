@@ -42,10 +42,18 @@ namespace PersonalHub.Infrastructure.Data.Contexts
 
             // UserStoryItems
             modelBuilder.Entity<StoryItem>()
-                .Property(x => x.Id);
+                .Property(s => s.Id);
 
             modelBuilder.Entity<StoryItem>()
-                .Property(x => x.UserStoryId);
+                .Property(s => s.UserStoryId);
+
+            modelBuilder.Entity<StoryItem>()
+                .Property(s => s.StoryItemType)
+                .HasConversion<string>();
+
+            modelBuilder.Entity<StoryItem>()
+                .Property(s => s.StoryItemPriority)
+                .HasConversion<string>();
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(PersonalHubDbContext).Assembly);
         }

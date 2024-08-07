@@ -6,6 +6,7 @@ using PersonalHub.Application.Contracts.Repositories;
 using PersonalHub.Application.Services;
 using PersonalHub.Domain.Entities;
 using PersonalHub.Infrastructure.Data.Contexts;
+using PersonalHub.Infrastructure.Data.Seeders;
 using PersonalHub.Infrastructure.Extensions;
 using PersonalHub.Infrastructure.Repositories;
 using PersonalHub.Infrastructure.Repositories.Auth;
@@ -16,7 +17,7 @@ namespace PersonalHub.Api;
 
 public class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
@@ -100,6 +101,12 @@ public class Program
         builder.Services.AddAuthorization();
 
         var app = builder.Build();
+
+        using (var scope = app.Services.CreateScope())
+        {
+            var seeder = scope.ServiceProvider.GetRequiredService<IUserStorySeeder>();
+            await seeder.Seed();
+        }
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())

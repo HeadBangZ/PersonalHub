@@ -17,10 +17,10 @@ public class StoryItem
     public string Description { get; set; }
 
     [Required]
-    public ItemType Type { get; set; } = ItemType.Task;
+    public ItemType StoryItemType { get; set; } = ItemType.Task;
 
     [Required]
-    public Priority Priority { get; set; } = Priority.None;
+    public Priority StoryItemPriority { get; set; } = Priority.None;
 
     public bool IsCompleted { get; set; } = false;
 
