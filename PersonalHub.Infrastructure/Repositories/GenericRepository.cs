@@ -40,13 +40,22 @@ namespace PersonalHub.Infrastructure.Repositories
 
         public async Task<List<T>> GetAllAsync()
         {
-            return await _context.Set<T>().ToListAsync();
+            IQueryable<T> query = _context.Set<T>();
+
+            var navigationProperties = _context.Model.FindEntityType(typeof(T))
+                .GetNavigations()
+                .Select(n => n.Name);
+
+            foreach (var prop in navigationProperties)
+            {
+                query = query.Include(prop);
+            }
+
+            return await query.ToListAsync();
         }
 
         public async Task<T?> GetAsync(Guid id)
         {
-            if (id == null) return null;
-
             return await _context.Set<T>().FindAsync(id);
         }
 
