@@ -1,52 +1,44 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using PersonalHub.Application.DTOs;
-using PersonalHub.Domain.Entities;
-using PersonalHub.Application.Extensions;
-using PersonalHub.Application.Contracts;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using Microsoft.Extensions.Configuration;
-using System.IdentityModel.Tokens.Jwt;
 using PersonalHub.Application.Contracts.Repositories;
+using PersonalHub.Domain.Entities;
 
-namespace PersonalHub.Infrastructure.Repositories.Auth
+namespace PersonalHub.Infrastructure.Repositories.Auth;
+
+public class AuthRepository : IAuthRepository
 {
-    public class AuthRepository : IAuthRepository
+    private readonly UserManager<ApiUser> _userManager;
+
+    public AuthRepository(UserManager<ApiUser> userManager)
     {
-        private readonly UserManager<ApiUser> _userManager;
+        _userManager = userManager;
+    }
 
-        public AuthRepository(UserManager<ApiUser> userManager)
+    public async Task<IEnumerable<IdentityError>> Register(ApiUser user, string password)
+    {
+        var result = await _userManager.CreateAsync(user, password);
+
+        if (result.Succeeded)
         {
-            _userManager = userManager;
+            await _userManager.AddToRoleAsync(user, "User");
         }
 
-        public async Task<IEnumerable<IdentityError>> Register(ApiUser user, string password)
+        return result.Errors;
+    }
+
+    public async Task<ApiUser> FindUserByEmail(string email)
+    {
+        return await _userManager.FindByEmailAsync(email);
+    }
+
+    public async Task<bool> ValidateCredentials(ApiUser user, string password)
+    {
+        bool isValidCredentials = await _userManager.CheckPasswordAsync(user, password);
+
+        if (!isValidCredentials)
         {
-            var result = await _userManager.CreateAsync(user, password);
-
-            if (result.Succeeded)
-            {
-                await _userManager.AddToRoleAsync(user, "User");
-            }
-
-            return result.Errors;
+            return default;
         }
 
-        public async Task<ApiUser> FindUserByEmail(string email)
-        {
-            return await _userManager.FindByEmailAsync(email);
-        }
-
-        public async Task<bool> ValidateCredentials(ApiUser user, string password)
-        {
-            bool isValidCredentials = await _userManager.CheckPasswordAsync(user, password);
-
-            if (!isValidCredentials)
-            {
-                return default;
-            }
-
-            return isValidCredentials;
-        }
+        return isValidCredentials;
     }
 }
