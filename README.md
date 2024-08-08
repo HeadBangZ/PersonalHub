@@ -23,3 +23,7 @@ The Tests layer includes various tests to ensure the quality and correctness of 
  - Elastic Search
  - Entity Framework
  - SSO (Single Sign On)
+ 
+### Entities
+ - ApiUser
+ - UserStory
