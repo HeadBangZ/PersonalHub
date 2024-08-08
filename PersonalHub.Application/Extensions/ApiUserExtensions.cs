@@ -8,8 +8,7 @@ public static class ApiUserExtensions
     {
         return new ApiUserDto(
             apiUser.Id,
-            apiUser.FirstName,
-            apiUser.LastName,
+            apiUser.Information = apiUser.Information,
             apiUser.Email,
             apiUser.CreatedAt,
             apiUser.UpdatedAt
@@ -20,8 +19,11 @@ public static class ApiUserExtensions
     {
         return new ApiUser
         {
-            FirstName = createApiUserDto.FirstName,
-            LastName = createApiUserDto.LastName,
+            Information = new()
+            {
+                FirstName = createApiUserDto.FirstName,
+                LastName = createApiUserDto.LastName,
+            },
             Email = createApiUserDto.Email,
             UserName = createApiUserDto.Email,
             CreatedAt = DateTime.UtcNow,

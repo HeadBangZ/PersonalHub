@@ -5,15 +5,8 @@ namespace PersonalHub.Domain.Entities;
 
 public class ApiUser : IdentityUser
 {
-    [Required]
-    [StringLength(50)]
-    public string FirstName { get; set; } = default!;
+    public PersonalInfo? Information { get; set; }
 
-    [Required]
-    [StringLength(75)]
-    public string LastName { get; set; } = default!;
-
-    [Required]
     [DataType(DataType.DateTime)]
     [DisplayFormat(DataFormatString = "{0:dd/MM-yyyy}")]
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;

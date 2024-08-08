@@ -15,25 +15,20 @@ namespace PersonalHub.Infrastructure.Data.Contexts
             _configuration = configuration;
         }
 
-        public DbSet<ApiUser> Users { get; set; }
-        public DbSet<UserStory> UserStories { get; set; }
-        public DbSet<StoryItem> StoryItems { get; set; }
+        public DbSet<ApiUser> Users => Set<ApiUser>();
+        public DbSet<UserStory> UserStories => Set<UserStory>();
+        public DbSet<StoryItem> StoryItems => Set<StoryItem>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfiguration(new RoleConfiguration(_configuration));
-            modelBuilder.ApplyConfiguration(new UserConfiguration(_configuration));
-            modelBuilder.ApplyConfiguration(new UserRoleConfiguration(_configuration));
+            //modelBuilder.ApplyConfiguration(new RoleConfiguration(_configuration));
 
             // ApiUser
             modelBuilder.Entity<ApiUser>()
-                .Property(x => x.Id);
+                .ComplexProperty(u => u.Information).IsRequired();
 
             // UserStory
-            modelBuilder.Entity<UserStory>()
-                .Property(x => x.Id);
-
             modelBuilder.Entity<UserStory>()
                 .HasMany(u => u.Items)
                 .WithOne()
@@ -41,9 +36,6 @@ namespace PersonalHub.Infrastructure.Data.Contexts
                 .OnDelete(DeleteBehavior.Cascade);
 
             // UserStoryItems
-            modelBuilder.Entity<StoryItem>()
-                .Property(s => s.Id);
-
             modelBuilder.Entity<StoryItem>()
                 .Property(s => s.UserStoryId);
 
