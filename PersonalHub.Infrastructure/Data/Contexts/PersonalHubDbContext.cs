@@ -16,8 +16,8 @@ namespace PersonalHub.Infrastructure.Data.Contexts
         }
 
         public DbSet<ApiUser> Users => Set<ApiUser>();
-        public DbSet<UserStory> UserStories { get; set; }
-        public DbSet<StoryItem> StoryItems { get; set; }
+        public DbSet<UserStory> UserStories => Set<UserStory>();
+        public DbSet<StoryItem> StoryItems => Set<StoryItem>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
