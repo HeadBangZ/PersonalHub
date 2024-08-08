@@ -5,12 +5,9 @@ using Microsoft.OpenApi.Models;
 using PersonalHub.Application.Contracts;
 using PersonalHub.Application.Services;
 using PersonalHub.Domain.Entities;
-using PersonalHub.Domain.Repositories;
 using PersonalHub.Infrastructure.Data.Contexts;
 using PersonalHub.Infrastructure.Data.Seeders;
 using PersonalHub.Infrastructure.Extensions;
-using PersonalHub.Infrastructure.Repositories;
-using PersonalHub.Infrastructure.Repositories.Auth;
 using PersonalHub.Infrastructure.Services;
 using System.Text;
 
@@ -120,8 +117,11 @@ public class Program
 
         using (var scope = app.Services.CreateScope())
         {
-            var seeder = scope.ServiceProvider.GetRequiredService<IUserStorySeeder>();
-            await seeder.Seed();
+            var seederUserStory = scope.ServiceProvider.GetRequiredService<IUserStorySeeder>();
+            var seederApiUser = scope.ServiceProvider.GetRequiredService<IApiUserSeeder>();
+
+            await seederUserStory.Seed();
+            await seederApiUser.Seed();
         }
 
         // Configure the HTTP request pipeline.

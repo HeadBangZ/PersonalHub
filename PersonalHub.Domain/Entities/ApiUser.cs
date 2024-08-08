@@ -5,9 +5,8 @@ namespace PersonalHub.Domain.Entities;
 
 public class ApiUser : IdentityUser
 {
-    public required PersonalInfo Information { get; set; }
+    public PersonalInfo? Information { get; set; }
 
-    [Required]
     [DataType(DataType.DateTime)]
     [DisplayFormat(DataFormatString = "{0:dd/MM-yyyy}")]
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
