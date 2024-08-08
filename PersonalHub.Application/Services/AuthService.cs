@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using PersonalHub.Application.Contracts;
-using PersonalHub.Application.Contracts.Repositories;
 using PersonalHub.Application.DTOs;
 using PersonalHub.Application.Extensions;
+using PersonalHub.Domain.Repositories;
 
 namespace PersonalHub.Application.Services;
 

@@ -25,8 +25,11 @@ public class UserConfiguration : IEntityTypeConfiguration<ApiUser>
         var user = new ApiUser
         {
             Id = id,
-            FirstName = firstName,
-            LastName = lastName,
+            Information = new()
+            {
+                FirstName = firstName,
+                LastName = lastName
+            },
             Email = email,
             UserName = email,
             EmailConfirmed = true,

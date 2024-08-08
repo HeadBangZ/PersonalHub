@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using PersonalHub.Application.Contracts;
-using PersonalHub.Application.Contracts.Repositories;
 using PersonalHub.Application.Services;
 using PersonalHub.Domain.Entities;
+using PersonalHub.Domain.Repositories;
 using PersonalHub.Infrastructure.Data.Contexts;
 using PersonalHub.Infrastructure.Data.Seeders;
 using PersonalHub.Infrastructure.Extensions;
@@ -26,7 +27,25 @@ public class Program
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+        builder.Services.AddSwaggerGen(s =>
+        {
+            s.AddSecurityDefinition("bearerAuth", new OpenApiSecurityScheme
+            {
+                Type = SecuritySchemeType.Http,
+                Scheme = "Bearer"
+            });
+
+            s.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "bearerAuth" }
+                    },
+                    []
+                }
+            });
+        });
 
         builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
@@ -43,9 +62,6 @@ public class Program
         builder.Services.AddInfrastructure(builder.Configuration);
 
         // Scopes
-        builder.Services.AddScoped<IAuthRepository, AuthRepository>();
-        builder.Services.AddScoped<IUserStoryRepository, UserStoryRepository>();
-
         builder.Services.AddScoped<AuthService>();
         builder.Services.AddScoped<UserStoryService>();
 
@@ -90,10 +106,10 @@ public class Program
             var configuration = provider.GetRequiredService<IConfiguration>();
             var userManager = provider.GetRequiredService<UserManager<ApiUser>>();
             return new TokenService(
-                configuration["JwtSettings:Key"],
-                configuration["JwtSettings:Issuer"],
-                configuration["JwtSettings:Audience"],
-                int.Parse(configuration["JwtSettings:DurationInMinutes"]),
+                configuration["JwtSettings:Key"]!,
+                configuration["JwtSettings:Issuer"]!,
+                configuration["JwtSettings:Audience"]!,
+                int.Parse(configuration["JwtSettings:DurationInMinutes"]!),
                 userManager
             );
         });
@@ -119,7 +135,7 @@ public class Program
 
         app.UseAuthentication();
         app.UseAuthorization();
-        app.MapIdentityApi<ApiUser>();
+        app.MapGroup("api/identity").MapIdentityApi<ApiUser>();
 
         app.UseHttpsRedirection();
 

@@ -5,13 +5,7 @@ namespace PersonalHub.Domain.Entities;
 
 public class ApiUser : IdentityUser
 {
-    [Required]
-    [StringLength(50)]
-    public string FirstName { get; set; } = default!;
-
-    [Required]
-    [StringLength(75)]
-    public string LastName { get; set; } = default!;
+    public required PersonalInfo Information { get; set; }
 
     [Required]
     [DataType(DataType.DateTime)]

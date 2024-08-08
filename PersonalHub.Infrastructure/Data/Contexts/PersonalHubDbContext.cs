@@ -15,7 +15,7 @@ namespace PersonalHub.Infrastructure.Data.Contexts
             _configuration = configuration;
         }
 
-        public DbSet<ApiUser> Users { get; set; }
+        public DbSet<ApiUser> Users => Set<ApiUser>();
         public DbSet<UserStory> UserStories { get; set; }
         public DbSet<StoryItem> StoryItems { get; set; }
 
@@ -28,12 +28,9 @@ namespace PersonalHub.Infrastructure.Data.Contexts
 
             // ApiUser
             modelBuilder.Entity<ApiUser>()
-                .Property(x => x.Id);
+                .ComplexProperty(u => u.Information);
 
             // UserStory
-            modelBuilder.Entity<UserStory>()
-                .Property(x => x.Id);
-
             modelBuilder.Entity<UserStory>()
                 .HasMany(u => u.Items)
                 .WithOne()
@@ -41,9 +38,6 @@ namespace PersonalHub.Infrastructure.Data.Contexts
                 .OnDelete(DeleteBehavior.Cascade);
 
             // UserStoryItems
-            modelBuilder.Entity<StoryItem>()
-                .Property(s => s.Id);
-
             modelBuilder.Entity<StoryItem>()
                 .Property(s => s.UserStoryId);
 

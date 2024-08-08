@@ -1,11 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using PersonalHub.Domain.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace PersonalHub.Application.DTOs;
 
 public record ApiUserDto(
     string Id,
-    string FirstName,
-    string LastName,
+    PersonalInfo Information,
     string Email,
     DateTime CreatedAt,
     DateTime? UpdatedAt
