@@ -22,7 +22,8 @@ namespace PersonalHub.Infrastructure.Data.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            //modelBuilder.ApplyConfiguration(new RoleConfiguration(_configuration));
+            modelBuilder.ApplyConfiguration(new RoleConfiguration(_configuration));
+            modelBuilder.ApplyConfiguration(new UserRoleConfiguration(_configuration));
 
             // ApiUser
             modelBuilder.Entity<ApiUser>()
