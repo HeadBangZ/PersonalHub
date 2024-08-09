@@ -1,30 +1,30 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PersonalHub.Application.DTOs;
 using PersonalHub.Application.Services;
-using PersonalHub.Domain.Entities;
+using PersonalHub.Domain.Workspace.Entities;
 
 namespace PersonalHub.Api.Controllers;
 
-[Route("api/userstories")]
+[Route("api/features")]
 [ApiController]
-public class UserStoryController : ControllerBase
+public class FeatureController : ControllerBase
 {
-    private readonly UserStoryService _userStoryService;
+    private readonly FeatureService _featureService;
 
-    public UserStoryController(UserStoryService userStoryService)
+    public FeatureController(FeatureService featureService)
     {
-        _userStoryService = userStoryService;
+        _featureService = featureService;
     }
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<ActionResult<UserStory>> PostUserStory([FromBody] CreateUserStoryDto userStoryDto)
+    public async Task<ActionResult<Feature>> PostFeature([FromBody] CreateFeatureDto featureDto)
     {
-        var userStory = await _userStoryService.AddUserStory(userStoryDto);
+        var feature = await _featureService.AddFeature(featureDto);
 
-        return Created($"~/api/userstories/{userStory.Id}", userStory);
+        return Created($"~/api/features/{feature.Id}", feature);
     }
 
     [HttpGet("{id}")]
@@ -32,27 +32,27 @@ public class UserStoryController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<UserStoryDto>> GetUserStory([FromRoute] string id)
+    public async Task<ActionResult<FeatureDto>> GetFeature([FromRoute] string id)
     {
-        var userStory = await _userStoryService.GetUserStory(id);
+        var feature = await _featureService.GetFeature(id);
 
-        if (userStory == null)
+        if (feature == null)
         {
             return NotFound();
         }
 
-        return Ok(userStory);
+        return Ok(feature);
     }
 
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<UserStoryDto>> GetAllUserStories()
+    public async Task<ActionResult<FeatureDto>> GetAllFeatures()
     {
-        var userStories = await _userStoryService.GetAllUserStories();
+        var features = await _featureService.GetAllFeatures();
 
-        return Ok(userStories);
+        return Ok(features);
     }
 
     [HttpPut("{id}")]
@@ -60,16 +60,16 @@ public class UserStoryController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<IActionResult> UpdateUserStory([FromRoute] string id, [FromBody] UpdateUserStoryDto userStoryDto)
+    public async Task<IActionResult> UpdateFeature([FromRoute] string id, [FromBody] UpdateFeatureDto featureDto)
     {
-        var exist = await _userStoryService.UserStoryExist(id);
+        var exist = await _featureService.FeatureExists(id);
 
         if (!exist)
         {
             return NotFound();
         }
 
-        await _userStoryService.UpdateUserStory(id, userStoryDto);
+        await _featureService.UpdateFeature(id, featureDto);
 
         return NoContent();
     }
@@ -78,16 +78,16 @@ public class UserStoryController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<IActionResult> DeleteUserStory([FromRoute] string id)
+    public async Task<IActionResult> DeleteFeature([FromRoute] string id)
     {
-        var exists = await _userStoryService.UserStoryExist(id);
+        var exists = await _featureService.FeatureExists(id);
 
         if (!exists)
         {
             return NotFound();
         }
 
-        await _userStoryService.DeleteUserStory(id);
+        await _featureService.DeleteFeature(id);
 
         return NoContent();
     }

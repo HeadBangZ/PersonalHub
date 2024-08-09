@@ -1,4 +1,4 @@
-﻿using PersonalHub.Domain.Entities;
+﻿using PersonalHub.Domain.User.ValueObjects;
 using System.ComponentModel.DataAnnotations;
 
 namespace PersonalHub.Application.DTOs;

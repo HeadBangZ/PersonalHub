@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using PersonalHub.Domain.Entities;
-using PersonalHub.Domain.Repositories;
+using PersonalHub.Domain.User.Entities;
+using PersonalHub.Domain.User.Repositories;
 
 namespace PersonalHub.Infrastructure.Repositories.Auth;
 

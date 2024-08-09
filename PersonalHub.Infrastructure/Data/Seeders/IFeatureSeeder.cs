@@ -1,6 +1,6 @@
 ﻿namespace PersonalHub.Infrastructure.Data.Seeders
 {
-    public interface IUserStorySeeder
+    public interface IFeatureSeeder
     {
         Task Seed();
     }

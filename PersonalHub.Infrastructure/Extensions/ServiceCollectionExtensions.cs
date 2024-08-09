@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using PersonalHub.Domain.Entities;
-using PersonalHub.Domain.Repositories;
+using PersonalHub.Domain.GenericRepositories;
+using PersonalHub.Domain.User.Repositories;
+using PersonalHub.Domain.Workspace.Repositories;
 using PersonalHub.Infrastructure.Data.Contexts;
 using PersonalHub.Infrastructure.Data.Seeders;
 using PersonalHub.Infrastructure.Data.Seeders.ApiUsers;
@@ -18,11 +19,11 @@ public static class ServiceCollectionExtensions
         var connectionString = configuration.GetConnectionString("PersonalHubDbContext");
         services.AddDbContext<PersonalHubDbContext>(options => options.UseSqlServer(connectionString));
 
-        services.AddScoped<IUserStorySeeder, UserStorySeeder>();
+        services.AddScoped<IFeatureSeeder, FeatureSeeder>();
         services.AddScoped<IApiUserSeeder, ApiUserSeeder>();
 
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         services.AddScoped<IAuthRepository, AuthRepository>();
-        services.AddScoped<IUserStoryRepository, UserStoryRepository>();
+        services.AddScoped<IFeatureRepository, FeatureRepository>();
     }
 }

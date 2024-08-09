@@ -1,14 +1,14 @@
-﻿using PersonalHub.Domain.Enums;
+﻿using PersonalHub.Domain.Workspace.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace PersonalHub.Domain.Entities;
+namespace PersonalHub.Domain.Workspace.Entities;
 
-public class StoryItem
+public class Activity
 {
     public Guid Id { get; private set; } = new();
 
     [Required]
-    public Guid UserStoryId { get; set; }
+    public Guid FeatureId { get; set; }
 
     [Required]
     [StringLength(75)]
@@ -17,10 +17,10 @@ public class StoryItem
     public string Description { get; set; }
 
     [Required]
-    public ItemType StoryItemType { get; set; } = ItemType.Task;
+    public ActivityType ActivityItemType { get; set; } = ActivityType.Task;
 
     [Required]
-    public Priority StoryItemPriority { get; set; } = Priority.None;
+    public Priority ActivityPriority { get; set; } = Priority.None;
 
     public bool IsCompleted { get; set; } = false;
 

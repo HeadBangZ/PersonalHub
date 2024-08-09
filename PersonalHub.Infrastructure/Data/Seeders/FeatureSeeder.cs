@@ -1,47 +1,46 @@
-﻿
-using PersonalHub.Domain.Entities;
-using PersonalHub.Domain.Enums;
+﻿using PersonalHub.Domain.Workspace.Entities;
+using PersonalHub.Domain.Workspace.Enums;
 using PersonalHub.Infrastructure.Data.Contexts;
 
 namespace PersonalHub.Infrastructure.Data.Seeders;
 
-internal class UserStorySeeder(PersonalHubDbContext dbContext) : IUserStorySeeder
+internal class FeatureSeeder(PersonalHubDbContext dbContext) : IFeatureSeeder
 {
     public async Task Seed()
     {
         if (await dbContext.Database.CanConnectAsync())
         {
-            if (!dbContext.UserStories.Any())
+            if (!dbContext.Features.Any())
             {
-                var userStories = GetUserStories();
-                dbContext.UserStories.AddRange(userStories);
+                var features = GetFeatures();
+                dbContext.Features.AddRange(features);
                 await dbContext.SaveChangesAsync();
             }
         }
     }
 
-    private IEnumerable<UserStory> GetUserStories()
+    private IEnumerable<Feature> GetFeatures()
     {
-        List<UserStory> stories = [
+        List<Feature> features = [
             new()
             {
                 Name = "Registration",
                 Description = "It should be possible to register a user",
-                Items =
+                Activities =
                 [
                     new()
                     {
                         Name = "HTML Form",
                         Description = "A form for the user to add information",
-                        StoryItemType = ItemType.Task,
-                        StoryItemPriority = Priority.Low,
+                        ActivityItemType = ActivityType.Task,
+                        ActivityPriority = Priority.Low,
                     },
                     new()
                     {
                         Name = "Style Form",
                         Description = "The HTML form needs to look good",
-                        StoryItemType = ItemType.Task,
-                        StoryItemPriority = Priority.Low,
+                        ActivityItemType = ActivityType.Task,
+                        ActivityPriority = Priority.Low,
                     }
                 ],
                 CreatedAt = DateTime.Now,
@@ -50,35 +49,35 @@ internal class UserStorySeeder(PersonalHubDbContext dbContext) : IUserStorySeede
             {
                 Name = "Login",
                 Description = "After registration should be able to login",
-                Items =
+                Activities =
                 [
                     new()
                     {
                         Name = "HTML Form",
                         Description = "A form for the user to add information",
-                        StoryItemType = ItemType.Task,
-                        StoryItemPriority = Priority.Low,
+                        ActivityItemType = ActivityType.Task,
+                        ActivityPriority = Priority.Low,
                     },
                     new()
                     {
                         Name = "Style Form",
                         Description = "The HTML form needs to look good",
-                        StoryItemType = ItemType.Task,
-                        StoryItemPriority = Priority.Low,
+                        ActivityItemType = ActivityType.Task,
+                        ActivityPriority = Priority.Low,
                     },
                     new()
                     {
                         Name = "Add JWT Token",
                         Description = "Add token to know who the user is",
-                        StoryItemType = ItemType.Task,
-                        StoryItemPriority = Priority.High,
+                        ActivityItemType = ActivityType.Task,
+                        ActivityPriority = Priority.High,
                     }
                 ],
                 CreatedAt = DateTime.Now,
             }
         ];
 
-        return stories;
+        return features;
     }
 }
 

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace PersonalHub.Domain.Entities;
+namespace PersonalHub.Domain.User.ValueObjects;
 
 public class PersonalInfo
 {

@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
+using PersonalHub.Domain.User.ValueObjects;
 
-namespace PersonalHub.Domain.Entities;
+namespace PersonalHub.Domain.User.Entities;
 
 public class ApiUser : IdentityUser
 {

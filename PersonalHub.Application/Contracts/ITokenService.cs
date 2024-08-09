@@ -1,5 +1,5 @@
 ﻿using PersonalHub.Application.DTOs;
-using PersonalHub.Domain.Entities;
+using PersonalHub.Domain.User.Entities;
 
 namespace PersonalHub.Application.Contracts;
 

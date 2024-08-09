@@ -1,23 +1,23 @@
-﻿using PersonalHub.Domain.Entities;
+﻿using PersonalHub.Domain.Workspace.Entities;
 using System.ComponentModel.DataAnnotations;
 
 namespace PersonalHub.Application.DTOs;
 
-public record CreateUserStoryDto(
+public record CreateFeatureDto(
     [Required][StringLength(75)] string Name,
     string? Description
 );
 
-public record UserStoryDto(
+public record FeatureDto(
     Guid Id,
     string Name,
     string? Description,
-    List<StoryItem> Items,
+    List<Activity> Items,
     DateTime CreatedAt,
     DateTime? UpdatedAt
 );
 
-public record UpdateUserStoryDto(
+public record UpdateFeatureDto(
     string? Name,
     string? Description
 );

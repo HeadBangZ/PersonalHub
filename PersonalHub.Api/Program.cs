@@ -4,7 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using PersonalHub.Application.Contracts;
 using PersonalHub.Application.Services;
-using PersonalHub.Domain.Entities;
+using PersonalHub.Domain.User.Entities;
 using PersonalHub.Infrastructure.Data.Contexts;
 using PersonalHub.Infrastructure.Data.Seeders;
 using PersonalHub.Infrastructure.Data.Seeders.ApiUsers;
@@ -61,7 +61,7 @@ public class Program
 
         // Scopes
         builder.Services.AddScoped<AuthService>();
-        builder.Services.AddScoped<UserStoryService>();
+        builder.Services.AddScoped<FeatureService>();
 
         builder.Services.AddIdentityCore<ApiUser>()
             .AddRoles<IdentityRole>()
@@ -118,10 +118,10 @@ public class Program
 
         using (var scope = app.Services.CreateScope())
         {
-            var seederUserStory = scope.ServiceProvider.GetRequiredService<IUserStorySeeder>();
+            var seederFeature = scope.ServiceProvider.GetRequiredService<IFeatureSeeder>();
             var seederApiUser = scope.ServiceProvider.GetRequiredService<IApiUserSeeder>();
 
-            await seederUserStory.Seed();
+            await seederFeature.Seed();
             await seederApiUser.Seed();
         }
 

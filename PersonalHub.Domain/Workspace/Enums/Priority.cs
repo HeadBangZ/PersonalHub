@@ -1,4 +1,4 @@
-﻿namespace PersonalHub.Domain.Enums;
+﻿namespace PersonalHub.Domain.Workspace.Enums;
 
 public enum Priority
 {

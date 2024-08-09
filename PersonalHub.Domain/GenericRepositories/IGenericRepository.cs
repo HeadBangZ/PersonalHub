@@ -1,4 +1,4 @@
-﻿namespace PersonalHub.Domain.Repositories;
+﻿namespace PersonalHub.Domain.GenericRepositories;
 
 public interface IGenericRepository<T> where T : class
 {

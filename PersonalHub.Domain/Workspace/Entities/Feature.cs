@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PersonalHub.Domain.Entities;
+namespace PersonalHub.Domain.Workspace.Entities;
 
-public class UserStory
+public class Feature
 {
     public Guid Id { get; private set; } = new();
 
@@ -12,7 +12,7 @@ public class UserStory
 
     public string? Description { get; set; }
 
-    public List<StoryItem> Items { get; set; } = new List<StoryItem>();
+    public List<Activity> Activities { get; set; } = new List<Activity>();
 
     [Required]
     [DataType(DataType.DateTime)]
@@ -24,18 +24,18 @@ public class UserStory
     [DisplayFormat(DataFormatString = "{0:dd/MM-yyyy}")]
     public DateTime? UpdatedAt { get; set; }
 
-    public UserStory()
+    public Feature()
     {
 
     }
-    public UserStory(string name, string? description)
+    public Feature(string name, string? description)
     {
         Name = name;
         Description = description;
         CreatedAt = DateTime.Now;
     }
 
-    public UserStory(Guid id, string name, string? description, DateTime createdAt, DateTime updatedAt)
+    public Feature(Guid id, string name, string? description, DateTime createdAt, DateTime updatedAt)
     {
         Id = id;
         Name = name;
@@ -44,12 +44,12 @@ public class UserStory
         UpdatedAt = updatedAt;
     }
 
-    public UserStory(Guid id, string name, string? description, List<StoryItem> items, DateTime createdAt, DateTime? updatedAt)
+    public Feature(Guid id, string name, string? description, List<Activity> items, DateTime createdAt, DateTime? updatedAt)
     {
         Id = id;
         Name = name;
         Description = description;
-        Items = items;
+        Activities = items;
         CreatedAt = createdAt;
         UpdatedAt = updatedAt;
     }
