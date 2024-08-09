@@ -1,11 +1,11 @@
-﻿using PersonalHub.Domain.Entities;
-using System.Text;
+﻿using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using PersonalHub.Application.Contracts;
 using PersonalHub.Application.DTOs;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using PersonalHub.Domain.User.Entities;
 
 namespace PersonalHub.Infrastructure.Services;
 

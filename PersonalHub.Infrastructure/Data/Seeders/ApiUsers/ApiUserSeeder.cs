@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
-using PersonalHub.Domain.Entities;
+using PersonalHub.Domain.User.Entities;
 using PersonalHub.Infrastructure.Data.Contexts;
 
 namespace PersonalHub.Infrastructure.Data.Seeders.ApiUsers

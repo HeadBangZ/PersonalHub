@@ -1,26 +1,26 @@
-﻿using PersonalHub.Domain.Entities;
-using PersonalHub.Domain.Enums;
+﻿using PersonalHub.Domain.Workspace.Entities;
+using PersonalHub.Domain.Workspace.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace PersonalHub.Application.DTOs;
 
-public record CreateStoryItemDto(
+public record CreateActivityDto(
     [Required][StringLength(75)] string Name,
     string? Description,
-    Guid UserStoryId,
-    ItemType? Type = null,
+    Guid FeatureId,
+    ActivityType? Type = null,
     Priority? Priority = null
 );
 
-public record StoryItemDto(
+public record ActivityDto(
     Guid Id,
     string Name,
     string? Description,
-    ItemType Type,
+    ActivityType Type,
     Priority Priority,
     bool IsCompleted,
     DateTime CreatedAt,
     DateTime? UpdatedAt,
-    Guid UserStoryId,
-    UserStory UserStory
+    Guid FeatureId,
+    Feature Feature
 );

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PersonalHub.Domain.Repositories;
+using PersonalHub.Domain.GenericRepositories;
 using PersonalHub.Infrastructure.Data.Contexts;
 
 namespace PersonalHub.Infrastructure.Repositories;

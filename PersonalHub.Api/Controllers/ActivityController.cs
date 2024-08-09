@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PersonalHub.Domain.Entities;
+using PersonalHub.Domain.Workspace.Entities;
 
 namespace PersonalHub.Api.Controllers;
 
-[Route("api/storyitems")]
+[Route("api/activities")]
 [ApiController]
-public class StoryItemController : ControllerBase
+public class ActivityController : ControllerBase
 {
-    public StoryItemController()
+    public ActivityController()
     {
     }
 
@@ -15,9 +15,9 @@ public class StoryItemController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<ActionResult<StoryItem>> PostUserStory([FromBody] StoryItem storyItemDto)
+    public async Task<ActionResult<Activity>> PostActivity([FromBody] Activity activityDto)
     {
-        var item = storyItemDto;
+        var activity = activityDto;
 
         return Created();
 

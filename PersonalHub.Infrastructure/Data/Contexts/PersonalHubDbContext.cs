@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using PersonalHub.Domain.Entities;
+using PersonalHub.Domain.User.Entities;
+using PersonalHub.Domain.Workspace.Entities;
 using PersonalHub.Infrastructure.Data.Configurations;
 
 namespace PersonalHub.Infrastructure.Data.Contexts
@@ -16,8 +17,8 @@ namespace PersonalHub.Infrastructure.Data.Contexts
         }
 
         public DbSet<ApiUser> Users => Set<ApiUser>();
-        public DbSet<UserStory> UserStories => Set<UserStory>();
-        public DbSet<StoryItem> StoryItems => Set<StoryItem>();
+        public DbSet<Feature> Features => Set<Feature>();
+        public DbSet<Activity> Activities => Set<Activity>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,23 +30,23 @@ namespace PersonalHub.Infrastructure.Data.Contexts
             modelBuilder.Entity<ApiUser>()
                 .ComplexProperty(u => u.Information).IsRequired();
 
-            // UserStory
-            modelBuilder.Entity<UserStory>()
-                .HasMany(u => u.Items)
+            // Features
+            modelBuilder.Entity<Feature>()
+                .HasMany(u => u.Activities)
                 .WithOne()
-                .HasForeignKey(s => s.UserStoryId)
+                .HasForeignKey(s => s.FeatureId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // UserStoryItems
-            modelBuilder.Entity<StoryItem>()
-                .Property(s => s.UserStoryId);
+            // Activites
+            modelBuilder.Entity<Activity>()
+                .Property(s => s.FeatureId);
 
-            modelBuilder.Entity<StoryItem>()
-                .Property(s => s.StoryItemType)
+            modelBuilder.Entity<Activity>()
+                .Property(s => s.ActivityItemType)
                 .HasConversion<string>();
 
-            modelBuilder.Entity<StoryItem>()
-                .Property(s => s.StoryItemPriority)
+            modelBuilder.Entity<Activity>()
+                .Property(s => s.ActivityPriority)
                 .HasConversion<string>();
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(PersonalHubDbContext).Assembly);
