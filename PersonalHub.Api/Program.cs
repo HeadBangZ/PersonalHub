@@ -7,6 +7,7 @@ using PersonalHub.Application.Services;
 using PersonalHub.Domain.Entities;
 using PersonalHub.Infrastructure.Data.Contexts;
 using PersonalHub.Infrastructure.Data.Seeders;
+using PersonalHub.Infrastructure.Data.Seeders.ApiUsers;
 using PersonalHub.Infrastructure.Extensions;
 using PersonalHub.Infrastructure.Services;
 using System.Text;

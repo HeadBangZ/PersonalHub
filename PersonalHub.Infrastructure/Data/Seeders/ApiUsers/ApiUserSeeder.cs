@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using PersonalHub.Domain.Entities;
 using PersonalHub.Infrastructure.Data.Contexts;
 
-namespace PersonalHub.Infrastructure.Data.Seeders
+namespace PersonalHub.Infrastructure.Data.Seeders.ApiUsers
 {
     internal class ApiUserSeeder(PersonalHubDbContext dbContext, IConfiguration configuration) : IApiUserSeeder
     {

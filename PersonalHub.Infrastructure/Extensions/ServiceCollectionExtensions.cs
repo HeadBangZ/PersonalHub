@@ -5,6 +5,7 @@ using PersonalHub.Domain.Entities;
 using PersonalHub.Domain.Repositories;
 using PersonalHub.Infrastructure.Data.Contexts;
 using PersonalHub.Infrastructure.Data.Seeders;
+using PersonalHub.Infrastructure.Data.Seeders.ApiUsers;
 using PersonalHub.Infrastructure.Repositories;
 using PersonalHub.Infrastructure.Repositories.Auth;
 

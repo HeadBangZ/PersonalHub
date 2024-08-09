@@ -1,4 +1,4 @@
-﻿namespace PersonalHub.Infrastructure.Data.Seeders
+﻿namespace PersonalHub.Infrastructure.Data.Seeders.ApiUsers
 {
     public interface IApiUserSeeder
     {
