@@ -2,7 +2,7 @@
 using PersonalHub.Application.Contracts;
 using PersonalHub.Application.DTOs;
 using PersonalHub.Application.Extensions;
-using PersonalHub.Domain.User.Repositories;
+using PersonalHub.Domain.Contracts;
 
 namespace PersonalHub.Application.Services;
 

@@ -1,14 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using PersonalHub.Domain.GenericRepositories;
-using PersonalHub.Domain.User.Repositories;
-using PersonalHub.Domain.Workspace.Repositories;
+using PersonalHub.Domain.Contracts;
 using PersonalHub.Infrastructure.Data.Contexts;
 using PersonalHub.Infrastructure.Data.Seeders;
 using PersonalHub.Infrastructure.Data.Seeders.ApiUsers;
 using PersonalHub.Infrastructure.Repositories;
 using PersonalHub.Infrastructure.Repositories.Auth;
+using PersonalHub.Infrastructure.Repositories.GenericRepositories;
 
 namespace PersonalHub.Infrastructure.Extensions;
 

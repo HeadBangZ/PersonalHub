@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PersonalHub.Domain.GenericRepositories;
+using PersonalHub.Domain.Contracts;
 using PersonalHub.Infrastructure.Data.Contexts;
 
-namespace PersonalHub.Infrastructure.Repositories;
+namespace PersonalHub.Infrastructure.Repositories.GenericRepositories;
 
 public class GenericRepository<T> : IGenericRepository<T> where T : class
 {

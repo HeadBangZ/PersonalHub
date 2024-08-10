@@ -18,6 +18,7 @@ namespace PersonalHub.Infrastructure.Data.Contexts
 
         public DbSet<ApiUser> Users => Set<ApiUser>();
         public DbSet<Feature> Features => Set<Feature>();
+        public DbSet<Bug> Bugs => Set<Bug>();
         public DbSet<Activity> Activities => Set<Activity>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -32,22 +33,23 @@ namespace PersonalHub.Infrastructure.Data.Contexts
 
             // Features
             modelBuilder.Entity<Feature>()
-                .HasMany(u => u.Activities)
+                .HasMany(f => f.Activities)
                 .WithOne()
-                .HasForeignKey(s => s.FeatureId)
+                .HasForeignKey(a => a.FeatureId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Feature>()
+                .Property(f => f.Importance)
+                .HasConversion<string>();
+
+            // Bugs
+            modelBuilder.Entity<Bug>()
+                .Property(b => b.Severity)
+                .HasConversion<string>();
 
             // Activites
             modelBuilder.Entity<Activity>()
-                .Property(s => s.FeatureId);
-
-            modelBuilder.Entity<Activity>()
-                .Property(s => s.ActivityItemType)
-                .HasConversion<string>();
-
-            modelBuilder.Entity<Activity>()
-                .Property(s => s.ActivityPriority)
-                .HasConversion<string>();
+                .Property(a => a.FeatureId);
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(PersonalHubDbContext).Assembly);
         }
