@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -14,6 +14,13 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
     <PackageReference Include="xunit" Version="2.5.3" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PersonalHub.Api\PersonalHub.Api.csproj" />
+    <ProjectReference Include="..\PersonalHub.Application\PersonalHub.Application.csproj" />
+    <ProjectReference Include="..\PersonalHub.Domain\PersonalHub.Domain.csproj" />
+    <ProjectReference Include="..\PersonalHub.Infrastructure\PersonalHub.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

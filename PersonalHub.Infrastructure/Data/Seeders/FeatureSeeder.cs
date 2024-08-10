@@ -32,17 +32,14 @@ internal class FeatureSeeder(PersonalHubDbContext dbContext) : IFeatureSeeder
                     {
                         Name = "HTML Form",
                         Description = "A form for the user to add information",
-                        ActivityItemType = ActivityType.Task,
-                        ActivityPriority = Priority.Low,
                     },
                     new()
                     {
                         Name = "Style Form",
                         Description = "The HTML form needs to look good",
-                        ActivityItemType = ActivityType.Task,
-                        ActivityPriority = Priority.Low,
                     }
                 ],
+                Importance = Priority.Low,
                 CreatedAt = DateTime.Now,
             },
             new()
@@ -55,24 +52,19 @@ internal class FeatureSeeder(PersonalHubDbContext dbContext) : IFeatureSeeder
                     {
                         Name = "HTML Form",
                         Description = "A form for the user to add information",
-                        ActivityItemType = ActivityType.Task,
-                        ActivityPriority = Priority.Low,
                     },
                     new()
                     {
                         Name = "Style Form",
                         Description = "The HTML form needs to look good",
-                        ActivityItemType = ActivityType.Task,
-                        ActivityPriority = Priority.Low,
                     },
                     new()
                     {
                         Name = "Add JWT Token",
                         Description = "Add token to know who the user is",
-                        ActivityItemType = ActivityType.Task,
-                        ActivityPriority = Priority.High,
                     }
                 ],
+                Importance = Priority.Low,
                 CreatedAt = DateTime.Now,
             }
         ];

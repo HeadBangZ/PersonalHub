@@ -1,8 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using PersonalHub.Domain.Base.Entities;
+using PersonalHub.Domain.Workspace.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace PersonalHub.Domain.Workspace.Entities;
 
-public class Feature
+public class Feature : BaseEntity
 {
     public Guid Id { get; private set; } = new();
 
@@ -15,14 +17,9 @@ public class Feature
     public List<Activity> Activities { get; set; } = new List<Activity>();
 
     [Required]
-    [DataType(DataType.DateTime)]
-    [DisplayFormat(DataFormatString = "{0:dd/MM-yyyy}")]
-    public DateTime CreatedAt { get; set; }
+    public Priority Importance { get; set; } = Priority.None;
 
-
-    [DataType(DataType.DateTime)]
-    [DisplayFormat(DataFormatString = "{0:dd/MM-yyyy}")]
-    public DateTime? UpdatedAt { get; set; }
+    public bool IsCompleted { get; set; } = false;
 
     public Feature()
     {

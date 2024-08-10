@@ -1,5 +1,6 @@
 ﻿using PersonalHub.Domain.Workspace.Entities;
-using PersonalHub.Domain.Workspace.Repositories;
+using PersonalHub.Domain.Contracts;
+using PersonalHub.Infrastructure.Repositories.GenericRepositories;
 using PersonalHub.Infrastructure.Data.Contexts;
 
 namespace PersonalHub.Infrastructure.Repositories;

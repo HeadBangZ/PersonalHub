@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using PersonalHub.Domain.User.Entities;
 
-namespace PersonalHub.Domain.User.Repositories;
+namespace PersonalHub.Domain.Contracts;
 
 public interface IAuthRepository
 {
