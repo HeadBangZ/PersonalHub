@@ -1,13 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PersonalHub.Domain.User.ValueObjects;
 
 public class PersonalInfo
 {
     [Column("FirstName")]
+    [MaxLength(50)]
     public required string FirstName { get; set; } = default!;
 
     [Column("LastName")]
+    [MaxLength(75)]
     public required string LastName { get; set; } = default!;
 
     [Column("DateOfBirth")]

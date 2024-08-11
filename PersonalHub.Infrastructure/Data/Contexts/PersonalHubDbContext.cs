@@ -27,29 +27,29 @@ namespace PersonalHub.Infrastructure.Data.Contexts
             modelBuilder.ApplyConfiguration(new RoleConfiguration(_configuration));
             modelBuilder.ApplyConfiguration(new UserRoleConfiguration(_configuration));
 
-            // ApiUser
-            modelBuilder.Entity<ApiUser>()
-                .ComplexProperty(u => u.Information).IsRequired();
+            //// ApiUser
+            //modelBuilder.Entity<ApiUser>()
+            //    .ComplexProperty(u => u.Information).IsRequired();    
 
-            // Features
-            modelBuilder.Entity<Feature>()
-                .HasMany(f => f.Activities)
-                .WithOne()
-                .HasForeignKey(a => a.FeatureId)
-                .OnDelete(DeleteBehavior.Cascade);
+            //// Features
+            //modelBuilder.Entity<Feature>()
+            //    .HasMany(f => f.Activities)
+            //    .WithOne()
+            //    .HasForeignKey(a => a.FeatureId)
+            //    .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Feature>()
-                .Property(f => f.Importance)
-                .HasConversion<string>();
+            //modelBuilder.Entity<Feature>()
+            //    .Property(f => f.Importance)
+            //    .HasConversion<string>();
 
-            // Bugs
-            modelBuilder.Entity<Bug>()
-                .Property(b => b.Severity)
-                .HasConversion<string>();
+            //// Bugs
+            //modelBuilder.Entity<Bug>()
+            //    .Property(b => b.Severity)
+            //    .HasConversion<string>();
 
-            // Activites
-            modelBuilder.Entity<Activity>()
-                .Property(a => a.FeatureId);
+            //// Activites
+            //modelBuilder.Entity<Activity>()
+            //    .Property(a => a.FeatureId);
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(PersonalHubDbContext).Assembly);
         }

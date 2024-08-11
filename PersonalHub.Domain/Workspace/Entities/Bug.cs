@@ -8,9 +8,7 @@ public class Bug : BaseEntity
 {
     public Guid Id { get; private set; } = new();
 
-    [Required]
-    [StringLength(75)]
-    public required string Issue { get; set; }
+    public string Issue { get; set; }
 
     public string? Description { get; set; }
 
