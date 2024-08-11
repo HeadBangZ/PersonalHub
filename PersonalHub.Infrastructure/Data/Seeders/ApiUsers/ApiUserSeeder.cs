@@ -3,44 +3,43 @@ using Microsoft.Extensions.Configuration;
 using PersonalHub.Domain.User.Entities;
 using PersonalHub.Infrastructure.Data.Contexts;
 
-namespace PersonalHub.Infrastructure.Data.Seeders.ApiUsers
+namespace PersonalHub.Infrastructure.Data.Seeders.ApiUsers;
+
+public sealed class ApiUserSeeder(PersonalHubDbContext dbContext, IConfiguration configuration) : IApiUserSeeder
 {
-    internal class ApiUserSeeder(PersonalHubDbContext dbContext, IConfiguration configuration) : IApiUserSeeder
+    public async Task Seed()
     {
-        public async Task Seed()
+        if (await dbContext.Database.CanConnectAsync())
         {
-            if (await dbContext.Database.CanConnectAsync())
+            if (!dbContext.Users.Any())
             {
-                if (!dbContext.Users.Any())
-                {
-                    var user = GetApiUser();
-                    dbContext.Users.Add(user);
-                    await dbContext.SaveChangesAsync();
-                }
+                var user = GetApiUser();
+                dbContext.Users.Add(user);
+                await dbContext.SaveChangesAsync();
             }
         }
+    }
 
-        private ApiUser GetApiUser()
+    private ApiUser GetApiUser()
+    {
+        var email = configuration["UserAuth:Email"];
+        ApiUser apiUser = new()
         {
-            var email = configuration["UserAuth:Email"];
-            ApiUser apiUser = new()
+            Id = configuration["UserAuth:UserId"],
+            Information = new()
             {
-                Id = configuration["UserAuth:UserId"],
-                Information = new()
-                {
-                    FirstName = configuration["UserAuth:FirstName"],
-                    LastName = configuration["UserAuth:LastName"]
-                },
-                Email = email,
-                EmailConfirmed = true,
-                NormalizedEmail = email.ToUpper(),
-                NormalizedUserName = email.ToUpper(),
-            };
+                FirstName = configuration["UserAuth:FirstName"],
+                LastName = configuration["UserAuth:LastName"]
+            },
+            Email = email,
+            EmailConfirmed = true,
+            NormalizedEmail = email.ToUpper(),
+            NormalizedUserName = email.ToUpper(),
+        };
 
-            PasswordHasher<ApiUser> ph = new PasswordHasher<ApiUser>();
-            apiUser.PasswordHash = ph.HashPassword(apiUser, configuration["UserAuth:Pwd"]);
+        PasswordHasher<ApiUser> ph = new PasswordHasher<ApiUser>();
+        apiUser.PasswordHash = ph.HashPassword(apiUser, configuration["UserAuth:Pwd"]);
 
-            return apiUser;
-        }
+        return apiUser;
     }
 }

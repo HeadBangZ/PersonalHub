@@ -4,7 +4,7 @@ using PersonalHub.Infrastructure.Data.Contexts;
 
 namespace PersonalHub.Infrastructure.Data.Seeders;
 
-internal class FeatureSeeder(PersonalHubDbContext dbContext) : IFeatureSeeder
+public sealed class FeatureSeeder(PersonalHubDbContext dbContext) : IFeatureSeeder
 {
     public async Task Seed()
     {

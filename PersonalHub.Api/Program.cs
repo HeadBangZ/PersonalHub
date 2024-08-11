@@ -1,16 +1,10 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
+using PersonalHub.Api.Extensions;
 using PersonalHub.Application.Contracts;
-using PersonalHub.Application.Services;
 using PersonalHub.Domain.User.Entities;
-using PersonalHub.Infrastructure.Data.Contexts;
 using PersonalHub.Infrastructure.Data.Seeders;
 using PersonalHub.Infrastructure.Data.Seeders.ApiUsers;
-using PersonalHub.Infrastructure.Extensions;
 using PersonalHub.Infrastructure.Services;
-using System.Text;
 
 namespace PersonalHub.Api;
 
@@ -25,94 +19,16 @@ public class Program
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen(s =>
-        {
-            s.AddSecurityDefinition("bearerAuth", new OpenApiSecurityScheme
-            {
-                Type = SecuritySchemeType.Http,
-                Scheme = "Bearer"
-            });
 
-            s.AddSecurityRequirement(new OpenApiSecurityRequirement
-            {
-                {
-                    new OpenApiSecurityScheme
-                    {
-                        Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "bearerAuth" }
-                    },
-                    []
-                }
-            });
-        });
-
+        // Register IConfiguration as a singleton
         builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
-        // TODO: Change the CORS policy
-        builder.Services.AddCors(options =>
-        {
-            options.AddPolicy("AllowAll",
-                b => b.AllowAnyHeader()
-                .AllowAnyOrigin()
-                .AllowAnyMethod());
-        });
-
-        // Services
-        builder.Services.AddInfrastructure(builder.Configuration);
-
-        // Scopes
-        builder.Services.AddScoped<AuthService>();
-        builder.Services.AddScoped<FeatureService>();
-
-        builder.Services.AddIdentityCore<ApiUser>()
-            .AddRoles<IdentityRole>()
-            .AddTokenProvider<DataProtectorTokenProvider<ApiUser>>("https://localhost:7149/")
-            .AddEntityFrameworkStores<PersonalHubDbContext>()
-            .AddDefaultTokenProviders();
-
-        builder.Services.AddAuthentication(options =>
-        {
-            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        }).AddJwtBearer(options =>
-        {
-            options.TokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
-                ClockSkew = TimeSpan.Zero,
-                ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
-                ValidAudience = builder.Configuration["JwtSettings:Audience"],
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Key"])),
-            };
-        });
-
-        builder.Services.AddIdentityApiEndpoints<ApiUser>(options =>
-        {
-            // TODO: Change the password rules
-            options.Password.RequiredLength = 8;
-            options.Password.RequireUppercase = false;
-            options.Password.RequireNonAlphanumeric = false;
-            options.User.RequireUniqueEmail = true;
-            options.SignIn.RequireConfirmedEmail = false;
-        }).AddEntityFrameworkStores<PersonalHubDbContext>();
-
-        // JWT Token Generator
-        builder.Services.AddScoped<ITokenService, TokenService>(provider =>
-        {
-            var configuration = provider.GetRequiredService<IConfiguration>();
-            var userManager = provider.GetRequiredService<UserManager<ApiUser>>();
-            return new TokenService(
-                configuration["JwtSettings:Key"]!,
-                configuration["JwtSettings:Issuer"]!,
-                configuration["JwtSettings:Audience"]!,
-                int.Parse(configuration["JwtSettings:DurationInMinutes"]!),
-                userManager
-            );
-        });
-
-        builder.Services.AddAuthorization();
+        // Dependency Injections
+        builder.Services
+            .AddApplication()
+            .AddInfrastructure(builder.Configuration)
+            .AddPresentation()
+            .AddAuthenticationAndAuthorization(builder.Configuration);
 
         var app = builder.Build();
 

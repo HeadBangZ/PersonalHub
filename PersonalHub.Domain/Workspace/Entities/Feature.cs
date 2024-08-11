@@ -8,15 +8,12 @@ public class Feature : BaseEntity
 {
     public Guid Id { get; private set; } = new();
 
-    [Required]
-    [StringLength(75)]
     public string Name { get; set; }
 
     public string? Description { get; set; }
 
     public List<Activity> Activities { get; set; } = new List<Activity>();
 
-    [Required]
     public Priority Importance { get; set; } = Priority.None;
 
     public bool IsCompleted { get; set; } = false;
@@ -25,6 +22,7 @@ public class Feature : BaseEntity
     {
 
     }
+
     public Feature(string name, string? description)
     {
         Name = name;
