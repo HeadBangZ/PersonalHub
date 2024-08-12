@@ -1,4 +1,4 @@
-﻿using PersonalHub.Domain.Base.Entities;
+﻿using PersonalHub.Domain.Common.Models;
 using PersonalHub.Domain.Workspace.Enums;
 using System.ComponentModel.DataAnnotations;
 

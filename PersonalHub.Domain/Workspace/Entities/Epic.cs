@@ -1,4 +1,4 @@
-﻿using PersonalHub.Domain.Base.Entities;
+﻿using PersonalHub.Domain.Common.Models;
 
 namespace PersonalHub.Domain.Workspace.Entities;
 

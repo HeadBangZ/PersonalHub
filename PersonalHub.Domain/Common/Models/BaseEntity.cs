@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-namespace PersonalHub.Domain.Base.Entities;
+namespace PersonalHub.Domain.Common.Models;
 
 public abstract class BaseEntity
 {
