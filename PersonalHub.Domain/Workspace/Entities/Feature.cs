@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PersonalHub.Domain.Workspace.Entities;
 
-public class Feature : BaseEntity
+public sealed class Feature : BaseEntity
 {
-    public Guid Id { get; private set; } = new();
+    public Guid Id { get; private init; } = new();
 
     public string Name { get; set; }
 
