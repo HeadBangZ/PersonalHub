@@ -4,7 +4,7 @@ using PersonalHub.Domain.User.ValueObjects;
 
 namespace PersonalHub.Domain.User.Entities;
 
-public class ApiUser : IdentityUser
+public sealed class ApiUser : IdentityUser
 {
     public PersonalInfo? Information { get; set; }
 
