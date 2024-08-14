@@ -62,9 +62,9 @@ public class FeatureController : ControllerBase
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> UpdateFeature([FromRoute] string id, [FromBody] UpdateFeatureDto featureDto)
     {
-        var exist = await _featureService.FeatureExists(id);
+        var entity = await _featureService.GetFeature(id);
 
-        if (!exist)
+        if (entity == null)
         {
             return NotFound();
         }
@@ -80,9 +80,9 @@ public class FeatureController : ControllerBase
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> DeleteFeature([FromRoute] string id)
     {
-        var exists = await _featureService.FeatureExists(id);
+        var entity = await _featureService.GetFeature(id);
 
-        if (!exists)
+        if (entity == null)
         {
             return NotFound();
         }

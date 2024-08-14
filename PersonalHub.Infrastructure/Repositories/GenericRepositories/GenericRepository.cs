@@ -27,12 +27,6 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         await _context.SaveChangesAsync();
     }
 
-    public async Task<bool> Exists(Guid id)
-    {
-        var entity = await GetAsync(id);
-        return entity != null;
-    }
-
     public async Task<List<T>> GetAllAsync()
     {
         IQueryable<T> query = _context.Set<T>();

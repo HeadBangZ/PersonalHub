@@ -8,5 +8,4 @@ public interface IFeatureService
     Task<List<FeatureDto>> GetAllFeatures();
     Task UpdateFeature(string id, UpdateFeatureDto featureDto);
     Task DeleteFeature(string id);
-    Task<bool> FeatureExists(string id);
 }

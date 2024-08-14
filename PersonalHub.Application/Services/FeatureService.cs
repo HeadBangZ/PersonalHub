@@ -55,12 +55,6 @@ public class FeatureService : IFeatureService
         await _featureRepository.DeleteAsync(featureId);
     }
 
-    public async Task<bool> FeatureExists(string id)
-    {
-        var featureId = Guid.Parse(id);
-        return await _featureRepository.Exists(featureId);
-    }
-
     public async Task UpdateFeature(string id, UpdateFeatureDto featureDto)
     {
         var featureId = Guid.Parse(id);
