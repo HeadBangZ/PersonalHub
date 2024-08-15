@@ -27,12 +27,12 @@ public class FeatureController : ControllerBase
         return Created($"~/api/features/{feature.Id}", feature);
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<FeatureDto>> GetFeature([FromRoute] string id)
+    public async Task<ActionResult<FeatureDto>> GetFeature([FromRoute] Guid id)
     {
         var feature = await _featureService.GetFeature(id);
 
@@ -55,34 +55,32 @@ public class FeatureController : ControllerBase
         return Ok(features);
     }
 
-    //[HttpPut("{id}")]
-    //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-    //[ProducesResponseType(StatusCodes.Status404NotFound)]
-    //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    //[ProducesResponseType(StatusCodes.Status204NoContent)]
-    //public async Task<IActionResult> UpdateFeature([FromRoute] string id, [FromBody] FeatureDto featureDto)
-    //{
-    //    var entity = await _featureService.GetFeature(id);
-
-    //    if (entity == null)
-    //    {
-    //        return NotFound();
-    //    }
-
-    //    await _featureService.UpdateFeature(id, featureDto);
-
-    //    return NoContent();
-    //}
-
-    [HttpDelete("{id}")]
+    [HttpPut("{id}")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<IActionResult> DeleteFeature([FromRoute] string id)
+    public async Task<IActionResult> UpdateFeature([FromRoute] Guid id, [FromBody] UpdateFeatureDto featureDto)
     {
-        var entity = await _featureService.GetFeature(id);
+        if (id != featureDto.Id)
+        {
+            return BadRequest("Id Mismatch");
+        }
 
-        if (entity == null)
+        await _featureService.UpdateFeature(id, featureDto);
+
+        return NoContent();
+    }
+
+    [HttpDelete("{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> DeleteFeature([FromRoute] Guid id)
+    {
+        var feature = await _featureService.GetFeature(id);
+
+        if (feature == null)
         {
             return NotFound();
         }
