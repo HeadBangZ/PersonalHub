@@ -1,4 +1,5 @@
 ﻿using PersonalHub.Domain.Workspace.Entities;
+using PersonalHub.Domain.Workspace.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace PersonalHub.Application.DTOs;
@@ -12,12 +13,9 @@ public record FeatureDto(
     Guid Id,
     string Name,
     string? Description,
-    List<Activity> Items,
+    List<Activity> Activities,
+    string Importance,
+    bool IsCompleted,
     DateTime CreatedAt,
     DateTime? UpdatedAt
-);
-
-public record UpdateFeatureDto(
-    string? Name,
-    string? Description
 );

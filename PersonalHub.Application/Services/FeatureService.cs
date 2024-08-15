@@ -15,10 +15,10 @@ public class FeatureService : IFeatureService
 
     public async Task<FeatureDto> AddFeature(CreateFeatureDto featureDto)
     {
-        var feature = featureDto.ToFeature();
+        var feature = featureDto.MapCreateDtoToFeature();
 
         await _featureRepository.AddAsync(feature);
-        return feature.ToFeatureDto();
+        return feature.MapFeatureToDto();
     }
 
     public async Task<FeatureDto?> GetFeature(string id)
@@ -31,7 +31,7 @@ public class FeatureService : IFeatureService
             return null;
         }
 
-        var featureDto = feature.ToFeatureDto();
+        var featureDto = feature.MapFeatureToDto();
 
         return featureDto;
     }
@@ -43,7 +43,7 @@ public class FeatureService : IFeatureService
 
         foreach (var feature in features)
         {
-            featureDto.Add(feature.ToFeatureDto());
+            featureDto.Add(feature.MapFeatureToDto());
         }
         return featureDto;
     }
@@ -55,28 +55,28 @@ public class FeatureService : IFeatureService
         await _featureRepository.DeleteAsync(featureId);
     }
 
-    public async Task UpdateFeature(string id, UpdateFeatureDto featureDto)
-    {
-        var featureId = Guid.Parse(id);
-        var feature = await _featureRepository.GetAsync(featureId);
+    //public async Task UpdateFeature(string id, FeatureDto featureDto)
+    //{
+    //    var featureId = Guid.Parse(id);
+    //    var feature = await _featureRepository.GetAsync(featureId);
 
-        if (feature == null)
-        {
-            return;
-        }
+    //    if (feature == null)
+    //    {
+    //        return;
+    //    }
 
-        if (!string.IsNullOrEmpty(featureDto.Name))
-        {
-            feature.Name = featureDto.Name;
-        }
+    //    if (!string.IsNullOrEmpty(featureDto.Name))
+    //    {
+    //        feature.Name = featureDto.Name;
+    //    }
 
-        if (!string.IsNullOrEmpty(featureDto.Description))
-        {
-            feature.Description = featureDto.Description;
-        }
+    //    if (!string.IsNullOrEmpty(featureDto.Description))
+    //    {
+    //        feature.Description = featureDto.Description;
+    //    }
 
-        feature.UpdatedAt = DateTime.UtcNow;
+    //    feature.UpdatedAt = DateTime.UtcNow;
 
-        await _featureRepository.UpdateAsync(feature);
-    }
+    //    await _featureRepository.UpdateAsync(feature);
+    //}
 }

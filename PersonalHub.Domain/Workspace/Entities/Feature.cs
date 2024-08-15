@@ -39,12 +39,14 @@ public sealed class Feature : BaseEntity
         UpdatedAt = updatedAt;
     }
 
-    public Feature(Guid id, string name, string? description, List<Activity> items, DateTime createdAt, DateTime? updatedAt)
+    public Feature(Guid id, string name, string? description, List<Activity> activities, Priority importance, bool isCompleted, DateTime createdAt, DateTime? updatedAt)
     {
         Id = id;
         Name = name;
         Description = description;
-        Activities = items;
+        Activities = activities;
+        Importance = importance;
+        IsCompleted = isCompleted;
         CreatedAt = createdAt;
         UpdatedAt = updatedAt;
     }
