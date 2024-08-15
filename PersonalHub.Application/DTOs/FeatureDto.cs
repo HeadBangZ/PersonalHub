@@ -9,12 +9,21 @@ public record CreateFeatureDto(
     string? Description
 );
 
+public record UpdateFeatureDto(
+    Guid Id,
+    string? Name,
+    string? Description,
+    List<Activity>? Activities,
+    Priority? Importance,
+    bool? IsCompleted
+);
+
 public record FeatureDto(
     Guid Id,
     string Name,
     string? Description,
     List<Activity> Activities,
-    string Importance,
+    Priority Importance,
     bool IsCompleted,
     DateTime CreatedAt,
     DateTime? UpdatedAt

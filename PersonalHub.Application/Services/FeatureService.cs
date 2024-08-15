@@ -2,6 +2,7 @@
 using PersonalHub.Application.DTOs;
 using PersonalHub.Application.Extensions;
 using PersonalHub.Domain.Contracts;
+using PersonalHub.Domain.Workspace.Enums;
 
 namespace PersonalHub.Application.Services;
 
@@ -21,10 +22,9 @@ public class FeatureService : IFeatureService
         return feature.MapFeatureToDto();
     }
 
-    public async Task<FeatureDto?> GetFeature(string id)
+    public async Task<FeatureDto?> GetFeature(Guid id)
     {
-        var featureId = Guid.Parse(id);
-        var feature = await _featureRepository.GetAsync(featureId);
+        var feature = await _featureRepository.GetAsync(id);
 
         if (feature == null)
         {
@@ -48,35 +48,24 @@ public class FeatureService : IFeatureService
         return featureDto;
     }
 
-    public async Task DeleteFeature(string id)
+    public async Task DeleteFeature(Guid id)
     {
-        var featureId = Guid.Parse(id);
-
-        await _featureRepository.DeleteAsync(featureId);
+        await _featureRepository.DeleteAsync(id);
     }
 
-    //public async Task UpdateFeature(string id, FeatureDto featureDto)
-    //{
-    //    var featureId = Guid.Parse(id);
-    //    var feature = await _featureRepository.GetAsync(featureId);
+    public async Task UpdateFeature(Guid id, UpdateFeatureDto featureDto)
+    {
+        var existingFeature = await _featureRepository.GetAsync(id);
 
-    //    if (feature == null)
-    //    {
-    //        return;
-    //    }
+        if (existingFeature == null)
+        {
+            throw new Exception($"Feature with ID - {id} was not found");
+        }
 
-    //    if (!string.IsNullOrEmpty(featureDto.Name))
-    //    {
-    //        feature.Name = featureDto.Name;
-    //    }
+        var updatedFeature = featureDto.MapDtoToFeature(existingFeature);
 
-    //    if (!string.IsNullOrEmpty(featureDto.Description))
-    //    {
-    //        feature.Description = featureDto.Description;
-    //    }
+        updatedFeature.UpdatedAt = DateTime.Now;
 
-    //    feature.UpdatedAt = DateTime.UtcNow;
-
-    //    await _featureRepository.UpdateAsync(feature);
-    //}
+        await _featureRepository.UpdateAsync(updatedFeature);
+    }
 }

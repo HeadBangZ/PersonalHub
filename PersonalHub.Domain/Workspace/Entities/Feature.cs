@@ -30,15 +30,6 @@ public sealed class Feature : BaseEntity
         CreatedAt = DateTime.Now;
     }
 
-    public Feature(Guid id, string name, string? description, DateTime createdAt, DateTime updatedAt)
-    {
-        Id = id;
-        Name = name;
-        Description = description;
-        CreatedAt = createdAt;
-        UpdatedAt = updatedAt;
-    }
-
     public Feature(Guid id, string name, string? description, List<Activity> activities, Priority importance, bool isCompleted, DateTime createdAt, DateTime? updatedAt)
     {
         Id = id;

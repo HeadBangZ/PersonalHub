@@ -15,6 +15,7 @@ using PersonalHub.Infrastructure.Repositories.Auth;
 using PersonalHub.Infrastructure.Repositories.GenericRepositories;
 using PersonalHub.Infrastructure.Services;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace PersonalHub.Api.Extensions;
 
@@ -45,6 +46,12 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddPresentation(this IServiceCollection services)
     {
+        services.AddControllers()
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
+
         services.AddSwaggerGen(s =>
         {
             s.AddSecurityDefinition("bearerAuth", new OpenApiSecurityScheme
