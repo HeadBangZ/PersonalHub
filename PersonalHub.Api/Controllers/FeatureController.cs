@@ -55,24 +55,24 @@ public class FeatureController : ControllerBase
         return Ok(features);
     }
 
-    [HttpPut("{id}")]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<IActionResult> UpdateFeature([FromRoute] string id, [FromBody] UpdateFeatureDto featureDto)
-    {
-        var entity = await _featureService.GetFeature(id);
+    //[HttpPut("{id}")]
+    //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+    //[ProducesResponseType(StatusCodes.Status404NotFound)]
+    //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    //[ProducesResponseType(StatusCodes.Status204NoContent)]
+    //public async Task<IActionResult> UpdateFeature([FromRoute] string id, [FromBody] FeatureDto featureDto)
+    //{
+    //    var entity = await _featureService.GetFeature(id);
 
-        if (entity == null)
-        {
-            return NotFound();
-        }
+    //    if (entity == null)
+    //    {
+    //        return NotFound();
+    //    }
 
-        await _featureService.UpdateFeature(id, featureDto);
+    //    await _featureService.UpdateFeature(id, featureDto);
 
-        return NoContent();
-    }
+    //    return NoContent();
+    //}
 
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

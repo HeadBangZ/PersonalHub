@@ -9,7 +9,7 @@ public static class ApiUserExtensions
     {
         return new ApiUserDto(
             apiUser.Id,
-            apiUser.Information = apiUser.Information,
+            apiUser.Information,
             apiUser.Email,
             apiUser.CreatedAt,
             apiUser.UpdatedAt
