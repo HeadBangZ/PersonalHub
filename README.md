@@ -26,4 +26,14 @@ The Tests layer includes various tests to ensure the quality and correctness of 
  
 ### Entities
  - ApiUser
- - UserStory
+ - Space
+   - Section
+     - Epic
+	   - Feature
+	     - Activity
+	   - Bug
+	  
+### Ideas
+Add Next and Prev to the endpoints
+Add Query options to include details
+Add Query options to filter
