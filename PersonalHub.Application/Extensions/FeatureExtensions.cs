@@ -1,7 +1,5 @@
 ﻿using PersonalHub.Application.DTOs;
 using PersonalHub.Domain.Workspace.Entities;
-using PersonalHub.Domain.Workspace.Enums;
-using System.Runtime.CompilerServices;
 
 namespace PersonalHub.Application.Extensions;
 
@@ -35,6 +33,8 @@ public static class FeatureExtensions
         );
     }
 
+    // TODO: Update this map
+    // OPTIMIZE: How we update
     public static Feature MapDtoToFeature(this UpdateFeatureDto featureDto, Feature existingFeature)
     {
         if (!string.IsNullOrEmpty(featureDto.Name)) existingFeature.Name = featureDto.Name;

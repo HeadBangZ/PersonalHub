@@ -22,6 +22,7 @@ public class FeatureService : IFeatureService
         return feature.MapFeatureToDto();
     }
 
+    // OPTIMIZE: Add query rules, for pagination, include details 
     public async Task<FeatureDto?> GetFeature(Guid id)
     {
         var feature = await _featureRepository.GetAsync(id);
@@ -36,6 +37,7 @@ public class FeatureService : IFeatureService
         return featureDto;
     }
 
+    // OPTIMIZE: Add query rules, for pagination, include details, filter 
     public async Task<List<FeatureDto>> GetAllFeatures()
     {
         var featureDto = new List<FeatureDto>();
