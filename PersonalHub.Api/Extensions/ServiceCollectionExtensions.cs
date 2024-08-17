@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using PersonalHub.Api.Middlewares;
 using PersonalHub.Application.Contracts;
 using PersonalHub.Application.Services;
 using PersonalHub.Domain.Contracts;
@@ -16,6 +17,7 @@ using PersonalHub.Infrastructure.Repositories.GenericRepositories;
 using PersonalHub.Infrastructure.Services;
 using System.Text;
 using System.Text.Json.Serialization;
+using Serilog;
 
 namespace PersonalHub.Api.Extensions;
 
@@ -44,8 +46,11 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    public static IServiceCollection AddPresentation(this IServiceCollection services)
+    public static IServiceCollection AddPresentation(this IServiceCollection services, IHostBuilder host)
     {
+        host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
+        services.AddTransient<GlobalExceptionHandlingMiddleware>();
+
         services.AddControllers()
             .AddJsonOptions(options =>
             {

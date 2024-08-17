@@ -8,7 +8,7 @@ public sealed class Feature : BaseEntity
 {
     public Guid Id { get; private init; } = new();
 
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     public string? Description { get; set; }
 

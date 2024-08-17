@@ -1,10 +1,9 @@
-using Microsoft.AspNetCore.Identity;
 using PersonalHub.Api.Extensions;
-using PersonalHub.Application.Contracts;
+using PersonalHub.Api.Middlewares;
 using PersonalHub.Domain.User.Entities;
 using PersonalHub.Infrastructure.Data.Seeders;
 using PersonalHub.Infrastructure.Data.Seeders.ApiUsers;
-using PersonalHub.Infrastructure.Services;
+using Serilog;
 
 namespace PersonalHub.Api;
 
@@ -27,8 +26,9 @@ public class Program
         builder.Services
             .AddApplication()
             .AddInfrastructure(builder.Configuration)
-            .AddPresentation()
+            .AddPresentation(builder.Host)
             .AddAuthenticationAndAuthorization(builder.Configuration);
+
 
         var app = builder.Build();
 
@@ -55,6 +55,8 @@ public class Program
         app.MapGroup("api/identity").MapIdentityApi<ApiUser>();
 
         app.UseHttpsRedirection();
+
+        app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
         app.MapControllers();
 
