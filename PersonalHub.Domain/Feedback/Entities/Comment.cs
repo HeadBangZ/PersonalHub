@@ -1,5 +1,5 @@
-﻿using PersonalHub.Domain.Common.Models;
-using PersonalHub.Domain.Contracts;
+﻿using PersonalHub.Domain.Common.Contracts;
+using PersonalHub.Domain.Common.Models;
 using PersonalHub.Domain.Feedback.Enums;
 
 namespace PersonalHub.Domain.Feedback.Entities;

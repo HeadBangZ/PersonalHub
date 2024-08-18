@@ -1,4 +1,4 @@
-﻿using PersonalHub.Domain.Contracts;
+﻿using PersonalHub.Domain.Common.Contracts;
 
 namespace PersonalHub.Domain.Workspace.ValueObjects;
 

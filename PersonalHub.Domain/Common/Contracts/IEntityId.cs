@@ -1,4 +1,4 @@
-﻿namespace PersonalHub.Domain.Contracts;
+﻿namespace PersonalHub.Domain.Common.Contracts;
 
 public interface IEntityId
 {
