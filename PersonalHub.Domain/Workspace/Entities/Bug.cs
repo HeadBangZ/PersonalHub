@@ -14,5 +14,6 @@ public sealed class Bug : BaseEntity
 
     public Priority Severity { get; set; } = Priority.None;
 
+    // TODO: Change this for a valueObject
     public bool IsCompleted { get; set; } = false;
 }

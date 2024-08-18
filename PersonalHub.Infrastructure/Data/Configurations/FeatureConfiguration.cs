@@ -1,13 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PersonalHub.Domain.Workspace.Entities;
-using PersonalHub.Domain.Workspace.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
+using PersonalHub.Domain.Workspace.ValueObjects;
 
 namespace PersonalHub.Infrastructure.Data.Configurations
 {
@@ -18,7 +12,7 @@ namespace PersonalHub.Infrastructure.Data.Configurations
             builder.HasKey(f => f.Id);
 
             //builder.Property(f => f.Id).HasConversion(
-            //    featureId => featureId.Value,
+            //    featureId => featureId.Id,
             //    value => new FeatureId(value));
 
             builder.Property(f => f.Name)
