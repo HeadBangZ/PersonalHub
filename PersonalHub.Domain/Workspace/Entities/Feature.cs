@@ -1,6 +1,5 @@
 ﻿using PersonalHub.Domain.Common.Models;
 using PersonalHub.Domain.Workspace.Enums;
-using System.ComponentModel.DataAnnotations;
 
 namespace PersonalHub.Domain.Workspace.Entities;
 
@@ -16,6 +15,7 @@ public sealed class Feature : BaseEntity
 
     public Priority Importance { get; set; } = Priority.None;
 
+    // TODO: Change this for a valueObject
     public bool IsCompleted { get; set; } = false;
 
     public Feature()
