@@ -1,12 +1,13 @@
 ﻿using PersonalHub.Domain.Common.Models;
 using PersonalHub.Domain.Workspace.Enums;
+using PersonalHub.Domain.Workspace.ValueObjects;
 using System.ComponentModel.DataAnnotations;
 
 namespace PersonalHub.Domain.Workspace.Entities;
 
 public sealed class Bug : BaseEntity
 {
-    public Guid Id { get; private init; } = new();
+    public BugId Id { get; private init; } = BugId.NewEntityId();
 
     public string Issue { get; set; }
 
