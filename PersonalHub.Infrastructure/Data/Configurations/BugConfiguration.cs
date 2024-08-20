@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PersonalHub.Domain.Workspace.Entities;
+using PersonalHub.Domain.Workspace.ValueObjects;
 
 namespace PersonalHub.Infrastructure.Data.Configurations;
 
@@ -10,9 +11,9 @@ internal class BugConfiguration : IEntityTypeConfiguration<Bug>
     {
         builder.HasKey(b => b.Id);
 
-        //builder.Property(b => b.Id).HasConversion(
-        //    bugId => bugId.Value,
-        //    value => new BugId(value));
+        builder.Property(b => b.Id).HasConversion(
+            bugId => bugId.Id,
+            value => new BugId(value));
 
         builder.Property(b => b.Issue)
             .HasMaxLength(100);

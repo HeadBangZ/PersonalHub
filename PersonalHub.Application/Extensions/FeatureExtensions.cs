@@ -37,11 +37,30 @@ public static class FeatureExtensions
     // OPTIMIZE: How we update
     public static Feature MapDtoToFeature(this UpdateFeatureDto featureDto, Feature existingFeature)
     {
-        if (!string.IsNullOrEmpty(featureDto.Name)) existingFeature.Name = featureDto.Name;
-        if (!string.IsNullOrEmpty(featureDto.Description)) existingFeature.Description = featureDto.Description;
-        if (featureDto.Activities != null) existingFeature.Activities = featureDto.Activities;
-        if (featureDto.Importance.HasValue) existingFeature.Importance = featureDto.Importance.Value;
-        if (featureDto.IsCompleted.HasValue) existingFeature.IsCompleted = featureDto.IsCompleted.Value;
+        if (!string.IsNullOrEmpty(featureDto.Name))
+        {
+            existingFeature.Name = featureDto.Name;
+        }
+
+        if (!string.IsNullOrEmpty(featureDto.Description))
+        {
+            existingFeature.Description = featureDto.Description;
+        }
+
+        if (featureDto.Activities != null)
+        {
+            existingFeature.Activities = featureDto.Activities;
+        }
+
+        if (featureDto.Importance.HasValue)
+        {
+            existingFeature.Importance = featureDto.Importance.Value;
+        }
+
+        if (featureDto.IsCompleted.HasValue)
+        {
+            existingFeature.IsCompleted = featureDto.IsCompleted.Value;
+        }
 
         return existingFeature;
     }

@@ -37,7 +37,7 @@ public class AccountController : ControllerBase
     }
 
     [HttpPost]
-    [Route("Login")]
+    [Route("login")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status200OK)]

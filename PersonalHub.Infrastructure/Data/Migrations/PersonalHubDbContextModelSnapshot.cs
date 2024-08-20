@@ -18,7 +18,7 @@ namespace PersonalHub.Infrastructure.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.7")
+                .HasAnnotation("ProductVersion", "8.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -58,7 +58,7 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                         },
                         new
                         {
-                            Id = "71f56ec4-d567-4f00-99e5-451af5d4f017",
+                            Id = "18508d72-4abd-40b8-897a-0d88abbc8053",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -309,7 +309,6 @@ namespace PersonalHub.Infrastructure.Data.Migrations
             modelBuilder.Entity("PersonalHub.Domain.Workspace.Entities.Bug", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
@@ -360,7 +359,6 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
