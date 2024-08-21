@@ -17,6 +17,7 @@ namespace PersonalHub.Infrastructure.Data.Contexts
         }
 
         public DbSet<ApiUser> Users => Set<ApiUser>();
+        public DbSet<Space> Spaces => Set<Space>();
         public DbSet<Feature> Features => Set<Feature>();
         public DbSet<Bug> Bugs => Set<Bug>();
         public DbSet<Activity> Activities => Set<Activity>();

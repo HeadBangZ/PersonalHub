@@ -58,7 +58,7 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                         },
                         new
                         {
-                            Id = "18508d72-4abd-40b8-897a-0d88abbc8053",
+                            Id = "d5b9c78e-28ab-4054-9e68-a24c9807f0a5",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -368,6 +368,36 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Features");
+                });
+
+            modelBuilder.Entity("PersonalHub.Domain.Workspace.Entities.Space", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Spaces");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
