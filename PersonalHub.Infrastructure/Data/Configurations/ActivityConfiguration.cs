@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PersonalHub.Domain.Workspace.Entities;
-using System.ComponentModel.DataAnnotations;
 
 namespace PersonalHub.Infrastructure.Data.Configurations;
 
