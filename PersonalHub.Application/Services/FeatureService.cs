@@ -66,7 +66,7 @@ public class FeatureService : IFeatureService
 
         var updatedFeature = featureDto.MapDtoToFeature(existingFeature);
 
-        updatedFeature.UpdatedAt = DateTime.Now;
+        updatedFeature.ModifiedAt = DateTime.Now;
 
         await _featureRepository.UpdateAsync(updatedFeature);
     }

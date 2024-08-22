@@ -18,6 +18,7 @@ namespace PersonalHub.Infrastructure.Data.Contexts
 
         public DbSet<ApiUser> Users => Set<ApiUser>();
         public DbSet<Space> Spaces => Set<Space>();
+        public DbSet<Epic> Epics => Set<Epic>();
         public DbSet<Feature> Features => Set<Feature>();
         public DbSet<Bug> Bugs => Set<Bug>();
         public DbSet<Activity> Activities => Set<Activity>();
@@ -26,7 +27,6 @@ namespace PersonalHub.Infrastructure.Data.Contexts
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new RoleConfiguration(_configuration));
-            modelBuilder.ApplyConfiguration(new UserRoleConfiguration(_configuration));
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(PersonalHubDbContext).Assembly);
         }

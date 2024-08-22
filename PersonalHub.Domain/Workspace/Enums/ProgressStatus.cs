@@ -5,5 +5,7 @@ public enum ProgressStatus
     NotStarted,
     InProgress,
     ToTest,
-    Completed
+    Completed,
+    Blocked,
+    OnHold
 }

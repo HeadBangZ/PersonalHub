@@ -15,7 +15,7 @@ public static class FeatureExtensions
             feature.Importance,
             feature.IsCompleted,
             feature.CreatedAt,
-            feature.UpdatedAt
+            feature.ModifiedAt
         );
     }
 

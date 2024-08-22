@@ -9,6 +9,8 @@ public sealed class Bug : BaseEntity
 {
     public BugId Id { get; private init; } = BugId.NewEntityId();
 
+    public EpicId EpicId { get; set; }
+
     public string Issue { get; set; }
 
     public string? Description { get; set; }

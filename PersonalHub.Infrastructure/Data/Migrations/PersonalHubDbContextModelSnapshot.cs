@@ -52,15 +52,15 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d7a0819a-90fb-4395-bd51-e6b64414b447",
-                            Name = "Owner",
-                            NormalizedName = "OWNER"
+                            Id = "74ade246-af0e-4166-8061-b9059fece8e4",
+                            Name = "User",
+                            NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "8bd27db9-5c7b-4b5c-8518-9e9da6a43b15",
-                            Name = "User",
-                            NormalizedName = "USER"
+                            Id = "d7a0819a-90fb-4395-bd51-e6b64414b447",
+                            Name = "Owner",
+                            NormalizedName = "OWNER"
                         });
                 });
 
@@ -149,13 +149,6 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "a11429d5-dcd7-485f-a20e-3ad10848c6e3",
-                            RoleId = "d7a0819a-90fb-4395-bd51-e6b64414b447"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -291,13 +284,13 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("bit");
 
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -317,6 +310,9 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("EpicId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("bit");
 
@@ -325,17 +321,80 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Severity")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<DateTime?>("UpdatedAt")
+                    b.HasKey("Id");
+
+                    b.HasIndex("EpicId");
+
+                    b.ToTable("Bugs");
+                });
+
+            modelBuilder.Entity("PersonalHub.Domain.Workspace.Entities.Epic", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<double?>("ActualEffort")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime?>("ArchivedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("AssignedToUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("EstimatedEffort")
+                        .HasColumnType("float");
+
+                    b.Property<bool>("IsArchived")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("ReviewerUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Tags")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Bugs");
+                    b.HasIndex("AssignedToUserId");
+
+                    b.HasIndex("ReviewerUserId");
+
+                    b.ToTable("Epics");
                 });
 
             modelBuilder.Entity("PersonalHub.Domain.Workspace.Entities.Feature", b =>
@@ -350,6 +409,9 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("EpicId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Importance")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -358,14 +420,16 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("bit");
 
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Name")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("EpicId");
 
                     b.ToTable("Features");
                 });
@@ -382,6 +446,9 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -391,9 +458,6 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -460,6 +524,45 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                         .HasForeignKey("FeatureId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("PersonalHub.Domain.Workspace.Entities.Bug", b =>
+                {
+                    b.HasOne("PersonalHub.Domain.Workspace.Entities.Epic", null)
+                        .WithMany("Bugs")
+                        .HasForeignKey("EpicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("PersonalHub.Domain.Workspace.Entities.Epic", b =>
+                {
+                    b.HasOne("PersonalHub.Domain.User.Entities.ApiUser", null)
+                        .WithMany()
+                        .HasForeignKey("AssignedToUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("PersonalHub.Domain.User.Entities.ApiUser", null)
+                        .WithMany()
+                        .HasForeignKey("ReviewerUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("PersonalHub.Domain.Workspace.Entities.Feature", b =>
+                {
+                    b.HasOne("PersonalHub.Domain.Workspace.Entities.Epic", null)
+                        .WithMany("Features")
+                        .HasForeignKey("EpicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("PersonalHub.Domain.Workspace.Entities.Epic", b =>
+                {
+                    b.Navigation("Bugs");
+
+                    b.Navigation("Features");
                 });
 
             modelBuilder.Entity("PersonalHub.Domain.Workspace.Entities.Feature", b =>
