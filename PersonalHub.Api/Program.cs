@@ -34,11 +34,13 @@ public class Program
 
         using (var scope = app.Services.CreateScope())
         {
-            var seederFeature = scope.ServiceProvider.GetRequiredService<IFeatureSeeder>();
+            var seederEpic = scope.ServiceProvider.GetRequiredService<IEpicSeeder>();
             var seederApiUser = scope.ServiceProvider.GetRequiredService<IApiUserSeeder>();
+            var seederUserRole = scope.ServiceProvider.GetRequiredService<IUserRoleSeeder>();
 
-            await seederFeature.Seed();
             await seederApiUser.Seed();
+            await seederUserRole.Seed();
+            await seederEpic.Seed();
         }
 
         // Configure the HTTP request pipeline.

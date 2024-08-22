@@ -15,6 +15,16 @@ internal class BugConfiguration : IEntityTypeConfiguration<Bug>
             bugId => bugId.Id,
             value => new BugId(value));
 
+        builder.Property(b => b.EpicId).HasConversion(
+                epicId => epicId.Id,
+                value => new EpicId(value));
+
+        builder.HasOne<Epic>()
+            .WithMany(e => e.Bugs)
+            .HasForeignKey(b => b.EpicId)
+            .IsRequired()
+            .OnDelete(DeleteBehavior.Cascade);
+
         builder.Property(b => b.Issue)
             .HasMaxLength(100);
 

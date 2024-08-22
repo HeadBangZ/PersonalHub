@@ -22,7 +22,7 @@ public record FeatureDto(
     Guid Id,
     string Name,
     string? Description,
-    List<Activity> Activities,
+    IReadOnlyCollection<Activity> Activities,
     Priority Importance,
     bool IsCompleted,
     DateTime CreatedAt,

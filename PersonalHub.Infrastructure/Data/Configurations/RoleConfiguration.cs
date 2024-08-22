@@ -19,14 +19,14 @@ public class RoleConfiguration : IEntityTypeConfiguration<IdentityRole>
         builder.HasData(
             new IdentityRole
             {
-                Id = _configuration["UserAuth:RoleId"],
-                Name = "Owner",
-                NormalizedName = "OWNER"
+                Name = "User",
+                NormalizedName = "USER"
             },
             new IdentityRole
             {
-                Name = "User",
-                NormalizedName = "USER"
+                Id = _configuration["UserAuth:RoleId"],
+                Name = "Owner",
+                NormalizedName = "OWNER"
             }
         );
     }

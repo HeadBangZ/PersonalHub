@@ -1,5 +1,7 @@
 ﻿using PersonalHub.Domain.Common.Models;
 using PersonalHub.Domain.Workspace.Enums;
+using PersonalHub.Domain.Workspace.ValueObjects;
+using System.Collections.ObjectModel;
 
 namespace PersonalHub.Domain.Workspace.Entities;
 
@@ -7,11 +9,13 @@ public sealed class Feature : BaseEntity
 {
     public Guid Id { get; private init; } = new();
 
+    public EpicId EpicId { get; set; }
+
     public string? Name { get; set; }
 
     public string? Description { get; set; }
 
-    public List<Activity> Activities { get; set; } = new List<Activity>();
+    public IReadOnlyCollection<Activity> Activities { get; set; } = new List<Activity>();
 
     public Priority Importance { get; set; } = Priority.None;
 
@@ -30,7 +34,7 @@ public sealed class Feature : BaseEntity
         CreatedAt = DateTime.Now;
     }
 
-    public Feature(Guid id, string name, string? description, List<Activity> activities, Priority importance, bool isCompleted, DateTime createdAt, DateTime? updatedAt)
+    public Feature(Guid id, string name, string? description, IReadOnlyCollection<Activity> activities, Priority importance, bool isCompleted, DateTime createdAt, DateTime? updatedAt)
     {
         Id = id;
         Name = name;
@@ -39,6 +43,6 @@ public sealed class Feature : BaseEntity
         Importance = importance;
         IsCompleted = isCompleted;
         CreatedAt = createdAt;
-        UpdatedAt = updatedAt;
+        ModifiedAt = updatedAt;
     }
 }

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PersonalHub.Infrastructure.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class ChangesToSeed : Migration
+    public partial class SetupDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -35,8 +35,8 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(75)", maxLength: 75, nullable: false),
                     Nationality = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -59,18 +59,19 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserStories",
+                name: "Spaces",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(75)", maxLength: 75, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserStories", x => x.Id);
+                    table.PrimaryKey("PK_Spaces", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -180,26 +181,108 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "StoryItems",
+                name: "Epics",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserStoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(75)", maxLength: 75, nullable: false),
+                    AssignedToUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ReviewerUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StoryItemType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StoryItemPriority = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsCompleted = table.Column<bool>(type: "bit", nullable: false),
+                    Tags = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    EstimatedEffort = table.Column<double>(type: "float", nullable: true),
+                    ActualEffort = table.Column<double>(type: "float", nullable: true),
+                    IsArchived = table.Column<bool>(type: "bit", nullable: false),
+                    ArchivedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StoryItems", x => x.Id);
+                    table.PrimaryKey("PK_Epics", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_StoryItems_UserStories_UserStoryId",
-                        column: x => x.UserStoryId,
-                        principalTable: "UserStories",
+                        name: "FK_Epics_AspNetUsers_AssignedToUserId",
+                        column: x => x.AssignedToUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Epics_AspNetUsers_ReviewerUserId",
+                        column: x => x.ReviewerUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Bugs",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    EpicId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Issue = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Severity = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    IsCompleted = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Bugs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Bugs_Epics_EpicId",
+                        column: x => x.EpicId,
+                        principalTable: "Epics",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Features",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    EpicId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Importance = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    IsCompleted = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Features", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Features_Epics_EpicId",
+                        column: x => x.EpicId,
+                        principalTable: "Epics",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Activities",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FeatureId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsCompleted = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Activities", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Activities_Features_FeatureId",
+                        column: x => x.FeatureId,
+                        principalTable: "Features",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -209,9 +292,14 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "d7a0819a-90fb-4395-bd51-e6b64414b447", null, "Owner", "OWNER" },
-                    { "fe1810a1-34c1-4574-aaab-7391675403f1", null, "User", "USER" }
+                    { "74ade246-af0e-4166-8061-b9059fece8e4", null, "User", "USER" },
+                    { "d7a0819a-90fb-4395-bd51-e6b64414b447", null, "Owner", "OWNER" }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Activities_FeatureId",
+                table: "Activities",
+                column: "FeatureId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -253,14 +341,37 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StoryItems_UserStoryId",
-                table: "StoryItems",
-                column: "UserStoryId");
+                name: "IX_Bugs_EpicId",
+                table: "Bugs",
+                column: "EpicId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Epics_AssignedToUserId",
+                table: "Epics",
+                column: "AssignedToUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Epics_ReviewerUserId",
+                table: "Epics",
+                column: "ReviewerUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Features_EpicId",
+                table: "Features",
+                column: "EpicId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Spaces_Name",
+                table: "Spaces",
+                column: "Name");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Activities");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -277,16 +388,22 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "StoryItems");
+                name: "Bugs");
+
+            migrationBuilder.DropTable(
+                name: "Spaces");
+
+            migrationBuilder.DropTable(
+                name: "Features");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Epics");
 
             migrationBuilder.DropTable(
-                name: "UserStories");
+                name: "AspNetUsers");
         }
     }
 }

@@ -15,6 +15,16 @@ namespace PersonalHub.Infrastructure.Data.Configurations
             //    featureId => featureId.Id,
             //    value => new FeatureId(value));
 
+            builder.Property(f => f.EpicId).HasConversion(
+                    epicId => epicId.Id,
+                    value => new EpicId(value));
+
+            builder.HasOne<Epic>()
+                .WithMany(e => e.Features)
+                .HasForeignKey(f => f.EpicId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
+
             builder.Property(f => f.Name)
                 .HasMaxLength(100);
 

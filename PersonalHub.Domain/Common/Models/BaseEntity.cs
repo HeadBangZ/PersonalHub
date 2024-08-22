@@ -7,5 +7,5 @@ public abstract class BaseEntity
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     [DataType(DataType.DateTime)]
-    public DateTime? UpdatedAt { get; set; }
+    public DateTime? ModifiedAt { get; set; }
 }
