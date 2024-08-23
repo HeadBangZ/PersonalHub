@@ -25,6 +25,8 @@ The Tests layer includes various tests to ensure the quality and correctness of 
  - SSO (Single Sign On)
  
 ### Entities
+ - Tag
+ - Comment
  - ApiUser
  - Space
    - Section
