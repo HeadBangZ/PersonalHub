@@ -9,7 +9,7 @@ public sealed class Section : BaseEntity
 
     public required SpaceId SpaceId { get; set; }
 
-    public IEnumerable<Epic> Epics { get; set; } = Enumerable.Empty<Epic>();
+    public IReadOnlyCollection<Epic> Epics { get; set; } = new List<Epic>();
 
     public required string Title { get; set; }
 

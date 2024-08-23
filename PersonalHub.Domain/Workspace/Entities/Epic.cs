@@ -8,7 +8,7 @@ public sealed class Epic : BaseEntity
 {
     public EpicId Id { get; private init; } = EpicId.NewEntityId();
 
-    //public required SectionId SectionId { get; set; }
+    public required SectionId SectionId { get; set; }
 
     public required string AssignedToUserId { get; set; }
 
@@ -20,7 +20,7 @@ public sealed class Epic : BaseEntity
 
     public bool IsCompleted { get; set; } = false;
 
-    public IReadOnlyCollection<string> Tags { get; set; } = new List<string>(); // OPTIMIZE: Create a Tag Class
+    public IReadOnlyCollection<string> Tags { get; set; } = new List<string>(); // OPTIMIZE: Change this to a many-to-many relationship with the Tag Entity
 
     public ProgressStatus Status { get; set; } = ProgressStatus.NotStarted;
 
