@@ -352,7 +352,7 @@ _ReSharper*/
 *.jfm
 
 # Log Files
-/PersonalHub.Api/Logs
+/Logs
 
 #======================================================================================
 # The below section could possibly be removed as these should be ignored by the above.
