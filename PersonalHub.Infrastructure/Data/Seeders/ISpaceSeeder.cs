@@ -1,6 +1,6 @@
 ﻿namespace PersonalHub.Infrastructure.Data.Seeders
 {
-    public interface IEpicSeeder
+    public interface ISpaceSeeder
     {
         Task Seed();
     }

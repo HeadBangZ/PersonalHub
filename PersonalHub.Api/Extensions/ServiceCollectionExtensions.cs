@@ -28,7 +28,7 @@ public static class ServiceCollectionExtensions
         var connectionString = configuration.GetConnectionString("PersonalHubDbContext");
         services.AddDbContext<PersonalHubDbContext>(options => options.UseSqlServer(connectionString));
 
-        services.AddScoped<IEpicSeeder, EpicSeeder>();
+        services.AddScoped<ISpaceSeeder, SpaceSeeder>();
         services.AddScoped<IApiUserSeeder, ApiUserSeeder>();
         services.AddScoped<IUserRoleSeeder, UserRoleSeeder>();
 

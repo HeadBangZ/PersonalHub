@@ -3,7 +3,6 @@ using PersonalHub.Api.Middlewares;
 using PersonalHub.Domain.User.Entities;
 using PersonalHub.Infrastructure.Data.Seeders;
 using PersonalHub.Infrastructure.Data.Seeders.ApiUsers;
-using Serilog;
 
 namespace PersonalHub.Api;
 
@@ -34,13 +33,13 @@ public class Program
 
         using (var scope = app.Services.CreateScope())
         {
-            //var seederEpic = scope.ServiceProvider.GetRequiredService<IEpicSeeder>();
+            var seederSpace = scope.ServiceProvider.GetRequiredService<ISpaceSeeder>();
             var seederApiUser = scope.ServiceProvider.GetRequiredService<IApiUserSeeder>();
             var seederUserRole = scope.ServiceProvider.GetRequiredService<IUserRoleSeeder>();
 
             await seederApiUser.Seed();
             await seederUserRole.Seed();
-            //await seederEpic.Seed();
+            await seederSpace.Seed();
         }
 
         // Configure the HTTP request pipeline.
