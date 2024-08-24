@@ -1,7 +1,6 @@
 ﻿using PersonalHub.Domain.Common.Models;
 using PersonalHub.Domain.Workspace.Enums;
 using PersonalHub.Domain.Workspace.ValueObjects;
-using System.Collections.ObjectModel;
 
 namespace PersonalHub.Domain.Workspace.Entities;
 
@@ -11,7 +10,7 @@ public sealed class Feature : BaseEntity
 
     public EpicId EpicId { get; set; }
 
-    public string? Name { get; set; }
+    public string Name { get; set; }
 
     public string? Description { get; set; }
 

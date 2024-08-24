@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PersonalHub.Domain.Workspace.Entities;
-using PersonalHub.Domain.Workspace.Enums;
 using PersonalHub.Domain.Workspace.ValueObjects;
 
 namespace PersonalHub.Infrastructure.Data.Configurations;
@@ -25,5 +23,10 @@ internal class SpaceConfiguration : IEntityTypeConfiguration<Space>
         builder.Property(s => s.Status)
             .HasConversion<string>()
             .HasMaxLength(50);
+
+        builder.HasMany(s => s.Sections)
+            .WithOne()
+            .HasForeignKey(s => s.SpaceId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

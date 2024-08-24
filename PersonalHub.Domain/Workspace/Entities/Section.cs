@@ -7,11 +7,11 @@ public sealed class Section : BaseEntity
 {
     public SectionId Id { get; private init; } = SectionId.NewEntityId();
 
-    public required SpaceId SpaceId { get; set; }
+    public SpaceId SpaceId { get; set; }
 
-    public IEnumerable<Epic> Epics { get; set; } = Enumerable.Empty<Epic>();
+    public IReadOnlyCollection<Epic> Epics { get; set; } = new List<Epic>();
 
-    public required string Title { get; set; }
+    public string Name { get; set; }
 
-    public required string Description { get; set; }
+    public string Description { get; set; }
 }

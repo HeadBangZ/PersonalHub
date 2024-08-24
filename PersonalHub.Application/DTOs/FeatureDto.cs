@@ -10,8 +10,8 @@ public record CreateFeatureDto(
 );
 
 public record UpdateFeatureDto(
-    Guid Id,
-    string? Name,
+    [Required] Guid Id,
+    [StringLength(75)] string? Name,
     string? Description,
     List<Activity>? Activities,
     Priority? Importance,
@@ -20,7 +20,7 @@ public record UpdateFeatureDto(
 
 public record FeatureDto(
     Guid Id,
-    string Name,
+    [StringLength(75)] string Name,
     string? Description,
     IReadOnlyCollection<Activity> Activities,
     Priority Importance,

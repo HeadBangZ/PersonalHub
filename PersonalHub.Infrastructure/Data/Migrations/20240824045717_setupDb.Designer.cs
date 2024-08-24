@@ -13,8 +13,8 @@ using PersonalHub.Infrastructure.Data.Contexts;
 namespace PersonalHub.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(PersonalHubDbContext))]
-    [Migration("20240822152533_SetupDb")]
-    partial class SetupDb
+    [Migration("20240824045717_setupDb")]
+    partial class setupDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -55,7 +55,7 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "74ade246-af0e-4166-8061-b9059fece8e4",
+                            Id = "7cd3b616-3df8-4a2d-9fd1-df484cbf024e",
                             Name = "User",
                             NormalizedName = "USER"
                         },
@@ -171,6 +171,26 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("PersonalHub.Domain.Shared.Entities.Tag", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasMaxLength(7)
+                        .HasColumnType("nvarchar(7)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tags");
                 });
 
             modelBuilder.Entity("PersonalHub.Domain.User.Entities.ApiUser", b =>
@@ -381,21 +401,21 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                     b.Property<string>("ReviewerUserId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<Guid>("SectionId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Tags")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AssignedToUserId");
 
                     b.HasIndex("ReviewerUserId");
+
+                    b.HasIndex("SectionId");
 
                     b.ToTable("Epics");
                 });
@@ -427,6 +447,7 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -435,6 +456,36 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                     b.HasIndex("EpicId");
 
                     b.ToTable("Features");
+                });
+
+            modelBuilder.Entity("PersonalHub.Domain.Workspace.Entities.Section", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(75)
+                        .HasColumnType("nvarchar(75)");
+
+                    b.Property<Guid>("SpaceId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SpaceId");
+
+                    b.ToTable("Sections");
                 });
 
             modelBuilder.Entity("PersonalHub.Domain.Workspace.Entities.Space", b =>
@@ -467,6 +518,21 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                     b.HasIndex("Name");
 
                     b.ToTable("Spaces");
+                });
+
+            modelBuilder.Entity("PersonalHub.Domain.Workspace.RelationShips.EpicTag", b =>
+                {
+                    b.Property<Guid>("EpicId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TagId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("EpicId", "TagId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("EpicTags");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -550,6 +616,12 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                         .WithMany()
                         .HasForeignKey("ReviewerUserId")
                         .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("PersonalHub.Domain.Workspace.Entities.Section", null)
+                        .WithMany("Epics")
+                        .HasForeignKey("SectionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("PersonalHub.Domain.Workspace.Entities.Feature", b =>
@@ -561,9 +633,44 @@ namespace PersonalHub.Infrastructure.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("PersonalHub.Domain.Workspace.Entities.Section", b =>
+                {
+                    b.HasOne("PersonalHub.Domain.Workspace.Entities.Space", null)
+                        .WithMany("Sections")
+                        .HasForeignKey("SpaceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("PersonalHub.Domain.Workspace.RelationShips.EpicTag", b =>
+                {
+                    b.HasOne("PersonalHub.Domain.Workspace.Entities.Epic", "Epic")
+                        .WithMany("EpicTags")
+                        .HasForeignKey("EpicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PersonalHub.Domain.Shared.Entities.Tag", "Tag")
+                        .WithMany("EpicTags")
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Epic");
+
+                    b.Navigation("Tag");
+                });
+
+            modelBuilder.Entity("PersonalHub.Domain.Shared.Entities.Tag", b =>
+                {
+                    b.Navigation("EpicTags");
+                });
+
             modelBuilder.Entity("PersonalHub.Domain.Workspace.Entities.Epic", b =>
                 {
                     b.Navigation("Bugs");
+
+                    b.Navigation("EpicTags");
 
                     b.Navigation("Features");
                 });
@@ -571,6 +678,16 @@ namespace PersonalHub.Infrastructure.Data.Migrations
             modelBuilder.Entity("PersonalHub.Domain.Workspace.Entities.Feature", b =>
                 {
                     b.Navigation("Activities");
+                });
+
+            modelBuilder.Entity("PersonalHub.Domain.Workspace.Entities.Section", b =>
+                {
+                    b.Navigation("Epics");
+                });
+
+            modelBuilder.Entity("PersonalHub.Domain.Workspace.Entities.Space", b =>
+                {
+                    b.Navigation("Sections");
                 });
 #pragma warning restore 612, 618
         }

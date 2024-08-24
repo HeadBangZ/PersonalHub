@@ -1,5 +1,4 @@
-﻿using PersonalHub.Domain.Workspace.Entities;
-using PersonalHub.Domain.Workspace.Enums;
+﻿using PersonalHub.Domain.Workspace.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace PersonalHub.Application.DTOs;
@@ -12,13 +11,12 @@ public record CreateActivityDto(
 );
 
 public record ActivityDto(
-    Guid Id,
-    string Name,
+    [Required] Guid Id,
+    [StringLength(75)] string Name,
     string? Description,
     Priority Priority,
     bool IsCompleted,
     DateTime CreatedAt,
     DateTime? UpdatedAt,
-    Guid FeatureId,
-    Feature Feature
+    [Required] Guid FeatureId
 );
