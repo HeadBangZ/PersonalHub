@@ -1,0 +1,35 @@
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore;
+using PersonalHub.Domain.Workspace.Entities;
+using PersonalHub.Domain.Workspace.ValueObjects;
+
+namespace PersonalHub.Infrastructure.Data.Configurations;
+
+internal class SectionConfiguration : IEntityTypeConfiguration<Section>
+{
+    public void Configure(EntityTypeBuilder<Section> builder)
+    {
+        builder.HasKey(s => s.Id);
+
+        builder.Property(s => s.Id).HasConversion(
+            sectionId => sectionId.Id,
+            value => new SectionId(value));
+
+        builder.Property(s => s.SpaceId).HasConversion(
+            spaceId => spaceId.Id,
+            value => new SpaceId(value));
+
+        builder.HasOne<Space>()
+            .WithMany(s => s.Sections)
+            .HasForeignKey(s => s.SpaceId)
+            .IsRequired();
+
+        builder.Property(s => s.Name)
+            .HasMaxLength(75);
+
+        builder.HasMany(s => s.Epics)
+            .WithOne()
+            .HasForeignKey(e => e.SectionId)
+            .OnDelete(DeleteBehavior.Cascade);
+    }
+}

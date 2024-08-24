@@ -1,6 +1,4 @@
 ﻿using PersonalHub.Domain.Common.Models;
-using PersonalHub.Domain.Workspace.Enums;
-using System.ComponentModel.DataAnnotations;
 
 namespace PersonalHub.Domain.Workspace.Entities;
 

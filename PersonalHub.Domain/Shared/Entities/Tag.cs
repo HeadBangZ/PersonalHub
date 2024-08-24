@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PersonalHub.Domain.Shared.ValueObjects;
+using PersonalHub.Domain.Workspace.Entities;
+using PersonalHub.Domain.Workspace.RelationShips;
 
-namespace PersonalHub.Domain.Shared.Entities
+namespace PersonalHub.Domain.Shared.Entities;
+
+public class Tag
 {
-    internal class Tag
-    {
-    }
+    public TagId Id { get; private init; } = TagId.NewEntityId();
+
+    public string Name { get; set; }
+
+    public string Color { get; set; }
+
+    public IReadOnlyCollection<EpicTag> EpicTags { get; set; }
 }
