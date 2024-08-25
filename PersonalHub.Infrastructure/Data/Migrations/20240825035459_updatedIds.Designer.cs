@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PersonalHub.Infrastructure.Data.Contexts;
 
@@ -12,9 +13,11 @@ using PersonalHub.Infrastructure.Data.Contexts;
 namespace PersonalHub.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(PersonalHubDbContext))]
-    partial class PersonalHubDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240825035459_updatedIds")]
+    partial class updatedIds
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

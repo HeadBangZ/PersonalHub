@@ -8,7 +8,7 @@ public static class FeatureExtensions
     public static FeatureDto MapFeatureToDto(this Feature feature)
     {
         return new FeatureDto(
-            feature.Id,
+            feature.Id.Id,
             feature.Name,
             feature.Description,
             feature.Activities,

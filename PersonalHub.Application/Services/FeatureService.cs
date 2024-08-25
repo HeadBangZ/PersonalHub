@@ -2,7 +2,6 @@
 using PersonalHub.Application.DTOs;
 using PersonalHub.Application.Extensions;
 using PersonalHub.Domain.Contracts;
-using PersonalHub.Domain.Workspace.Enums;
 
 namespace PersonalHub.Application.Services;
 

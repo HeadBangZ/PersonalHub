@@ -6,7 +6,7 @@ namespace PersonalHub.Domain.Workspace.Entities;
 
 public sealed class Feature : BaseEntity
 {
-    public Guid Id { get; private init; } = new();
+    public FeatureId Id { get; private init; } = new();
 
     public EpicId EpicId { get; set; }
 
@@ -35,7 +35,7 @@ public sealed class Feature : BaseEntity
 
     public Feature(Guid id, string name, string? description, IReadOnlyCollection<Activity> activities, Priority importance, bool isCompleted, DateTime createdAt, DateTime? updatedAt)
     {
-        Id = id;
+        Id = new FeatureId(id);
         Name = name;
         Description = description;
         Activities = activities;

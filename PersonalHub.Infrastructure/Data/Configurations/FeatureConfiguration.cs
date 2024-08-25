@@ -11,9 +11,9 @@ namespace PersonalHub.Infrastructure.Data.Configurations
         {
             builder.HasKey(f => f.Id);
 
-            //builder.Property(f => f.Id).HasConversion(
-            //    featureId => featureId.Id,
-            //    value => new FeatureId(value));
+            builder.Property(f => f.Id).HasConversion(
+                featureId => featureId.Id,
+                value => new FeatureId(value));
 
             builder.Property(f => f.EpicId).HasConversion(
                     epicId => epicId.Id,
