@@ -4,7 +4,7 @@ using PersonalHub.Infrastructure.Data.Contexts;
 
 namespace PersonalHub.Infrastructure.Repositories.GenericRepositories;
 
-public class GenericRepository<T> : IGenericRepository<T> where T : class
+public class GenericRepository<T, TId> : IGenericRepository<T, TId> where T : class where TId : struct
 {
     private readonly PersonalHubDbContext _context;
 
@@ -20,7 +20,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         return entity;
     }
 
-    public async Task DeleteAsync(Guid id)
+    public async Task DeleteAsync(TId id)
     {
         var entity = await GetAsync(id);
         _context.Set<T>().Remove(entity);
@@ -43,7 +43,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         return await query.ToListAsync();
     }
 
-    public async Task<T?> GetAsync(Guid id)
+    public async Task<T?> GetAsync(TId id)
     {
         return await _context.Set<T>().FindAsync(id);
     }

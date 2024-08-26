@@ -2,6 +2,7 @@
 using PersonalHub.Application.DTOs;
 using PersonalHub.Application.Extensions;
 using PersonalHub.Domain.Contracts;
+using PersonalHub.Domain.Workspace.ValueObjects;
 
 namespace PersonalHub.Application.Services;
 
@@ -24,7 +25,7 @@ public class FeatureService : IFeatureService
     // OPTIMIZE: Add query rules, for pagination, include details 
     public async Task<FeatureDto?> GetFeature(Guid id)
     {
-        var feature = await _featureRepository.GetAsync(id);
+        var feature = await _featureRepository.GetAsync(new FeatureId(id));
 
         if (feature == null)
         {
@@ -51,12 +52,12 @@ public class FeatureService : IFeatureService
 
     public async Task DeleteFeature(Guid id)
     {
-        await _featureRepository.DeleteAsync(id);
+        await _featureRepository.DeleteAsync(new FeatureId(id));
     }
 
     public async Task UpdateFeature(Guid id, UpdateFeatureDto featureDto)
     {
-        var existingFeature = await _featureRepository.GetAsync(id);
+        var existingFeature = await _featureRepository.GetAsync(new FeatureId(id));
 
         if (existingFeature == null)
         {
