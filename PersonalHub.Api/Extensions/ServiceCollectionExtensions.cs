@@ -32,7 +32,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IApiUserSeeder, ApiUserSeeder>();
         services.AddScoped<IUserRoleSeeder, UserRoleSeeder>();
 
-        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+        services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
         services.AddScoped<IAuthRepository, AuthRepository>();
         services.AddScoped<IFeatureRepository, FeatureRepository>();
 
