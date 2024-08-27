@@ -19,19 +19,19 @@ public static class FeatureExtensions
         );
     }
 
-    public static Feature MapDtoToFeature(this FeatureDto featureDto)
-    {
-        return new Feature(
-           featureDto.Id,
-           featureDto.Name,
-           featureDto.Description,
-           featureDto.Activities,
-           featureDto.Importance,
-           featureDto.IsCompleted,
-           featureDto.CreatedAt,
-           featureDto.UpdatedAt
-        );
-    }
+    //public static Feature MapDtoToFeature(this FeatureDto featureDto)
+    //{
+    //    return new Feature(
+    //       featureDto.Id,
+    //       featureDto.Name,
+    //       featureDto.Description,
+    //       featureDto.Activities,
+    //       featureDto.Importance,
+    //       featureDto.IsCompleted,
+    //       featureDto.CreatedAt,
+    //       featureDto.UpdatedAt
+    //    );
+    //}
 
     // TODO: Update this map
     // OPTIMIZE: How we update
