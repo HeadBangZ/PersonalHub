@@ -1,4 +1,5 @@
 ﻿using PersonalHub.Application.DTOs;
+
 namespace PersonalHub.Application.Contracts;
 
 public interface IFeatureService

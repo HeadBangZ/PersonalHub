@@ -35,6 +35,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
         services.AddScoped<IAuthRepository, AuthRepository>();
         services.AddScoped<IFeatureRepository, FeatureRepository>();
+        services.AddScoped<ISpaceRepository, SpaceRepository>();
 
         return services;
     }
@@ -42,6 +43,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
         services.AddScoped<AuthService>();
+        services.AddScoped<SpaceService>();
         services.AddScoped<FeatureService>();
 
         return services;
