@@ -15,4 +15,22 @@ public sealed class Space : BaseEntity
     public IReadOnlyCollection<Section> Sections { get; set; } = new List<Section>();
 
     public ProgressStatus Status { get; set; } = ProgressStatus.NotStarted;
+
+    public Space() { }
+
+    public Space(string name, string description)
+    {
+        Name = name;
+        Description = description;
+        CreatedAt = DateTime.Now;
+    }
+
+    public Space(Guid id, string name, string description, ProgressStatus status, IReadOnlyCollection<Section> sections)
+    {
+        Id = new SpaceId(id);
+        Name = name;
+        Description = description;
+        Sections = new List<Section>();
+        Status = status;
+    }
 }
