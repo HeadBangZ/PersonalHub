@@ -36,5 +36,4 @@ public class SpaceController : ControllerBase
 
         return Ok(spaces);
     }
-
 }
