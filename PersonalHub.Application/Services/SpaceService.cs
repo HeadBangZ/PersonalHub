@@ -26,9 +26,17 @@ public class SpaceService : ISpaceService
         throw new NotImplementedException();
     }
 
-    public Task<List<SpaceDto>> GetAllSpaces()
+    public async Task<List<SpaceDto>> GetAllSpaces()
     {
-        throw new NotImplementedException();
+        var spaceDtos = new List<SpaceDto>();
+        var spaces = await _spaceRepository.GetAllAsync();
+
+        foreach (var space in spaces)
+        {
+            spaceDtos.Add(space.MapSpaceToDto());
+        }
+
+        return spaceDtos;
     }
 
     public Task<SpaceDto?> GetSpace(Guid id)
