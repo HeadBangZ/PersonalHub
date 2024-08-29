@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PersonalHub.Application.Contracts;
 using PersonalHub.Application.DTOs;
 using PersonalHub.Application.Services;
 using PersonalHub.Domain.Workspace.Entities;
 
 namespace PersonalHub.Api.Controllers;
 
-[Route("api/space")]
+[Route("api/spaces")]
 [ApiController]
 public class SpaceController : ControllerBase
 {
@@ -26,4 +25,16 @@ public class SpaceController : ControllerBase
 
         return Created($"~/api/features/{space.Id}", space);
     }
+
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult<SpaceDto>> GetAllSpaces()
+    {
+        var spaces = await _spaceService.GetAllSpaces();
+
+        return Ok(spaces);
+    }
+
 }

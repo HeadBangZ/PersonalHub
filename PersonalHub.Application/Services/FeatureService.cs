@@ -40,14 +40,14 @@ public class FeatureService : IFeatureService
     // OPTIMIZE: Add query rules, for pagination, include details, filter 
     public async Task<List<FeatureDto>> GetAllFeatures()
     {
-        var featureDto = new List<FeatureDto>();
+        var featureDtos = new List<FeatureDto>();
         var features = await _featureRepository.GetAllAsync();
 
         foreach (var feature in features)
         {
-            featureDto.Add(feature.MapFeatureToDto());
+            featureDtos.Add(feature.MapFeatureToDto());
         }
-        return featureDto;
+        return featureDtos;
     }
 
     public async Task DeleteFeature(Guid id)
