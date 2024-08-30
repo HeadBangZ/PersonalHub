@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PersonalHub.Application.Contracts;
 using PersonalHub.Application.DTOs;
 using PersonalHub.Application.Services;
 using PersonalHub.Domain.Workspace.Entities;
@@ -24,6 +25,23 @@ public class SpaceController : ControllerBase
         var space = await _spaceService.AddSpace(spaceDto);
 
         return Created($"~/api/features/{space.Id}", space);
+    }
+
+    [HttpGet("{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult<SpaceDto>> GetFeature([FromRoute] Guid id)
+    {
+        var space = await _spaceService.GetSpace(id);
+
+        if (space == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(space);
     }
 
     [HttpGet]

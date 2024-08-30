@@ -2,6 +2,7 @@
 using PersonalHub.Application.DTOs;
 using PersonalHub.Application.Extensions;
 using PersonalHub.Domain.Contracts;
+using PersonalHub.Domain.Workspace.ValueObjects;
 
 namespace PersonalHub.Application.Services;
 
@@ -39,9 +40,18 @@ public class SpaceService : ISpaceService
         return spaceDtos;
     }
 
-    public Task<SpaceDto?> GetSpace(Guid id)
+    public async Task<SpaceDto?> GetSpace(Guid id)
     {
-        throw new NotImplementedException();
+        var space = await _spaceRepository.GetAsync(new SpaceId(id));
+
+        if (space == null)
+        {
+            return null;
+        }
+
+        var spaceDto = space.MapSpaceToDto();
+
+        return spaceDto;
     }
 
     public Task UpdateSpace(Guid id, UpdateSpaceDto spaceDto)
