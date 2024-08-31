@@ -15,9 +15,9 @@ using PersonalHub.Infrastructure.Repositories;
 using PersonalHub.Infrastructure.Repositories.Auth;
 using PersonalHub.Infrastructure.Repositories.GenericRepositories;
 using PersonalHub.Infrastructure.Services;
+using Serilog;
 using System.Text;
 using System.Text.Json.Serialization;
-using Serilog;
 
 namespace PersonalHub.Api.Extensions;
 
@@ -42,9 +42,9 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        services.AddScoped<AuthService>();
-        services.AddScoped<SpaceService>();
-        services.AddScoped<FeatureService>();
+        services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<ISpaceService, SpaceService>();
+        services.AddScoped<IFeatureService, FeatureService>();
 
         return services;
     }

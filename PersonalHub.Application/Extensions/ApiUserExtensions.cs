@@ -1,13 +1,13 @@
-﻿using PersonalHub.Application.DTOs;
+﻿using PersonalHub.Application.DTOs.ApiUserDtos;
 using PersonalHub.Domain.User.Entities;
 
 namespace PersonalHub.Application.Extensions;
 
 public static class ApiUserExtensions
 {
-    public static ApiUserDto ToApiUserDto(this ApiUser apiUser)
+    public static ApiUserDtoResponse ToApiUserDto(this ApiUser apiUser)
     {
-        return new ApiUserDto(
+        return new ApiUserDtoResponse(
             apiUser.Id,
             apiUser.Information,
             apiUser.Email,
@@ -16,17 +16,17 @@ public static class ApiUserExtensions
         );
     }
 
-    public static ApiUser ToApiUser(this CreateApiUserDto createApiUserDto)
+    public static ApiUser ToApiUser(this CreateApiUserDtoRequest request)
     {
         return new ApiUser
         {
             Information = new()
             {
-                FirstName = createApiUserDto.FirstName,
-                LastName = createApiUserDto.LastName,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
             },
-            Email = createApiUserDto.Email,
-            UserName = createApiUserDto.Email,
+            Email = request.Email,
+            UserName = request.Email,
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = null,
         };

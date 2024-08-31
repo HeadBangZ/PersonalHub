@@ -1,5 +1,5 @@
 ﻿using PersonalHub.Application.Contracts;
-using PersonalHub.Application.DTOs;
+using PersonalHub.Application.DTOs.SpaceDtos;
 using PersonalHub.Application.Extensions;
 using PersonalHub.Domain.Contracts;
 using PersonalHub.Domain.Workspace.ValueObjects;
@@ -14,7 +14,7 @@ public class SpaceService : ISpaceService
         _spaceRepository = spaceRepository;
     }
 
-    public async Task<SpaceDto> AddSpace(CreateSpaceDto spaceDto)
+    public async Task<SpaceDtoResponse> AddSpace(CreateSpaceDtoRequest spaceDto)
     {
         var space = spaceDto.MapCreateDtoToSpace();
 
@@ -22,14 +22,9 @@ public class SpaceService : ISpaceService
         return space.MapSpaceToDto();
     }
 
-    public Task DeleteSpace(Guid id)
+    public async Task<List<SpaceDtoResponse>> GetAllSpaces()
     {
-        throw new NotImplementedException();
-    }
-
-    public async Task<List<SpaceDto>> GetAllSpaces()
-    {
-        var spaceDtos = new List<SpaceDto>();
+        var spaceDtos = new List<SpaceDtoResponse>();
         var spaces = await _spaceRepository.GetAllAsync();
 
         foreach (var space in spaces)
@@ -40,7 +35,7 @@ public class SpaceService : ISpaceService
         return spaceDtos;
     }
 
-    public async Task<SpaceDto?> GetSpace(Guid id)
+    public async Task<SpaceDtoResponse?> GetSpace(Guid id)
     {
         var space = await _spaceRepository.GetAsync(new SpaceId(id));
 
@@ -54,7 +49,12 @@ public class SpaceService : ISpaceService
         return spaceDto;
     }
 
-    public Task UpdateSpace(Guid id, UpdateSpaceDto spaceDto)
+    public async Task DeleteSpace(Guid id)
+    {
+        await _spaceRepository.DeleteAsync(new SpaceId(id));
+    }
+
+    public Task UpdateSpace(Guid id, UpdateSpaceDtoRequest request)
     {
         throw new NotImplementedException();
     }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using PersonalHub.Application.Contracts;
-using PersonalHub.Application.DTOs;
+using PersonalHub.Application.DTOs.ApiUserDtos;
 using PersonalHub.Application.Extensions;
 using PersonalHub.Domain.Contracts;
 
@@ -17,15 +17,15 @@ public class AuthService : IAuthService
         _tokenGenerator = tokenGenerator;
     }
 
-    public async Task<AuthResponseDto?> AuthenticateUser(LoginApiUserDto loginApiUserDto)
+    public async Task<AuthDtoResponse?> AuthenticateUser(LoginDtoRequest loginRequest)
     {
-        var user = await _authRepository.FindUserByEmail(loginApiUserDto.Email);
+        var user = await _authRepository.FindUserByEmail(loginRequest.Email);
         if (user == null)
         {
             return null;
         }
 
-        bool isValidCredentials = await _authRepository.ValidateCredentials(user, loginApiUserDto.Password);
+        bool isValidCredentials = await _authRepository.ValidateCredentials(user, loginRequest.Password);
 
         if (!isValidCredentials)
         {
@@ -35,7 +35,7 @@ public class AuthService : IAuthService
         string token = await _tokenGenerator.GenerateToken(user);
         var refreshToken = await _tokenGenerator.CreateRefreshToken(user);
 
-        return new AuthResponseDto
+        return new AuthDtoResponse
         (
             Id: user.Id,
             Token: token,
@@ -43,15 +43,15 @@ public class AuthService : IAuthService
         );
     }
 
-    public async Task<IEnumerable<IdentityError>> Register(CreateApiUserDto createApiUserDto)
+    public async Task<IEnumerable<IdentityError>> Register(CreateApiUserDtoRequest request)
     {
-        var user = createApiUserDto.ToApiUser();
-        user.UserName = createApiUserDto.Email;
+        var user = request.ToApiUser();
+        user.UserName = request.Email;
 
-        return await _authRepository.Register(user, createApiUserDto.Password);
+        return await _authRepository.Register(user, request.Password);
     }
 
-    public async Task<AuthResponseDto> VerifyRefreshToken(AuthResponseDto request)
+    public async Task<AuthDtoResponse> VerifyRefreshToken(AuthDtoResponse request)
     {
         return await _tokenGenerator.VerifyRefreshToken(request);
     }

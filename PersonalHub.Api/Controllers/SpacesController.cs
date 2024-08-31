@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PersonalHub.Application.Contracts;
-using PersonalHub.Application.DTOs;
+using PersonalHub.Application.DTOs.SpaceDtos;
 using PersonalHub.Application.Services;
 using PersonalHub.Domain.Workspace.Entities;
 
@@ -8,10 +8,10 @@ namespace PersonalHub.Api.Controllers;
 
 [Route("api/spaces")]
 [ApiController]
-public class SpaceController : ControllerBase
+public class SpacesController : ControllerBase
 {
-    private readonly SpaceService _spaceService;
-    public SpaceController(SpaceService spaceService)
+    private readonly ISpaceService _spaceService;
+    public SpacesController(ISpaceService spaceService)
     {
         _spaceService = spaceService;
     }
@@ -20,11 +20,14 @@ public class SpaceController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<ActionResult<Space>> PostSpace([FromBody] CreateSpaceDto spaceDto)
+    public async Task<ActionResult<Space>> PostSpace([FromBody] CreateSpaceDtoRequest request)
     {
-        var space = await _spaceService.AddSpace(spaceDto);
+        var space = await _spaceService.AddSpace(request);
 
-        return Created($"~/api/features/{space.Id}", space);
+        return CreatedAtAction(
+            nameof(GetSpace),
+            new { id = space.Id },
+            space);
     }
 
     [HttpGet("{id:guid}")]
@@ -32,7 +35,7 @@ public class SpaceController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<SpaceDto>> GetFeature([FromRoute] Guid id)
+    public async Task<ActionResult<SpaceDtoResponse>> GetSpace([FromRoute] Guid id)
     {
         var space = await _spaceService.GetSpace(id);
 
@@ -48,10 +51,28 @@ public class SpaceController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<SpaceDto>> GetAllSpaces()
+    public async Task<ActionResult<SpaceDtoResponse>> GetAllSpaces()
     {
         var spaces = await _spaceService.GetAllSpaces();
 
         return Ok(spaces);
+    }
+
+    [HttpDelete("{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> DeleteSpace([FromRoute] Guid id)
+    {
+        var space = await _spaceService.GetSpace(id);
+
+        if (space == null)
+        {
+            return NotFound();
+        }
+
+        await _spaceService.DeleteSpace(id);
+
+        return NoContent();
     }
 }

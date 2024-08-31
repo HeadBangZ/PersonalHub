@@ -1,12 +1,12 @@
-﻿using PersonalHub.Application.DTOs;
+﻿using PersonalHub.Application.DTOs.FeatureDtos;
 
 namespace PersonalHub.Application.Contracts;
 
 public interface IFeatureService
 {
-    Task<FeatureDto> AddFeature(CreateFeatureDto featureDto);
-    Task<FeatureDto?> GetFeature(Guid id);
-    Task<List<FeatureDto>> GetAllFeatures();
-    Task UpdateFeature(Guid id, UpdateFeatureDto featureDto);
+    Task<FeatureDtoResponse> AddFeature(CreateFeatureDtoRequest request);
+    Task<FeatureDtoResponse?> GetFeature(Guid id);
+    Task<List<FeatureDtoResponse>> GetAllFeatures();
+    Task UpdateFeature(Guid id, UpdateFeatureDtoRequest request);
     Task DeleteFeature(Guid id);
 }
