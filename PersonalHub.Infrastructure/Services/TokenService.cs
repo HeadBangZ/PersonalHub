@@ -2,10 +2,10 @@
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using PersonalHub.Application.Contracts;
-using PersonalHub.Application.DTOs;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using PersonalHub.Domain.User.Entities;
+using PersonalHub.Application.DTOs.ApiUserDtos;
 
 namespace PersonalHub.Infrastructure.Services;
 
@@ -66,7 +66,7 @@ public class TokenService : ITokenService
         return newRefreshToken;
     }
 
-    public async Task<AuthResponseDto?> VerifyRefreshToken(AuthResponseDto request)
+    public async Task<AuthDtoResponse?> VerifyRefreshToken(AuthDtoResponse request)
     {
         var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
         var tokenContent = jwtSecurityTokenHandler.ReadJwtToken(request.Token);
@@ -89,7 +89,7 @@ public class TokenService : ITokenService
 
         var token = await GenerateToken(user);
         var newRefreshToken = await CreateRefreshToken(user);
-        return new AuthResponseDto
+        return new AuthDtoResponse
         (
             Id: user.Id,
             Token: token,

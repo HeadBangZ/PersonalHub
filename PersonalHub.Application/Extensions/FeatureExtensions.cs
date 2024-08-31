@@ -1,13 +1,13 @@
-﻿using PersonalHub.Application.DTOs;
+﻿using PersonalHub.Application.DTOs.FeatureDtos;
 using PersonalHub.Domain.Workspace.Entities;
 
 namespace PersonalHub.Application.Extensions;
 
 public static class FeatureExtensions
 {
-    public static FeatureDto MapFeatureToDto(this Feature feature)
+    public static FeatureDtoResponse MapFeatureToDto(this Feature feature)
     {
-        return new FeatureDto(
+        return new FeatureDtoResponse(
             feature.Id.Id,
             feature.Name,
             feature.Description,
@@ -19,57 +19,43 @@ public static class FeatureExtensions
         );
     }
 
-    //public static Feature MapDtoToFeature(this FeatureDto featureDto)
-    //{
-    //    return new Feature(
-    //       featureDto.Id,
-    //       featureDto.Name,
-    //       featureDto.Description,
-    //       featureDto.Activities,
-    //       featureDto.Importance,
-    //       featureDto.IsCompleted,
-    //       featureDto.CreatedAt,
-    //       featureDto.UpdatedAt
-    //    );
-    //}
-
     // TODO: Update this map
     // OPTIMIZE: How we update
-    public static Feature MapDtoToFeature(this UpdateFeatureDto featureDto, Feature existingFeature)
+    public static Feature MapDtoToFeature(this UpdateFeatureDtoRequest request, Feature existingFeature)
     {
-        if (!string.IsNullOrEmpty(featureDto.Name))
+        if (!string.IsNullOrEmpty(request.Name))
         {
-            existingFeature.Name = featureDto.Name;
+            existingFeature.Name = request.Name;
         }
 
-        if (!string.IsNullOrEmpty(featureDto.Description))
+        if (!string.IsNullOrEmpty(request.Description))
         {
-            existingFeature.Description = featureDto.Description;
+            existingFeature.Description = request.Description;
         }
 
-        if (featureDto.Activities != null)
+        if (request.Activities != null)
         {
-            existingFeature.Activities = featureDto.Activities;
+            existingFeature.Activities = request.Activities;
         }
 
-        if (featureDto.Importance.HasValue)
+        if (request.Importance.HasValue)
         {
-            existingFeature.Importance = featureDto.Importance.Value;
+            existingFeature.Importance = request.Importance.Value;
         }
 
-        if (featureDto.IsCompleted.HasValue)
+        if (request.IsCompleted.HasValue)
         {
-            existingFeature.IsCompleted = featureDto.IsCompleted.Value;
+            existingFeature.IsCompleted = request.IsCompleted.Value;
         }
 
         return existingFeature;
     }
 
-    public static Feature MapCreateDtoToFeature(this CreateFeatureDto createRequest)
+    public static Feature MapCreateDtoToFeature(this CreateFeatureDtoRequest request)
     {
         return new Feature(
-           createRequest.Name,
-           createRequest.Description
+           request.Name,
+           request.Description
         );
     }
 }

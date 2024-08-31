@@ -1,16 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PersonalHub.Application.DTOs;
+using PersonalHub.Application.Contracts;
+using PersonalHub.Application.DTOs.ApiUserDtos;
 using PersonalHub.Application.Services;
 
 namespace PersonalHub.Api.Controllers;
 
 [Route("api/accounts")]
 [ApiController]
-public class AccountController : ControllerBase
+public class AccountsController : ControllerBase
 {
-    private readonly AuthService _authService;
+    private readonly IAuthService _authService;
 
-    public AccountController(AuthService authService)
+    public AccountsController(IAuthService authService)
     {
         _authService = authService;
     }
@@ -20,9 +21,9 @@ public class AccountController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult> Register([FromBody] CreateApiUserDto createApiUserDto)
+    public async Task<ActionResult> Register([FromBody] CreateApiUserDtoRequest request)
     {
-        var errors = await _authService.Register(createApiUserDto);
+        var errors = await _authService.Register(request);
 
         if (errors.Any())
         {
@@ -41,9 +42,9 @@ public class AccountController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult> Login([FromBody] LoginApiUserDto loginApiUserDto)
+    public async Task<ActionResult> Login([FromBody] LoginDtoRequest loginRequest)
     {
-        var authResponse = await _authService.AuthenticateUser(loginApiUserDto);
+        var authResponse = await _authService.AuthenticateUser(loginRequest);
 
         if (authResponse == null)
         {
@@ -58,7 +59,7 @@ public class AccountController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult> RefreshToken([FromBody] AuthResponseDto request)
+    public async Task<ActionResult> RefreshToken([FromBody] AuthDtoResponse request)
     {
         var authResponse = await _authService.VerifyRefreshToken(request);
 

@@ -1,5 +1,5 @@
 ﻿using PersonalHub.Application.Contracts;
-using PersonalHub.Application.DTOs;
+using PersonalHub.Application.DTOs.FeatureDtos;
 using PersonalHub.Application.Extensions;
 using PersonalHub.Domain.Contracts;
 using PersonalHub.Domain.Workspace.ValueObjects;
@@ -14,16 +14,16 @@ public class FeatureService : IFeatureService
         _featureRepository = featureRepository;
     }
 
-    public async Task<FeatureDto> AddFeature(CreateFeatureDto featureDto)
+    public async Task<FeatureDtoResponse> AddFeature(CreateFeatureDtoRequest request)
     {
-        var feature = featureDto.MapCreateDtoToFeature();
+        var feature = request.MapCreateDtoToFeature();
 
         await _featureRepository.AddAsync(feature);
         return feature.MapFeatureToDto();
     }
 
     // OPTIMIZE: Add query rules, for pagination, include details 
-    public async Task<FeatureDto?> GetFeature(Guid id)
+    public async Task<FeatureDtoResponse?> GetFeature(Guid id)
     {
         var feature = await _featureRepository.GetAsync(new FeatureId(id));
 
@@ -38,9 +38,9 @@ public class FeatureService : IFeatureService
     }
 
     // OPTIMIZE: Add query rules, for pagination, include details, filter 
-    public async Task<List<FeatureDto>> GetAllFeatures()
+    public async Task<List<FeatureDtoResponse>> GetAllFeatures()
     {
-        var featureDtos = new List<FeatureDto>();
+        var featureDtos = new List<FeatureDtoResponse>();
         var features = await _featureRepository.GetAllAsync();
 
         foreach (var feature in features)
@@ -55,7 +55,7 @@ public class FeatureService : IFeatureService
         await _featureRepository.DeleteAsync(new FeatureId(id));
     }
 
-    public async Task UpdateFeature(Guid id, UpdateFeatureDto featureDto)
+    public async Task UpdateFeature(Guid id, UpdateFeatureDtoRequest request)
     {
         var existingFeature = await _featureRepository.GetAsync(new FeatureId(id));
 
@@ -64,7 +64,7 @@ public class FeatureService : IFeatureService
             throw new Exception($"Feature with ID - {id} was not found");
         }
 
-        var updatedFeature = featureDto.MapDtoToFeature(existingFeature);
+        var updatedFeature = request.MapDtoToFeature(existingFeature);
 
         updatedFeature.ModifiedAt = DateTime.Now;
 
