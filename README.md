@@ -1,5 +1,5 @@
 # PersonalHub
-The PersonalHub is an API application for a personal management application designed to handle general notes, todos, planning, and work as a blog.
+The PersonalHub is an API application for a personal management application designed to handle general projects.
 
 ## Project Structure
 The structure of the application
@@ -44,3 +44,4 @@ The Tests layer includes various tests to ensure the quality and correctness of 
   - Create Sprint Entity, figure out how it is related
   - Clean up dtos and figure out which fields are required and which are not
   - Add Error Handling
+  - Change name from PersonalHub to ProjectHub
