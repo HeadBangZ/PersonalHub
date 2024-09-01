@@ -43,10 +43,6 @@ internal class EpicConfiguration : IEntityTypeConfiguration<Epic>
         builder.Property(a => a.Name)
             .HasMaxLength(100);
 
-        builder.Property(e => e.Status)
-            .HasConversion<string>()
-            .HasMaxLength(50);
-
         builder.HasMany(e => e.Features)
             .WithOne()
             .HasForeignKey(f => f.EpicId)

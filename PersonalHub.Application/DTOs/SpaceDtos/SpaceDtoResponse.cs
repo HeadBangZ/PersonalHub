@@ -9,5 +9,5 @@ public record SpaceDtoResponse(
     [StringLength(75)] string? Name,
     string? Description,
     IReadOnlyCollection<Section>? Sections,
-    ProgressStatus? Status
+    ProgressState? State
 );

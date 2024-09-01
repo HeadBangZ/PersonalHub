@@ -1,11 +1,8 @@
 ﻿namespace PersonalHub.Domain.Workspace.Enums;
 
-public enum ProgressStatus
+public enum ProgressState
 {
     NotStarted,
     InProgress,
-    Started,
     Completed,
-    Blocked,
-    OnHold
 }

@@ -28,7 +28,7 @@ public sealed class SpaceSeeder(PersonalHubDbContext dbContext, IConfiguration c
             {
                 Name = "Personal Hub",
                 Description = "Personal Hub an application used to manage projects",
-                Status = ProgressStatus.Started,
+                State = ProgressState.InProgress,
                 Sections = [
                     new()
                     {

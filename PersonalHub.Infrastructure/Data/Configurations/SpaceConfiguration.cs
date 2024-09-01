@@ -20,7 +20,7 @@ internal class SpaceConfiguration : IEntityTypeConfiguration<Space>
 
         builder.HasIndex(s => s.Name);
 
-        builder.Property(s => s.Status)
+        builder.Property(s => s.State)
             .HasConversion<string>()
             .HasMaxLength(50);
 

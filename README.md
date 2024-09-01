@@ -39,3 +39,8 @@ The Tests layer includes various tests to ensure the quality and correctness of 
   - Add Next and Prev to the endpoints
   - Add Query options to include details
   - Add Query options to filter
+  
+### Todos
+  - Create Sprint Entity, figure out how it is related
+  - Clean up dtos and figure out which fields are required and which are not
+  - Add Error Handling

@@ -24,8 +24,6 @@ public sealed class Epic : BaseEntity
 
     public IReadOnlyCollection<EpicTag> EpicTags { get; set; }
 
-    public ProgressStatus Status { get; set; } = ProgressStatus.NotStarted;
-
     public double? EstimatedEffort { get; set; }
 
     public double? ActualEffort { get; set; }
