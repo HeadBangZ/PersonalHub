@@ -12,7 +12,7 @@ public static class SpaceExtensions
             space.Name,
             space.Description,
             space.Sections,
-            space.Status
+            space.State
         );
     }
 

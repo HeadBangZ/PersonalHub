@@ -5,7 +5,7 @@ namespace PersonalHub.Domain.Workspace.Entities;
 
 public sealed class Activity : BaseEntity
 {
-    public ActivityId Id { get; private init; } = new();
+    public ActivityId Id { get; private init; } = ActivityId.NewEntityId();
 
     public FeatureId FeatureId { get; set; }
 

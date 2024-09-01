@@ -6,7 +6,7 @@ namespace PersonalHub.Domain.Workspace.Entities;
 
 public sealed class Feature : BaseEntity
 {
-    public FeatureId Id { get; private init; } = new();
+    public FeatureId Id { get; private init; } = FeatureId.NewEntityId();
 
     public EpicId EpicId { get; set; }
 
