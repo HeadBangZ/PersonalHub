@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PersonalHub.Application.Contracts;
+using PersonalHub.Application.DTOs.FeatureDtos;
 using PersonalHub.Application.DTOs.SpaceDtos;
 using PersonalHub.Application.Services;
 using PersonalHub.Domain.Workspace.Entities;
@@ -56,6 +57,23 @@ public class SpacesController : ControllerBase
         var spaces = await _spaceService.GetAllSpaces();
 
         return Ok(spaces);
+    }
+
+    [HttpPut("{id}")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> UpdateSpace([FromRoute] Guid id, [FromBody] UpdateSpaceDtoRequest request)
+    {
+        if (id != request.Id)
+        {
+            return BadRequest("Id Mismatch");
+        }
+
+        await _spaceService.UpdateSpace(id, request);
+
+        return NoContent();
     }
 
     [HttpDelete("{id:guid}")]
