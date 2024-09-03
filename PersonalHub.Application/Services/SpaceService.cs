@@ -66,6 +66,8 @@ public class SpaceService : ISpaceService
 
         var updatedSpace = request.MapDtoToSpace(existingSpace);
 
+        updatedSpace.ModifiedAt = DateTime.Now;
+
         await _spaceRepository.UpdateAsync(updatedSpace);
     }
 }
