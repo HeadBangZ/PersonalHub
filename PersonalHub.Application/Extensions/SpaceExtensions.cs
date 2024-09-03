@@ -14,7 +14,9 @@ public static class SpaceExtensions
             space.Name,
             space.Description,
             space.Sections,
-            space.State
+            space.State,
+            space.CreatedAt,
+            space.ModifiedAt
         );
     }
 
