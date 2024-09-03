@@ -9,5 +9,5 @@ public record UpdateSpaceDtoRequest(
     [StringLength(75)] string? Name,
     string? Description,
     List<Section>? Sections,
-    ProgressState? Status
+    ProgressState? State
 );

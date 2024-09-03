@@ -1,4 +1,5 @@
 ﻿using PersonalHub.Application.Contracts;
+using PersonalHub.Application.DTOs.FeatureDtos;
 using PersonalHub.Application.DTOs.SpaceDtos;
 using PersonalHub.Application.Extensions;
 using PersonalHub.Domain.Contracts;
@@ -54,8 +55,17 @@ public class SpaceService : ISpaceService
         await _spaceRepository.DeleteAsync(new SpaceId(id));
     }
 
-    public Task UpdateSpace(Guid id, UpdateSpaceDtoRequest request)
+    public async Task UpdateSpace(Guid id, UpdateSpaceDtoRequest request)
     {
-        throw new NotImplementedException();
+        var existingSpace = await _spaceRepository.GetAsync(new SpaceId(id));
+
+        if (existingSpace == null)
+        {
+            throw new Exception($"Space with ID - {id} was not found");
+        }
+
+        var updatedSpace = request.MapDtoToSpace(existingSpace);
+
+        await _spaceRepository.UpdateAsync(updatedSpace);
     }
 }
