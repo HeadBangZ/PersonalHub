@@ -26,12 +26,12 @@ public sealed class Space : BaseEntity
         CreatedAt = DateTime.Now;
     }
 
-    public Space(Guid id, string name, string description, ProgressState status, IReadOnlyCollection<Section> sections)
+    public Space(Guid id, string name, string description, ProgressState state, IReadOnlyCollection<Section> sections)
     {
         Id = new SpaceId(id);
         Name = name;
         Description = description;
         Sections = new List<Section>();
-        State = status;
+        State = state;
     }
 }
