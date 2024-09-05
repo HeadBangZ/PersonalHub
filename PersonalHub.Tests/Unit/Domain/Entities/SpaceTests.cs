@@ -1,4 +1,4 @@
-﻿namespace PersonalHub.Tests.Entities;
+﻿namespace PersonalHub.Tests.Unit.Domain.Entities;
 
 public class SpaceTests
 {
