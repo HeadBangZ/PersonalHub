@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      Solution_Name: PersonalHub.sln
+      Solution_Name: ProjectHub.sln
 
     steps:
     - name: Checkout
