@@ -1,13 +1,13 @@
 ﻿using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
-using PersonalHub.Application.Contracts;
+using ProjectHub.Application.Contracts;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
-using PersonalHub.Domain.User.Entities;
-using PersonalHub.Application.DTOs.ApiUserDtos;
+using ProjectHub.Domain.User.Entities;
+using ProjectHub.Application.DTOs.ApiUserDtos;
 
-namespace PersonalHub.Infrastructure.Services;
+namespace ProjectHub.Infrastructure.Services;
 
 public class TokenService : ITokenService
 {

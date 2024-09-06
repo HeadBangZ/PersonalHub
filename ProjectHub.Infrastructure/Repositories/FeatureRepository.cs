@@ -1,16 +1,16 @@
-﻿using PersonalHub.Domain.Workspace.Entities;
-using PersonalHub.Domain.Contracts;
-using PersonalHub.Infrastructure.Repositories.GenericRepositories;
-using PersonalHub.Infrastructure.Data.Contexts;
-using PersonalHub.Domain.Workspace.ValueObjects;
+﻿using ProjectHub.Domain.Workspace.Entities;
+using ProjectHub.Domain.Contracts;
+using ProjectHub.Infrastructure.Repositories.GenericRepositories;
+using ProjectHub.Infrastructure.Data.Contexts;
+using ProjectHub.Domain.Workspace.ValueObjects;
 
-namespace PersonalHub.Infrastructure.Repositories;
+namespace ProjectHub.Infrastructure.Repositories;
 
 public class FeatureRepository : GenericRepository<Feature, FeatureId>, IFeatureRepository
 {
-    private readonly PersonalHubDbContext _context;
+    private readonly ProjectHubDbContext _context;
 
-    public FeatureRepository(PersonalHubDbContext context) : base(context)
+    public FeatureRepository(ProjectHubDbContext context) : base(context)
     {
         _context = context;
     }

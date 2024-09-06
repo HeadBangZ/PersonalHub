@@ -1,7 +1,7 @@
-﻿using PersonalHub.Domain.Common.Models;
-using PersonalHub.Domain.Workspace.ValueObjects;
+﻿using ProjectHub.Domain.Common.Models;
+using ProjectHub.Domain.Workspace.ValueObjects;
 
-namespace PersonalHub.Domain.Workspace.Entities;
+namespace ProjectHub.Domain.Workspace.Entities;
 
 public sealed class Section : BaseEntity
 {

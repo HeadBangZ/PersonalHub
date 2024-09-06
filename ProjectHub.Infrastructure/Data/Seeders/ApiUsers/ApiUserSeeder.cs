@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
-using PersonalHub.Domain.User.Entities;
-using PersonalHub.Infrastructure.Data.Contexts;
+using ProjectHub.Domain.User.Entities;
+using ProjectHub.Infrastructure.Data.Contexts;
 
-namespace PersonalHub.Infrastructure.Data.Seeders.ApiUsers;
+namespace ProjectHub.Infrastructure.Data.Seeders.ApiUsers;
 
-public sealed class ApiUserSeeder(PersonalHubDbContext dbContext, IConfiguration configuration) : IApiUserSeeder
+public sealed class ApiUserSeeder(ProjectHubDbContext dbContext, IConfiguration configuration) : IApiUserSeeder
 {
     public async Task Seed()
     {

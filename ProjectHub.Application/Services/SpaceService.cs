@@ -1,11 +1,11 @@
-﻿using PersonalHub.Application.Contracts;
-using PersonalHub.Application.DTOs.FeatureDtos;
-using PersonalHub.Application.DTOs.SpaceDtos;
-using PersonalHub.Application.Extensions;
-using PersonalHub.Domain.Contracts;
-using PersonalHub.Domain.Workspace.ValueObjects;
+﻿using ProjectHub.Application.Contracts;
+using ProjectHub.Application.DTOs.FeatureDtos;
+using ProjectHub.Application.DTOs.SpaceDtos;
+using ProjectHub.Application.Extensions;
+using ProjectHub.Domain.Contracts;
+using ProjectHub.Domain.Workspace.ValueObjects;
 
-namespace PersonalHub.Application.Services;
+namespace ProjectHub.Application.Services;
 
 public class SpaceService : ISpaceService
 {

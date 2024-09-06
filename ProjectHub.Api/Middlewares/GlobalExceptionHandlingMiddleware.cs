@@ -2,7 +2,7 @@
 using System.Net;
 using System.Text.Json;
 
-namespace PersonalHub.Api.Middlewares;
+namespace ProjectHub.Api.Middlewares;
 
 public class GlobalExceptionHandlingMiddleware : IMiddleware
 {

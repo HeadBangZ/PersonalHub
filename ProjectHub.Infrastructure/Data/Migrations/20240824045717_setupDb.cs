@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace PersonalHub.Infrastructure.Data.Migrations
+namespace ProjectHub.Infrastructure.Data.Migrations
 {
     /// <inheritdoc />
     public partial class setupDb : Migration

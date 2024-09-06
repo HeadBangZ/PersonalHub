@@ -1,6 +1,6 @@
-﻿using PersonalHub.Domain.Common.Contracts;
+﻿using ProjectHub.Domain.Common.Contracts;
 
-namespace PersonalHub.Domain.Workspace.ValueObjects;
+namespace ProjectHub.Domain.Workspace.ValueObjects;
 
 public readonly record struct FeatureId(Guid Id) : IEntityId
 {

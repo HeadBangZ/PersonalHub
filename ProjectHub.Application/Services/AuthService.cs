@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using PersonalHub.Application.Contracts;
-using PersonalHub.Application.DTOs.ApiUserDtos;
-using PersonalHub.Application.Extensions;
-using PersonalHub.Domain.Contracts;
+using ProjectHub.Application.Contracts;
+using ProjectHub.Application.DTOs.ApiUserDtos;
+using ProjectHub.Application.Extensions;
+using ProjectHub.Domain.Contracts;
 
-namespace PersonalHub.Application.Services;
+namespace ProjectHub.Application.Services;
 
 public class AuthService : IAuthService
 {

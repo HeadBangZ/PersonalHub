@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PersonalHub.Domain.Contracts;
-using PersonalHub.Infrastructure.Data.Contexts;
+using ProjectHub.Domain.Contracts;
+using ProjectHub.Infrastructure.Data.Contexts;
 
-namespace PersonalHub.Infrastructure.Repositories.GenericRepositories;
+namespace ProjectHub.Infrastructure.Repositories.GenericRepositories;
 
 public class GenericRepository<T, TId> : IGenericRepository<T, TId> where T : class where TId : struct
 {
-    private readonly PersonalHubDbContext _context;
+    private readonly ProjectHubDbContext _context;
 
-    public GenericRepository(PersonalHubDbContext context)
+    public GenericRepository(ProjectHubDbContext context)
     {
         _context = context;
     }

@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
-using PersonalHub.Domain.Workspace.Entities;
-using PersonalHub.Domain.Workspace.Enums;
-using PersonalHub.Domain.Workspace.ValueObjects;
-using PersonalHub.Infrastructure.Data.Contexts;
+using ProjectHub.Domain.Workspace.Entities;
+using ProjectHub.Domain.Workspace.Enums;
+using ProjectHub.Domain.Workspace.ValueObjects;
+using ProjectHub.Infrastructure.Data.Contexts;
 
-namespace PersonalHub.Infrastructure.Data.Seeders;
+namespace ProjectHub.Infrastructure.Data.Seeders;
 
-public sealed class UserRoleSeeder(PersonalHubDbContext dbContext, IConfiguration configuration) : IUserRoleSeeder
+public sealed class UserRoleSeeder(ProjectHubDbContext dbContext, IConfiguration configuration) : IUserRoleSeeder
 {
     public async Task Seed()
     {

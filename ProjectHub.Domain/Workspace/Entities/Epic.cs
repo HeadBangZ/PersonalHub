@@ -1,10 +1,10 @@
-﻿using PersonalHub.Domain.Common.Models;
-using PersonalHub.Domain.Shared.Entities;
-using PersonalHub.Domain.Workspace.Enums;
-using PersonalHub.Domain.Workspace.RelationShips;
-using PersonalHub.Domain.Workspace.ValueObjects;
+﻿using ProjectHub.Domain.Common.Models;
+using ProjectHub.Domain.Shared.Entities;
+using ProjectHub.Domain.Workspace.Enums;
+using ProjectHub.Domain.Workspace.RelationShips;
+using ProjectHub.Domain.Workspace.ValueObjects;
 
-namespace PersonalHub.Domain.Workspace.Entities;
+namespace ProjectHub.Domain.Workspace.Entities;
 
 public sealed class Epic : BaseEntity
 {

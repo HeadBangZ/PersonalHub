@@ -1,4 +1,4 @@
-﻿namespace PersonalHub.Infrastructure.Data.Seeders
+﻿namespace ProjectHub.Infrastructure.Data.Seeders
 {
     public interface IUserRoleSeeder
     {

@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using PersonalHub.Domain.Shared.Entities;
-using PersonalHub.Domain.Shared.ValueObjects;
-using PersonalHub.Domain.Workspace.RelationShips;
+using ProjectHub.Domain.Shared.Entities;
+using ProjectHub.Domain.Shared.ValueObjects;
+using ProjectHub.Domain.Workspace.RelationShips;
 
-namespace PersonalHub.Infrastructure.Data.Configurations
+namespace ProjectHub.Infrastructure.Data.Configurations
 {
     internal class TagConfiguration : IEntityTypeConfiguration<Tag>
     {

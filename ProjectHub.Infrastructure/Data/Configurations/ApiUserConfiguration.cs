@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using PersonalHub.Domain.User.Entities;
+using ProjectHub.Domain.User.Entities;
 
-namespace PersonalHub.Infrastructure.Data.Configurations
+namespace ProjectHub.Infrastructure.Data.Configurations
 {
     internal class ApiUserConfiguration : IEntityTypeConfiguration<ApiUser>
     {

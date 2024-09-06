@@ -1,4 +1,4 @@
-﻿namespace PersonalHub.Domain.Feedback.ValueObjects;
+﻿namespace ProjectHub.Domain.Feedback.ValueObjects;
 
 public readonly record struct CommentId(Guid Id)
 {

@@ -15,19 +15,19 @@ if "%CHOICE%" NEQ "4" (
 )
 
 if "%CHOICE%" == "1" (
-    dotnet ef migrations add %MIGRATION% --project PersonalHub.Infrastructure --startup-project PersonalHub.Api -o Data\Migrations
+    dotnet ef migrations add %MIGRATION% --project ProjectHub.Infrastructure --startup-project ProjectHub.Api -o Data\Migrations
     pause
     goto START
 )
 
 if "%CHOICE%" == "2" (
-    dotnet ef database update %MIGRATION% --project PersonalHub.Infrastructure --startup-project PersonalHub.Api
+    dotnet ef database update %MIGRATION% --project ProjectHub.Infrastructure --startup-project ProjectHub.Api
     pause
     goto START
 )
 
 if "%CHOICE%" == "3" (
-    dotnet ef migrations remove --project PersonalHub.Infrastructure --startup-project PersonalHub.Api
+    dotnet ef migrations remove --project ProjectHub.Infrastructure --startup-project ProjectHub.Api
     pause
     goto START
 )

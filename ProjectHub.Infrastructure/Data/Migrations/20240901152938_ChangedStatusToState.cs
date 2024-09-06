@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace PersonalHub.Infrastructure.Data.Migrations
+namespace ProjectHub.Infrastructure.Data.Migrations
 {
     /// <inheritdoc />
     public partial class ChangedStatusToState : Migration

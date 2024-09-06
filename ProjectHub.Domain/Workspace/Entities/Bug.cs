@@ -1,9 +1,9 @@
-﻿using PersonalHub.Domain.Common.Models;
-using PersonalHub.Domain.Workspace.Enums;
-using PersonalHub.Domain.Workspace.ValueObjects;
+﻿using ProjectHub.Domain.Common.Models;
+using ProjectHub.Domain.Workspace.Enums;
+using ProjectHub.Domain.Workspace.ValueObjects;
 using System.ComponentModel.DataAnnotations;
 
-namespace PersonalHub.Domain.Workspace.Entities;
+namespace ProjectHub.Domain.Workspace.Entities;
 
 public sealed class Bug : BaseEntity
 {

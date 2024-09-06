@@ -1,4 +1,4 @@
-﻿namespace PersonalHub.Domain.Contracts;
+﻿namespace ProjectHub.Domain.Contracts;
 
 public interface IGenericRepository<T, TId> where T : class where TId : struct
 {

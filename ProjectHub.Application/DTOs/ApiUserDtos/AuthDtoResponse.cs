@@ -1,4 +1,4 @@
-﻿namespace PersonalHub.Application.DTOs.ApiUserDtos;
+﻿namespace ProjectHub.Application.DTOs.ApiUserDtos;
 
 public record AuthDtoResponse(
     string Id,

@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using PersonalHub.Domain.Workspace.Entities;
-using PersonalHub.Domain.Workspace.ValueObjects;
+using ProjectHub.Domain.Workspace.Entities;
+using ProjectHub.Domain.Workspace.ValueObjects;
 
-namespace PersonalHub.Infrastructure.Data.Configurations;
+namespace ProjectHub.Infrastructure.Data.Configurations;
 
 internal class ActivityConfiguration : IEntityTypeConfiguration<Activity>
 {

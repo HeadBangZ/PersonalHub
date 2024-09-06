@@ -1,6 +1,6 @@
-﻿using PersonalHub.Domain.User.ValueObjects;
+﻿using ProjectHub.Domain.User.ValueObjects;
 
-namespace PersonalHub.Application.DTOs.ApiUserDtos;
+namespace ProjectHub.Application.DTOs.ApiUserDtos;
 
 public record ApiUserDtoResponse(
     string Id,

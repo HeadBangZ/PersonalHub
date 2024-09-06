@@ -1,8 +1,8 @@
-﻿using PersonalHub.Domain.Workspace.Entities;
-using PersonalHub.Domain.Workspace.Enums;
-using PersonalHub.Domain.Workspace.ValueObjects;
+﻿using ProjectHub.Domain.Workspace.Entities;
+using ProjectHub.Domain.Workspace.Enums;
+using ProjectHub.Domain.Workspace.ValueObjects;
 
-namespace PersonalHub.Tests.Unit.Domain.Entities;
+namespace ProjectHub.Tests.Unit.Domain.Entities;
 
 public class SpaceTests
 {

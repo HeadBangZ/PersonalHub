@@ -1,6 +1,6 @@
-﻿using PersonalHub.Application.DTOs.FeatureDtos;
+﻿using ProjectHub.Application.DTOs.FeatureDtos;
 
-namespace PersonalHub.Application.Contracts;
+namespace ProjectHub.Application.Contracts;
 
 public interface IFeatureService
 {

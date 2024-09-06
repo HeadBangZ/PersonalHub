@@ -1,9 +1,9 @@
-﻿using PersonalHub.Application.DTOs.SpaceDtos;
-using PersonalHub.Domain.Workspace.Entities;
-using PersonalHub.Domain.Workspace.Enums;
-using PersonalHub.Domain.Workspace.ValueObjects;
+﻿using ProjectHub.Application.DTOs.SpaceDtos;
+using ProjectHub.Domain.Workspace.Entities;
+using ProjectHub.Domain.Workspace.Enums;
+using ProjectHub.Domain.Workspace.ValueObjects;
 
-namespace PersonalHub.Application.Extensions;
+namespace ProjectHub.Application.Extensions;
 
 public static class SpaceExtensions
 {

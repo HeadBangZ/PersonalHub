@@ -1,8 +1,8 @@
-﻿using PersonalHub.Domain.Common.Contracts;
-using PersonalHub.Domain.Common.Models;
-using PersonalHub.Domain.Feedback.Enums;
+﻿using ProjectHub.Domain.Common.Contracts;
+using ProjectHub.Domain.Common.Models;
+using ProjectHub.Domain.Feedback.Enums;
 
-namespace PersonalHub.Domain.Feedback.Entities;
+namespace ProjectHub.Domain.Feedback.Entities;
 
 public sealed class Comment : BaseEntity
 {
