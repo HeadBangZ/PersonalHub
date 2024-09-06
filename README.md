@@ -1,5 +1,5 @@
 # ProjectHub
-The PersonalHub is an API application for a personal management application designed to handle general projects.
+The ProjectHub is an API application for a personal management application designed to handle general projects.
 
 ## Project Structure
 The structure of the application
