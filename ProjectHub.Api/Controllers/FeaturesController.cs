@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PersonalHub.Application.Contracts;
-using PersonalHub.Application.DTOs.FeatureDtos;
-using PersonalHub.Domain.Workspace.Entities;
+using ProjectHub.Application.Contracts;
+using ProjectHub.Application.DTOs.FeatureDtos;
+using ProjectHub.Domain.Workspace.Entities;
 
-namespace PersonalHub.Api.Controllers;
+namespace ProjectHub.Api.Controllers;
 
 [Route("api/features")]
 [ApiController]

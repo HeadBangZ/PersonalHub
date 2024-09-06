@@ -1,16 +1,16 @@
-﻿using PersonalHub.Domain.Workspace.Entities;
-using PersonalHub.Domain.Contracts;
-using PersonalHub.Infrastructure.Repositories.GenericRepositories;
-using PersonalHub.Infrastructure.Data.Contexts;
-using PersonalHub.Domain.Workspace.ValueObjects;
+﻿using ProjectHub.Domain.Workspace.Entities;
+using ProjectHub.Domain.Contracts;
+using ProjectHub.Infrastructure.Repositories.GenericRepositories;
+using ProjectHub.Infrastructure.Data.Contexts;
+using ProjectHub.Domain.Workspace.ValueObjects;
 
-namespace PersonalHub.Infrastructure.Repositories;
+namespace ProjectHub.Infrastructure.Repositories;
 
 public class SpaceRepository : GenericRepository<Space, SpaceId>, ISpaceRepository
 {
-    private readonly PersonalHubDbContext _context;
+    private readonly ProjectHubDbContext _context;
 
-    public SpaceRepository(PersonalHubDbContext context) : base(context)
+    public SpaceRepository(ProjectHubDbContext context) : base(context)
     {
         _context = context;
     }

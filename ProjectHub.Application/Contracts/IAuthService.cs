@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using PersonalHub.Application.DTOs.ApiUserDtos;
+using ProjectHub.Application.DTOs.ApiUserDtos;
 
-namespace PersonalHub.Application.Contracts;
+namespace ProjectHub.Application.Contracts;
 
 public interface IAuthService
 {

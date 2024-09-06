@@ -3,30 +3,30 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using PersonalHub.Api.Middlewares;
-using PersonalHub.Application.Contracts;
-using PersonalHub.Application.Services;
-using PersonalHub.Domain.Contracts;
-using PersonalHub.Domain.User.Entities;
-using PersonalHub.Infrastructure.Data.Contexts;
-using PersonalHub.Infrastructure.Data.Seeders;
-using PersonalHub.Infrastructure.Data.Seeders.ApiUsers;
-using PersonalHub.Infrastructure.Repositories;
-using PersonalHub.Infrastructure.Repositories.Auth;
-using PersonalHub.Infrastructure.Repositories.GenericRepositories;
-using PersonalHub.Infrastructure.Services;
+using ProjectHub.Api.Middlewares;
+using ProjectHub.Application.Contracts;
+using ProjectHub.Application.Services;
+using ProjectHub.Domain.Contracts;
+using ProjectHub.Domain.User.Entities;
+using ProjectHub.Infrastructure.Data.Contexts;
+using ProjectHub.Infrastructure.Data.Seeders;
+using ProjectHub.Infrastructure.Data.Seeders.ApiUsers;
+using ProjectHub.Infrastructure.Repositories;
+using ProjectHub.Infrastructure.Repositories.Auth;
+using ProjectHub.Infrastructure.Repositories.GenericRepositories;
+using ProjectHub.Infrastructure.Services;
 using Serilog;
 using System.Text;
 using System.Text.Json.Serialization;
 
-namespace PersonalHub.Api.Extensions;
+namespace ProjectHub.Api.Extensions;
 
 public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString("PersonalHubDbContext");
-        services.AddDbContext<PersonalHubDbContext>(options => options.UseSqlServer(connectionString));
+        var connectionString = configuration.GetConnectionString("ProjectHubDbContext");
+        services.AddDbContext<ProjectHubDbContext>(options => options.UseSqlServer(connectionString));
 
         services.AddScoped<ISpaceSeeder, SpaceSeeder>();
         services.AddScoped<IApiUserSeeder, ApiUserSeeder>();
@@ -130,7 +130,7 @@ public static class ServiceCollectionExtensions
         services.AddIdentityCore<ApiUser>()
             .AddRoles<IdentityRole>()
             .AddTokenProvider<DataProtectorTokenProvider<ApiUser>>("https://localhost:7149/")
-            .AddEntityFrameworkStores<PersonalHubDbContext>()
+            .AddEntityFrameworkStores<ProjectHubDbContext>()
             .AddDefaultTokenProviders();
 
         services.AddIdentityApiEndpoints<ApiUser>(options =>
@@ -141,7 +141,7 @@ public static class ServiceCollectionExtensions
             options.Password.RequireNonAlphanumeric = false;
             options.User.RequireUniqueEmail = true;
             options.SignIn.RequireConfirmedEmail = false;
-        }).AddEntityFrameworkStores<PersonalHubDbContext>();
+        }).AddEntityFrameworkStores<ProjectHubDbContext>();
 
         return services;
     }

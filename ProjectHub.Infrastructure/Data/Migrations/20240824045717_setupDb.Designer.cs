@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using PersonalHub.Infrastructure.Data.Contexts;
+using ProjectHub.Infrastructure.Data.Contexts;
 
 #nullable disable
 
-namespace PersonalHub.Infrastructure.Data.Migrations
+namespace ProjectHub.Infrastructure.Data.Migrations
 {
-    [DbContext(typeof(PersonalHubDbContext))]
+    [DbContext(typeof(ProjectHubDbContext))]
     [Migration("20240824045717_setupDb")]
     partial class setupDb
     {

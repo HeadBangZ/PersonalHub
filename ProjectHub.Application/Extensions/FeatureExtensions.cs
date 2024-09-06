@@ -1,7 +1,7 @@
-﻿using PersonalHub.Application.DTOs.FeatureDtos;
-using PersonalHub.Domain.Workspace.Entities;
+﻿using ProjectHub.Application.DTOs.FeatureDtos;
+using ProjectHub.Domain.Workspace.Entities;
 
-namespace PersonalHub.Application.Extensions;
+namespace ProjectHub.Application.Extensions;
 
 public static class FeatureExtensions
 {

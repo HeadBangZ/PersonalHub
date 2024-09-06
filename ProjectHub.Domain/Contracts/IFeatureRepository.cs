@@ -1,7 +1,7 @@
-﻿using PersonalHub.Domain.Workspace.Entities;
-using PersonalHub.Domain.Workspace.ValueObjects;
+﻿using ProjectHub.Domain.Workspace.Entities;
+using ProjectHub.Domain.Workspace.ValueObjects;
 
-namespace PersonalHub.Domain.Contracts;
+namespace ProjectHub.Domain.Contracts;
 
 public interface IFeatureRepository : IGenericRepository<Feature, FeatureId>
 {

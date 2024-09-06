@@ -1,4 +1,4 @@
-﻿namespace PersonalHub.Domain.Workspace.Enums;
+﻿namespace ProjectHub.Domain.Workspace.Enums;
 
 public enum ProgressState
 {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PersonalHub.Application.DTOs.ApiUserDtos;
+namespace ProjectHub.Application.DTOs.ApiUserDtos;
 
 public record LoginDtoRequest(
     [Required] string Email,

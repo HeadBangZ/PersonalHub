@@ -5,7 +5,7 @@
 namespace ProjectHub.Infrastructure.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class updatedIds : Migration
+    public partial class NewDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -13,12 +13,12 @@ namespace ProjectHub.Infrastructure.Data.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "7cd3b616-3df8-4a2d-9fd1-df484cbf024e");
+                keyValue: "8bafcd4a-61ec-48ca-9221-0942461ea463");
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "3e8bd418-7081-4255-ada7-a99c3a08f76a", null, "User", "USER" });
+                values: new object[] { "6f2f4403-fe67-42e2-beed-2fd32ff5eaaa", null, "User", "USER" });
         }
 
         /// <inheritdoc />
@@ -27,12 +27,12 @@ namespace ProjectHub.Infrastructure.Data.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "3e8bd418-7081-4255-ada7-a99c3a08f76a");
+                keyValue: "6f2f4403-fe67-42e2-beed-2fd32ff5eaaa");
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "7cd3b616-3df8-4a2d-9fd1-df484cbf024e", null, "User", "USER" });
+                values: new object[] { "8bafcd4a-61ec-48ca-9221-0942461ea463", null, "User", "USER" });
         }
     }
 }

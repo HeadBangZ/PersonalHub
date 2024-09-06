@@ -1,4 +1,4 @@
-﻿namespace PersonalHub.Domain.Feedback.Enums;
+﻿namespace ProjectHub.Domain.Feedback.Enums;
 
 public enum CommentStatus
 {

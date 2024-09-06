@@ -1,6 +1,6 @@
-﻿using PersonalHub.Application.DTOs.SpaceDtos;
+﻿using ProjectHub.Application.DTOs.SpaceDtos;
 
-namespace PersonalHub.Application.Contracts;
+namespace ProjectHub.Application.Contracts;
 
 public interface ISpaceService
 {

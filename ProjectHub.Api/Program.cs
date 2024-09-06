@@ -1,10 +1,10 @@
-using PersonalHub.Api.Extensions;
-using PersonalHub.Api.Middlewares;
-using PersonalHub.Domain.User.Entities;
-using PersonalHub.Infrastructure.Data.Seeders;
-using PersonalHub.Infrastructure.Data.Seeders.ApiUsers;
+using ProjectHub.Api.Extensions;
+using ProjectHub.Api.Middlewares;
+using ProjectHub.Domain.User.Entities;
+using ProjectHub.Infrastructure.Data.Seeders;
+using ProjectHub.Infrastructure.Data.Seeders.ApiUsers;
 
-namespace PersonalHub.Api;
+namespace ProjectHub.Api;
 
 public class Program
 {

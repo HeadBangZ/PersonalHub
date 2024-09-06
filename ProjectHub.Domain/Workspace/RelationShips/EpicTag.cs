@@ -1,9 +1,9 @@
-﻿using PersonalHub.Domain.Shared.Entities;
-using PersonalHub.Domain.Shared.ValueObjects;
-using PersonalHub.Domain.Workspace.Entities;
-using PersonalHub.Domain.Workspace.ValueObjects;
+﻿using ProjectHub.Domain.Shared.Entities;
+using ProjectHub.Domain.Shared.ValueObjects;
+using ProjectHub.Domain.Workspace.Entities;
+using ProjectHub.Domain.Workspace.ValueObjects;
 
-namespace PersonalHub.Domain.Workspace.RelationShips;
+namespace ProjectHub.Domain.Workspace.RelationShips;
 
 public class EpicTag
 {

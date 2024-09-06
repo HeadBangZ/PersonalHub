@@ -1,12 +1,12 @@
 ﻿using Microsoft.Extensions.Configuration;
-using PersonalHub.Domain.Workspace.Entities;
-using PersonalHub.Domain.Workspace.Enums;
-using PersonalHub.Domain.Workspace.ValueObjects;
-using PersonalHub.Infrastructure.Data.Contexts;
+using ProjectHub.Domain.Workspace.Entities;
+using ProjectHub.Domain.Workspace.Enums;
+using ProjectHub.Domain.Workspace.ValueObjects;
+using ProjectHub.Infrastructure.Data.Contexts;
 
-namespace PersonalHub.Infrastructure.Data.Seeders;
+namespace ProjectHub.Infrastructure.Data.Seeders;
 
-public sealed class SpaceSeeder(PersonalHubDbContext dbContext, IConfiguration configuration) : ISpaceSeeder
+public sealed class SpaceSeeder(ProjectHubDbContext dbContext, IConfiguration configuration) : ISpaceSeeder
 {
     public async Task Seed()
     {

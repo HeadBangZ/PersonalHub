@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace PersonalHub.Domain.User.ValueObjects;
+namespace ProjectHub.Domain.User.ValueObjects;
 
 public class PersonalInfo
 {

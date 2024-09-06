@@ -1,4 +1,4 @@
-﻿namespace PersonalHub.Domain.Workspace.ValueObjects;
+﻿namespace ProjectHub.Domain.Workspace.ValueObjects;
 
 public readonly record struct ActivityId(Guid Id)
 {

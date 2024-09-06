@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PersonalHub.Application.Contracts;
-using PersonalHub.Application.DTOs.ApiUserDtos;
-using PersonalHub.Application.Services;
+using ProjectHub.Application.Contracts;
+using ProjectHub.Application.DTOs.ApiUserDtos;
+using ProjectHub.Application.Services;
 
-namespace PersonalHub.Api.Controllers;
+namespace ProjectHub.Api.Controllers;
 
 [Route("api/accounts")]
 [ApiController]

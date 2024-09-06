@@ -1,8 +1,8 @@
-﻿using PersonalHub.Domain.Shared.ValueObjects;
-using PersonalHub.Domain.Workspace.Entities;
-using PersonalHub.Domain.Workspace.RelationShips;
+﻿using ProjectHub.Domain.Shared.ValueObjects;
+using ProjectHub.Domain.Workspace.Entities;
+using ProjectHub.Domain.Workspace.RelationShips;
 
-namespace PersonalHub.Domain.Shared.Entities;
+namespace ProjectHub.Domain.Shared.Entities;
 
 public class Tag
 {

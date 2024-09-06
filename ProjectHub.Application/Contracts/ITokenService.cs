@@ -1,7 +1,7 @@
-﻿using PersonalHub.Application.DTOs.ApiUserDtos;
-using PersonalHub.Domain.User.Entities;
+﻿using ProjectHub.Application.DTOs.ApiUserDtos;
+using ProjectHub.Domain.User.Entities;
 
-namespace PersonalHub.Application.Contracts;
+namespace ProjectHub.Application.Contracts;
 
 public interface ITokenService
 {

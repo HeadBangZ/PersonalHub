@@ -1,8 +1,8 @@
-﻿using PersonalHub.Domain.Workspace.Entities;
-using PersonalHub.Domain.Workspace.Enums;
+﻿using ProjectHub.Domain.Workspace.Entities;
+using ProjectHub.Domain.Workspace.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace PersonalHub.Application.DTOs.FeatureDtos;
+namespace ProjectHub.Application.DTOs.FeatureDtos;
 
 public record FeatureDtoResponse(
     Guid Id,

@@ -1,21 +1,21 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using PersonalHub.Domain.Shared.Entities;
-using PersonalHub.Domain.Shared.ValueObjects;
-using PersonalHub.Domain.User.Entities;
-using PersonalHub.Domain.Workspace.Entities;
-using PersonalHub.Domain.Workspace.RelationShips;
-using PersonalHub.Domain.Workspace.ValueObjects;
-using PersonalHub.Infrastructure.Data.Configurations;
+using ProjectHub.Domain.Shared.Entities;
+using ProjectHub.Domain.Shared.ValueObjects;
+using ProjectHub.Domain.User.Entities;
+using ProjectHub.Domain.Workspace.Entities;
+using ProjectHub.Domain.Workspace.RelationShips;
+using ProjectHub.Domain.Workspace.ValueObjects;
+using ProjectHub.Infrastructure.Data.Configurations;
 
-namespace PersonalHub.Infrastructure.Data.Contexts
+namespace ProjectHub.Infrastructure.Data.Contexts
 {
-    public class PersonalHubDbContext : IdentityDbContext<ApiUser>
+    public class ProjectHubDbContext : IdentityDbContext<ApiUser>
     {
         private readonly IConfiguration _configuration;
 
-        public PersonalHubDbContext(DbContextOptions<PersonalHubDbContext> options, IConfiguration configuration) : base(options)
+        public ProjectHubDbContext(DbContextOptions<ProjectHubDbContext> options, IConfiguration configuration) : base(options)
         {
             _configuration = configuration;
         }
@@ -44,7 +44,7 @@ namespace PersonalHub.Infrastructure.Data.Contexts
 
             CreateModelEpicTag(modelBuilder);
 
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(PersonalHubDbContext).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ProjectHubDbContext).Assembly);
         }
 
         private void CreateModelEpicTag(ModelBuilder modelBuilder)

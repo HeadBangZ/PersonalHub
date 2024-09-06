@@ -1,4 +1,4 @@
-﻿namespace PersonalHub.Domain.Shared.ValueObjects;
+﻿namespace ProjectHub.Domain.Shared.ValueObjects;
 
 public readonly record struct TagId(Guid Id)
 {
