@@ -17,10 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PersonalHub.Api\PersonalHub.Api.csproj" />
-    <ProjectReference Include="..\PersonalHub.Application\PersonalHub.Application.csproj" />
-    <ProjectReference Include="..\PersonalHub.Domain\PersonalHub.Domain.csproj" />
-    <ProjectReference Include="..\PersonalHub.Infrastructure\PersonalHub.Infrastructure.csproj" />
+    <ProjectReference Include="..\ProjectHub.Api\ProjectHub.Api.csproj" />
+    <ProjectReference Include="..\ProjectHub.Application\ProjectHub.Application.csproj" />
+    <ProjectReference Include="..\ProjectHub.Domain\ProjectHub.Domain.csproj" />
+    <ProjectReference Include="..\ProjectHub.Infrastructure\ProjectHub.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -11,7 +11,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\PersonalHub.Domain\PersonalHub.Domain.csproj" />
+		<ProjectReference Include="..\ProjectHub.Domain\ProjectHub.Domain.csproj" />
 	</ItemGroup>
 
 </Project>
