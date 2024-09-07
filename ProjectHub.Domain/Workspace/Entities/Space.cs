@@ -17,8 +17,6 @@ public sealed class Space : BaseEntity
 
     public ProgressState State { get; private set; } = ProgressState.NotStarted;
 
-    public Space() { }
-
     public Space(string name, string description)
     {
         Name = name;
