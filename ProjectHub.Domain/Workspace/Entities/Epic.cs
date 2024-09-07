@@ -1,6 +1,4 @@
 ﻿using ProjectHub.Domain.Common.Models;
-using ProjectHub.Domain.Shared.Entities;
-using ProjectHub.Domain.Workspace.Enums;
 using ProjectHub.Domain.Workspace.RelationShips;
 using ProjectHub.Domain.Workspace.ValueObjects;
 

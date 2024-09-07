@@ -6,7 +6,7 @@ using ProjectHub.Domain.Workspace.ValueObjects;
 
 namespace ProjectHub.Infrastructure.Repositories;
 
-public class SpaceRepository : GenericRepository<Space, SpaceId>, ISpaceRepository
+public sealed class SpaceRepository : GenericRepository<Space, SpaceId>, ISpaceRepository
 {
     private readonly ProjectHubDbContext _context;
 

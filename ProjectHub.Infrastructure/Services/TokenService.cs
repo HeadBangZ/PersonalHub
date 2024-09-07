@@ -9,7 +9,7 @@ using ProjectHub.Application.DTOs.ApiUserDtos;
 
 namespace ProjectHub.Infrastructure.Services;
 
-public class TokenService : ITokenService
+public sealed class TokenService : ITokenService
 {
 
     private readonly string _key;
