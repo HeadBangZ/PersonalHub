@@ -3,6 +3,7 @@ using ProjectHub.Domain.Workspace.Entities;
 
 namespace ProjectHub.Application.Extensions;
 
+// TODO: Clean up
 public static class FeatureExtensions
 {
     public static FeatureDtoResponse MapFeatureToDto(this Feature feature)

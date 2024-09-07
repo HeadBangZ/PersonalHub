@@ -1,5 +1,4 @@
 ﻿using ProjectHub.Application.Contracts;
-using ProjectHub.Application.DTOs.FeatureDtos;
 using ProjectHub.Application.DTOs.SpaceDtos;
 using ProjectHub.Application.Extensions;
 using ProjectHub.Application.Shared;

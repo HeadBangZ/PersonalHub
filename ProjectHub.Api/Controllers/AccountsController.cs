@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjectHub.Application.Contracts;
 using ProjectHub.Application.DTOs.ApiUserDtos;
-using ProjectHub.Application.Services;
 
 namespace ProjectHub.Api.Controllers;
 

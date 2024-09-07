@@ -4,7 +4,7 @@ using ProjectHub.Domain.User.Entities;
 
 namespace ProjectHub.Infrastructure.Repositories.Auth;
 
-public class AuthRepository : IAuthRepository
+public sealed class AuthRepository : IAuthRepository
 {
     private readonly UserManager<ApiUser> _userManager;
 

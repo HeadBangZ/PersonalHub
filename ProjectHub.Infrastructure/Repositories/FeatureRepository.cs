@@ -6,7 +6,7 @@ using ProjectHub.Domain.Workspace.ValueObjects;
 
 namespace ProjectHub.Infrastructure.Repositories;
 
-public class FeatureRepository : GenericRepository<Feature, FeatureId>, IFeatureRepository
+public sealed class FeatureRepository : GenericRepository<Feature, FeatureId>, IFeatureRepository
 {
     private readonly ProjectHubDbContext _context;
 

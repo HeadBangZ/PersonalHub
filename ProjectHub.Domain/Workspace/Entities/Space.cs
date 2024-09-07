@@ -12,7 +12,6 @@ public sealed class Space : BaseEntity
 
     public string Description { get; private set; }
 
-    // TODO: Maybe remove sections
     public IReadOnlyCollection<Section> Sections { get; private set; } = new List<Section>();
 
     public ProgressState State { get; private set; } = ProgressState.NotStarted;

@@ -1,6 +1,5 @@
 ﻿using ProjectHub.Domain.Workspace.Entities;
 using ProjectHub.Domain.Workspace.Enums;
-using ProjectHub.Domain.Workspace.ValueObjects;
 
 namespace ProjectHub.Tests.Unit.Domain.Entities;
 
