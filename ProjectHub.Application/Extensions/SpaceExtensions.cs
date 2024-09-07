@@ -27,29 +27,4 @@ public static class SpaceExtensions
             request.Description
         );
     }
-
-    public static Space MapDtoToSpace(this UpdateSpaceDtoRequest request, Space existingSpace)
-    {
-        if (!string.IsNullOrEmpty(request.Name))
-        {
-            existingSpace.Name = request.Name;
-        }
-
-        if (!string.IsNullOrEmpty(request.Description))
-        {
-            existingSpace.Description = request.Description;
-        }
-
-        if (request.Sections != null)
-        {
-            existingSpace.Sections = request.Sections;
-        }
-
-        if (request.State.HasValue)
-        {
-            existingSpace.State = request.State.Value;
-        }
-
-        return existingSpace;
-    }
 }

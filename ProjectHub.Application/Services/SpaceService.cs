@@ -2,7 +2,9 @@
 using ProjectHub.Application.DTOs.FeatureDtos;
 using ProjectHub.Application.DTOs.SpaceDtos;
 using ProjectHub.Application.Extensions;
+using ProjectHub.Application.Shared;
 using ProjectHub.Domain.Contracts;
+using ProjectHub.Domain.Workspace.Entities;
 using ProjectHub.Domain.Workspace.ValueObjects;
 
 namespace ProjectHub.Application.Services;
@@ -64,10 +66,10 @@ public class SpaceService : ISpaceService
             throw new Exception($"Space with ID - {id} was not found");
         }
 
-        var updatedSpace = request.MapDtoToSpace(existingSpace);
+        var changes = DeltaFinder.GetChangedProperties(request, existingSpace);
 
-        updatedSpace.ModifiedAt = DateTime.Now;
+        existingSpace.ApplyChanges<Space>(changes);
 
-        await _spaceRepository.UpdateAsync(updatedSpace);
+        await _spaceRepository.UpdateAsync(existingSpace);
     }
 }
