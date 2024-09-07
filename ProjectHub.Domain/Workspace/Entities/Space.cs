@@ -1,7 +1,6 @@
 ﻿using ProjectHub.Domain.Common.Models;
 using ProjectHub.Domain.Workspace.Enums;
 using ProjectHub.Domain.Workspace.ValueObjects;
-using System.Xml.Linq;
 
 namespace ProjectHub.Domain.Workspace.Entities;
 
@@ -9,14 +8,14 @@ public sealed class Space : BaseEntity
 {
     public SpaceId Id { get; private init; } = SpaceId.NewEntityId();
 
-    public string Name { get; set; }
+    public string Name { get; private set; }
 
-    public string Description { get; set; }
+    public string Description { get; private set; }
 
     // TODO: Maybe remove sections
-    public IReadOnlyCollection<Section> Sections { get; set; } = new List<Section>();
+    public IReadOnlyCollection<Section> Sections { get; private set; } = new List<Section>();
 
-    public ProgressState State { get; set; } = ProgressState.NotStarted;
+    public ProgressState State { get; private set; } = ProgressState.NotStarted;
 
     public Space() { }
 
@@ -27,9 +26,8 @@ public sealed class Space : BaseEntity
         CreatedAt = DateTime.Now;
     }
 
-    public Space(Guid id, string name, string description, ProgressState state, IReadOnlyCollection<Section> sections)
+    public Space(string name, string description, ProgressState state, IReadOnlyCollection<Section> sections)
     {
-        Id = new SpaceId(id);
         Name = name;
         Description = description;
         Sections = new List<Section>();

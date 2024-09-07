@@ -1,10 +1,9 @@
 ﻿using ProjectHub.Domain.Shared.ValueObjects;
-using ProjectHub.Domain.Workspace.Entities;
 using ProjectHub.Domain.Workspace.RelationShips;
 
 namespace ProjectHub.Domain.Shared.Entities;
 
-public class Tag
+public sealed class Tag
 {
     public TagId Id { get; private init; } = TagId.NewEntityId();
 

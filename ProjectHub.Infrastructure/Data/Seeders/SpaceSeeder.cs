@@ -23,77 +23,76 @@ public sealed class SpaceSeeder(ProjectHubDbContext dbContext, IConfiguration co
 
     private IEnumerable<Space> GetSpaces()
     {
-        List<Space> spaces = [
-            new()
-            {
-                Name = "Personal Hub",
-                Description = "Personal Hub an application used to manage projects",
-                State = ProgressState.InProgress,
-                Sections = [
-                    new()
+        var name = "Personal Hub";
+        var description = "Personal Hub an application used to manage projects";
+        var state = ProgressState.InProgress;
+        var sections = new List<Section>()
                     {
+                    new(){
                         Name = "Backlog",
                         Description = "An accumulation of uncompleted work or matters needing to be dealt with",
-                        Epics = [
-                            new ()
-                            {
-                                AssignedToUserId = configuration["UserAuth:UserId"],
-                                Name = "Epic Story",
-                                Description = "This is gonna be great!",
-                                Features = [
-                                    new ()
-                                    {
-                                        EpicId = EpicId.Empty,
-                                        Name = "Registration",
-                                        Description = "It should be possible to register a user",
-                                        Activities =
-                                        [
-                                            new ()
-                                            {
-                                                Name = "HTML Form",
-                                                Description = "A form for the user to add information",
-                                            },
-                                            new()
-                                            {
-                                                Name = "Style Form",
-                                                Description = "The HTML form needs to look good",
-                                            }
-                                        ],
-                                        Importance = Priority.Low,
-                                        CreatedAt = DateTime.Now,
-                                    },
-                                    new()
-                                    {
-                                        EpicId = EpicId.Empty,
-                                        Name = "Login",
-                                        Description = "After registration should be able to login",
-                                        Activities =
-                                        [
-                                            new()
-                                            {
-                                                Name = "HTML Form",
-                                                Description = "A form for the user to add information",
-                                            },
-                                            new()
-                                            {
-                                                Name = "Style Form",
-                                                Description = "The HTML form needs to look good",
-                                            },
-                                            new()
-                                            {
-                                                Name = "Add JWT Token",
-                                                Description = "Add token to know who the user is",
-                                            }
-                                        ],
-                                        Importance = Priority.Low,
-                                        CreatedAt = DateTime.Now,
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
+                            Epics = [
+                                new ()
+                                {
+                                    AssignedToUserId = configuration["UserAuth:UserId"],
+                                    Name = "Epic Story",
+                                    Description = "This is gonna be great!",
+                                    Features = [
+                                        new ()
+                                        {
+                                            EpicId = EpicId.Empty,
+                                            Name = "Registration",
+                                            Description = "It should be possible to register a user",
+                                            Activities =
+                                            [
+                                                new ()
+                                                {
+                                                    Name = "HTML Form",
+                                                    Description = "A form for the user to add information",
+                                                },
+                                                new()
+                                                {
+                                                    Name = "Style Form",
+                                                    Description = "The HTML form needs to look good",
+                                                }
+                                            ],
+                                            Importance = Priority.Low,
+                                            CreatedAt = DateTime.Now,
+                                        },
+                                        new()
+                                        {
+                                            EpicId = EpicId.Empty,
+                                            Name = "Login",
+                                            Description = "After registration should be able to login",
+                                            Activities =
+                                            [
+                                                new()
+                                                {
+                                                    Name = "HTML Form",
+                                                    Description = "A form for the user to add information",
+                                                },
+                                                new()
+                                                {
+                                                    Name = "Style Form",
+                                                    Description = "The HTML form needs to look good",
+                                                },
+                                                new()
+                                                {
+                                                    Name = "Add JWT Token",
+                                                    Description = "Add token to know who the user is",
+                                                }
+                                            ],
+                                            Importance = Priority.Low,
+                                            CreatedAt = DateTime.Now,
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    };
+
+        List<Space> spaces = [
+            new(name, description, state, sections)
         ];
 
         return spaces;
