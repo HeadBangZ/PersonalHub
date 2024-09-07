@@ -1,5 +1,5 @@
-﻿using ProjectHub.Domain.Workspace.Entities;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+
 namespace ProjectHub.Domain.Common.Models;
 
 public abstract class BaseEntity
