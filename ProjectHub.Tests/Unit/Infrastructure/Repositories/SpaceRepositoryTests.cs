@@ -1,10 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using NSubstitute;
-using ProjectHub.Domain.Workspace.Entities;
+﻿using ProjectHub.Domain.Workspace.Entities;
 using ProjectHub.Domain.Workspace.Enums;
 using ProjectHub.Infrastructure.Data.Contexts;
 using ProjectHub.Infrastructure.Repositories;
+using ProjectHub.Tests.Unit.Mocks;
 
 namespace ProjectHub.Tests.Unit.Infrastructure.Repositories
 {
@@ -15,13 +13,7 @@ namespace ProjectHub.Tests.Unit.Infrastructure.Repositories
 
         public SpaceRepositoryTests()
         {
-            var mockConfiguration = Substitute.For<IConfiguration>();
-
-            var options = new DbContextOptionsBuilder<ProjectHubDbContext>()
-                .UseInMemoryDatabase(databaseName: "TestDatabase")
-                .Options;
-
-            _context = new ProjectHubDbContext(options, mockConfiguration);
+            _context = MockDbContextSingleton.Instance.DbContext;
 
             _spaceRepository = new SpaceRepository(_context);
         }
