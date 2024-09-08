@@ -1,11 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ProjectHub.Domain.Workspace.Entities;
+﻿using ProjectHub.Domain.Workspace.Entities;
 using ProjectHub.Domain.Workspace.Enums;
 using ProjectHub.Domain.Workspace.ValueObjects;
 using ProjectHub.Infrastructure.Data.Contexts;
 using ProjectHub.Infrastructure.Repositories;
 using ProjectHub.Tests.Unit.Mocks;
-using System.ComponentModel.DataAnnotations;
 
 namespace ProjectHub.Tests.Unit.Infrastructure.Repositories
 {
