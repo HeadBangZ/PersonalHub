@@ -1,7 +1,7 @@
 ﻿using ProjectHub.Application.DTOs.FeatureDtos;
 using ProjectHub.Domain.Workspace.Entities;
 
-namespace ProjectHub.Application.Extensions;
+namespace ProjectHub.Application.Mappers;
 
 // TODO: Clean up
 public static class FeatureExtensions

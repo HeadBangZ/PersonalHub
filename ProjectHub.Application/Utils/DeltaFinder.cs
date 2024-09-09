@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Reflection;
 
-namespace ProjectHub.Application.Shared;
+namespace ProjectHub.Application.Utils;
 
 public static class DeltaFinder
 {

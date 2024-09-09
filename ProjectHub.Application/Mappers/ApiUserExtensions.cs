@@ -1,7 +1,7 @@
 ﻿using ProjectHub.Application.DTOs.ApiUserDtos;
 using ProjectHub.Domain.User.Entities;
 
-namespace ProjectHub.Application.Extensions;
+namespace ProjectHub.Application.Mappers;
 
 public static class ApiUserExtensions
 {

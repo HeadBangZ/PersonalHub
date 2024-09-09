@@ -1,7 +1,7 @@
-﻿using ProjectHub.Domain.Shared.ValueObjects;
+﻿using ProjectHub.Domain.Common.ValueObjects;
 using ProjectHub.Domain.Workspace.RelationShips;
 
-namespace ProjectHub.Domain.Shared.Entities;
+namespace ProjectHub.Domain.Common.Entities;
 
 public sealed class Tag
 {

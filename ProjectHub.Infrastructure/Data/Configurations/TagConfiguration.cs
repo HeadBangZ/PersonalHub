@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ProjectHub.Domain.Shared.Entities;
-using ProjectHub.Domain.Shared.ValueObjects;
-using ProjectHub.Domain.Workspace.RelationShips;
+using ProjectHub.Domain.Common.Entities;
+using ProjectHub.Domain.Common.ValueObjects;
 
 namespace ProjectHub.Infrastructure.Data.Configurations
 {

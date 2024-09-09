@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using ProjectHub.Application.Contracts;
 using ProjectHub.Application.DTOs.ApiUserDtos;
-using ProjectHub.Application.Extensions;
+using ProjectHub.Application.Mappers;
 using ProjectHub.Domain.Contracts;
 
 namespace ProjectHub.Application.Services;

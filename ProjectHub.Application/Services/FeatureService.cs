@@ -1,6 +1,6 @@
 ﻿using ProjectHub.Application.Contracts;
 using ProjectHub.Application.DTOs.FeatureDtos;
-using ProjectHub.Application.Extensions;
+using ProjectHub.Application.Mappers;
 using ProjectHub.Domain.Contracts;
 using ProjectHub.Domain.Workspace.ValueObjects;
 

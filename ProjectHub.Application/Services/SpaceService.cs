@@ -1,7 +1,7 @@
 ﻿using ProjectHub.Application.Contracts;
 using ProjectHub.Application.DTOs.SpaceDtos;
-using ProjectHub.Application.Extensions;
-using ProjectHub.Application.Shared;
+using ProjectHub.Application.Mappers;
+using ProjectHub.Application.Utils;
 using ProjectHub.Domain.Contracts;
 using ProjectHub.Domain.Workspace.Entities;
 using ProjectHub.Domain.Workspace.ValueObjects;

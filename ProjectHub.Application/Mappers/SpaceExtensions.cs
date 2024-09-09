@@ -1,9 +1,7 @@
 ﻿using ProjectHub.Application.DTOs.SpaceDtos;
 using ProjectHub.Domain.Workspace.Entities;
-using ProjectHub.Domain.Workspace.Enums;
-using ProjectHub.Domain.Workspace.ValueObjects;
 
-namespace ProjectHub.Application.Extensions;
+namespace ProjectHub.Application.Mappers;
 
 public static class SpaceExtensions
 {
