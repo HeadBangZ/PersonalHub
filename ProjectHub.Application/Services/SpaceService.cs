@@ -66,8 +66,9 @@ public class SpaceService : ISpaceService
         }
 
         var changes = DeltaFinder.GetChangedProperties(request, existingSpace);
+        var properties = DeltaFinder.GetPropertyDictionary<Space>();
 
-        existingSpace.ApplyChanges<Space>(changes);
+        existingSpace.ApplyChanges<Space>(changes, properties);
 
         await _spaceRepository.UpdateAsync(existingSpace);
     }
