@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using ProjectHub.Domain.Shared.Entities;
-using ProjectHub.Domain.Shared.ValueObjects;
+using ProjectHub.Domain.Common.Entities;
+using ProjectHub.Domain.Common.ValueObjects;
 using ProjectHub.Domain.User.Entities;
 using ProjectHub.Domain.Workspace.Entities;
 using ProjectHub.Domain.Workspace.RelationShips;
