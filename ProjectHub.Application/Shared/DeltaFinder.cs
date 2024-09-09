@@ -1,13 +1,19 @@
-﻿namespace ProjectHub.Application.Shared;
+﻿using System.Collections.Concurrent;
+using System.Collections.ObjectModel;
+using System.Reflection;
 
-public sealed class DeltaFinder
+namespace ProjectHub.Application.Shared;
+
+public static class DeltaFinder
 {
-    public static Dictionary<string, object> GetChangedProperties<TSource, TTarget>(TSource source, TTarget target)
+    private static readonly ConcurrentDictionary<Type, PropertyInfo[]> PropertyCache = new ConcurrentDictionary<Type, PropertyInfo[]>();
+
+    public static IReadOnlyDictionary<string, object> GetChangedProperties<TSource, TTarget>(TSource source, TTarget target)
     {
         var changes = new Dictionary<string, object>();
 
-        var sourceProperties = typeof(TSource).GetProperties();
-        var targetProperties = typeof(TTarget).GetProperties();
+        var sourceProperties = GetPropertyCache(typeof(TSource));
+        var targetProperties = GetPropertyCache(typeof(TTarget));
 
         foreach (var sourceProperty in sourceProperties)
         {
@@ -30,6 +36,16 @@ public sealed class DeltaFinder
             }
         }
 
-        return changes;
+        return new ReadOnlyDictionary<string, object>(changes);
+    }
+
+    private static PropertyInfo[] GetPropertyCache(Type type)
+    {
+        return PropertyCache.GetOrAdd(type, type.GetProperties());
+    }
+
+    public static IDictionary<string, PropertyInfo> GetPropertyDictionary<T>()
+    {
+        return GetPropertyCache(typeof(T)).ToDictionary(p => p.Name);
     }
 }
