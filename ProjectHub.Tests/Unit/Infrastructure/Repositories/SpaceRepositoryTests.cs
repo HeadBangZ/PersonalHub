@@ -1,9 +1,11 @@
-﻿using ProjectHub.Domain.Workspace.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using ProjectHub.Domain.Workspace.Entities;
 using ProjectHub.Domain.Workspace.Enums;
 using ProjectHub.Domain.Workspace.ValueObjects;
 using ProjectHub.Infrastructure.Data.Contexts;
 using ProjectHub.Infrastructure.Repositories;
 using ProjectHub.Tests.Unit.Mocks;
+using System.Security.Cryptography;
 
 namespace ProjectHub.Tests.Unit.Infrastructure.Repositories
 {
@@ -46,13 +48,13 @@ namespace ProjectHub.Tests.Unit.Infrastructure.Repositories
         [Fact]
         public async Task GetAllAsync_Successfully()
         {
-            var result = await _spaceRepository.GetAllAsync();
+            var entities = await _spaceRepository.GetAllAsync();
 
-            Assert.Equal(4, result.Count);
-            Assert.Equal("Space 1", result[0].Name);
-            Assert.Empty(result[1].Sections);
-            Assert.Equal(ProgressState.InProgress, result[2].State);
-            Assert.Equal("Description Space 4", result[3].Description);
+            Assert.Equal(4, entities.Count);
+            Assert.Equal("Space 1", entities[0].Name);
+            Assert.Empty(entities[1].Sections);
+            Assert.Equal(ProgressState.InProgress, entities[2].State);
+            Assert.Equal("Description Space 4", entities[3].Description);
         }
 
         [Fact]
@@ -79,6 +81,22 @@ namespace ProjectHub.Tests.Unit.Infrastructure.Repositories
             Assert.Equal("Space X", result.Name);
             Assert.Equal("Description Space X", result.Description);
             Assert.Equal(ProgressState.NotStarted, result.State);
+        }
+
+        [Fact]
+        public async Task Delete_Successfully()
+        {
+            var entities = await _spaceRepository.GetAllAsync();
+
+            Assert.True(entities.Any());
+
+            var id = entities.First().Id;
+            await _spaceRepository.DeleteAsync(id);
+
+            var updatedEntities = await _spaceRepository.GetAllAsync();
+
+            Assert.Equal(entities.Count - 1, updatedEntities.Count);
+            Assert.DoesNotContain(updatedEntities, e => e.Id == id);
         }
     }
 }
