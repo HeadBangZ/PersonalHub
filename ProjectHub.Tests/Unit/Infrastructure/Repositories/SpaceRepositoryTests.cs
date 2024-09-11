@@ -1,11 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ProjectHub.Application.DTOs.SpaceDtos;
+using ProjectHub.Application.Utils;
 using ProjectHub.Domain.Workspace.Entities;
 using ProjectHub.Domain.Workspace.Enums;
 using ProjectHub.Domain.Workspace.ValueObjects;
 using ProjectHub.Infrastructure.Data.Contexts;
 using ProjectHub.Infrastructure.Repositories;
 using ProjectHub.Tests.Unit.Mocks;
-using System.Security.Cryptography;
 
 namespace ProjectHub.Tests.Unit.Infrastructure.Repositories
 {
@@ -97,6 +97,37 @@ namespace ProjectHub.Tests.Unit.Infrastructure.Repositories
 
             Assert.Equal(entities.Count - 1, updatedEntities.Count);
             Assert.DoesNotContain(updatedEntities, e => e.Id == id);
+        }
+
+        [Fact]
+        public async Task Update_Successfully()
+        {
+            var entities = await _spaceRepository.GetAllAsync();
+
+            Assert.True(entities.Any());
+
+            var entity = entities.First();
+            var spaceId = entities.First().Id;
+
+            var dto = new UpdateSpaceDtoRequest(spaceId.Id, "Hubba Bubba", "FizzBuzz", null, ProgressState.InProgress);
+
+            var changes = DeltaFinder.GetChangedProperties(dto, entity);
+
+            Assert.True(changes.Any());
+            Assert.Equal(3, changes.Count);
+
+            var properties = DeltaFinder.GetPropertyDictionary<Space>();
+
+            entity.ApplyChanges<Space>(changes, properties);
+
+            await _spaceRepository.UpdateAsync(entity);
+
+            var updatedEntities = await _spaceRepository.GetAllAsync();
+
+            Assert.Equal(entity.Name, updatedEntities.First().Name);
+            Assert.Equal(entity.Description, updatedEntities.First().Description);
+            Assert.Empty(updatedEntities.First().Sections);
+            Assert.Equal(entity.State, updatedEntities.First().State);
         }
     }
 }
