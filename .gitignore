@@ -354,6 +354,9 @@ _ReSharper*/
 # Log Files
 /Logs
 
+# Test Reports
+/Reports
+
 #======================================================================================
 # The below section could possibly be removed as these should be ignored by the above.
 #======================================================================================
