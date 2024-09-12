@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectHub.Infrastructure.Data.Contexts;
 
@@ -12,9 +13,11 @@ using ProjectHub.Infrastructure.Data.Contexts;
 namespace ProjectHub.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ProjectHubDbContext))]
-    partial class PersonalHubDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240912072100_dbChanges")]
+    partial class dbChanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,7 +55,7 @@ namespace ProjectHub.Infrastructure.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b1fdc150-9e18-4df2-90ce-55dd5b3803b5",
+                            Id = "9f2aab25-146b-488a-aac4-62391ac06ff9",
                             Name = "User",
                             NormalizedName = "USER"
                         },
@@ -285,46 +288,34 @@ namespace ProjectHub.Infrastructure.Data.Migrations
 
                             b1.Property<string>("City")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)")
-                                .HasColumnName("City");
+                                .HasColumnType("nvarchar(max)");
 
                             b1.Property<string>("Country")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)")
-                                .HasColumnName("Country");
+                                .HasColumnType("nvarchar(max)");
 
                             b1.Property<string>("CountryCode")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)")
-                                .HasColumnName("CountryCode");
-
-                            b1.Property<string>("Floor")
-                                .HasColumnType("nvarchar(max)")
-                                .HasColumnName("Floor");
+                                .HasColumnType("nvarchar(max)");
 
                             b1.Property<string>("Municipality")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)")
-                                .HasColumnName("Municipality");
+                                .HasColumnType("nvarchar(max)");
 
                             b1.Property<int>("Number")
-                                .HasColumnType("int")
-                                .HasColumnName("Number");
+                                .HasColumnType("int");
 
                             b1.Property<string>("Region")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)")
-                                .HasColumnName("Region");
+                                .HasColumnType("nvarchar(max)");
 
                             b1.Property<string>("StreeName")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)")
-                                .HasColumnName("StreeName");
+                                .HasColumnType("nvarchar(max)");
 
                             b1.Property<string>("Zipcode")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)")
-                                .HasColumnName("Zipcode");
+                                .HasColumnType("nvarchar(max)");
                         });
 
                     b.ComplexProperty<Dictionary<string, object>>("Information", "ProjectHub.Domain.User.Entities.UserProfile.Information#PersonalInfo", b1 =>
@@ -653,9 +644,9 @@ namespace ProjectHub.Infrastructure.Data.Migrations
             modelBuilder.Entity("ProjectHub.Domain.User.Entities.UserProfile", b =>
                 {
                     b.HasOne("ProjectHub.Domain.User.Entities.ApiUser", "ApiUser")
-                        .WithOne("UserProfile")
+                        .WithOne()
                         .HasForeignKey("ProjectHub.Domain.User.Entities.UserProfile", "ApiUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("ApiUser");
@@ -739,11 +730,6 @@ namespace ProjectHub.Infrastructure.Data.Migrations
             modelBuilder.Entity("ProjectHub.Domain.Common.Entities.Tag", b =>
                 {
                     b.Navigation("EpicTags");
-                });
-
-            modelBuilder.Entity("ProjectHub.Domain.User.Entities.ApiUser", b =>
-                {
-                    b.Navigation("UserProfile");
                 });
 
             modelBuilder.Entity("ProjectHub.Domain.Workspace.Entities.Epic", b =>

@@ -9,7 +9,6 @@ public static class ApiUserExtensions
     {
         return new ApiUserDtoResponse(
             apiUser.Id,
-            apiUser.Information,
             apiUser.Email,
             apiUser.CreatedAt,
             apiUser.UpdatedAt
@@ -20,11 +19,6 @@ public static class ApiUserExtensions
     {
         return new ApiUser
         {
-            Information = new()
-            {
-                FirstName = request.FirstName,
-                LastName = request.LastName,
-            },
             Email = request.Email,
             UserName = request.Email,
             CreatedAt = DateTime.UtcNow,
