@@ -30,6 +30,7 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped<ISpaceSeeder, SpaceSeeder>();
         services.AddScoped<IApiUserSeeder, ApiUserSeeder>();
+        services.AddScoped<IUserProfileSeeder, UserProfileSeeder>();
         services.AddScoped<IUserRoleSeeder, UserRoleSeeder>();
 
         services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));

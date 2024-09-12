@@ -7,7 +7,7 @@ namespace ProjectHub.Infrastructure.Data.Seeders.ApiUsers;
 
 public sealed class ApiUserSeeder(ProjectHubDbContext dbContext, IConfiguration configuration) : IApiUserSeeder
 {
-    public async Task Seed()
+    public async Task<ApiUser> Seed()
     {
         if (await dbContext.Database.CanConnectAsync())
         {
@@ -16,8 +16,11 @@ public sealed class ApiUserSeeder(ProjectHubDbContext dbContext, IConfiguration 
                 var user = GetApiUser();
                 dbContext.Users.Add(user);
                 await dbContext.SaveChangesAsync();
+                return user;
             }
         }
+
+        return dbContext.Users.FirstOrDefault();
     }
 
     private ApiUser GetApiUser()

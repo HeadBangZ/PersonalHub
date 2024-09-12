@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectHub.Infrastructure.Data.Contexts;
 
@@ -12,9 +13,11 @@ using ProjectHub.Infrastructure.Data.Contexts;
 namespace ProjectHub.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ProjectHubDbContext))]
-    partial class PersonalHubDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240912095133_updates")]
+    partial class updates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,7 +55,7 @@ namespace ProjectHub.Infrastructure.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1801aff3-9d8b-4197-9d08-11d89b4f57c5",
+                            Id = "e1bd5abc-d83c-4d83-a6c8-435a17c90541",
                             Name = "User",
                             NormalizedName = "USER"
                         },
@@ -284,14 +287,17 @@ namespace ProjectHub.Infrastructure.Data.Migrations
                             b1.IsRequired();
 
                             b1.Property<string>("City")
+                                .IsRequired()
                                 .HasColumnType("nvarchar(max)")
                                 .HasColumnName("City");
 
                             b1.Property<string>("Country")
+                                .IsRequired()
                                 .HasColumnType("nvarchar(max)")
                                 .HasColumnName("Country");
 
                             b1.Property<string>("CountryCode")
+                                .IsRequired()
                                 .HasColumnType("nvarchar(max)")
                                 .HasColumnName("CountryCode");
 
@@ -300,22 +306,26 @@ namespace ProjectHub.Infrastructure.Data.Migrations
                                 .HasColumnName("Floor");
 
                             b1.Property<string>("Municipality")
+                                .IsRequired()
                                 .HasColumnType("nvarchar(max)")
                                 .HasColumnName("Municipality");
 
-                            b1.Property<int?>("Number")
+                            b1.Property<int>("Number")
                                 .HasColumnType("int")
                                 .HasColumnName("Number");
 
                             b1.Property<string>("Region")
+                                .IsRequired()
                                 .HasColumnType("nvarchar(max)")
                                 .HasColumnName("Region");
 
                             b1.Property<string>("StreeName")
+                                .IsRequired()
                                 .HasColumnType("nvarchar(max)")
                                 .HasColumnName("StreeName");
 
                             b1.Property<string>("Zipcode")
+                                .IsRequired()
                                 .HasColumnType("nvarchar(max)")
                                 .HasColumnName("Zipcode");
                         });

@@ -2,7 +2,7 @@
 
 namespace ProjectHub.Infrastructure.Data.Seeders.ApiUsers;
 
-public interface IApiUserSeeder
+public interface IUserProfileSeeder
 {
-    Task<ApiUser> Seed();
+    Task Seed(ApiUser user);
 }
