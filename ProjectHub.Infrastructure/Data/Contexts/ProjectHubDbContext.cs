@@ -25,6 +25,7 @@ namespace ProjectHub.Infrastructure.Data.Contexts
 
         // User
         public DbSet<ApiUser> Users => Set<ApiUser>();
+        public DbSet<UserProfile> UserProfiles => Set<UserProfile>();
 
         // Workspace
         public DbSet<Space> Spaces => Set<Space>();

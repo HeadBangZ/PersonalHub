@@ -35,9 +35,11 @@ public class Program
         {
             var seederSpace = scope.ServiceProvider.GetRequiredService<ISpaceSeeder>();
             var seederApiUser = scope.ServiceProvider.GetRequiredService<IApiUserSeeder>();
+            var seederUserProfile = scope.ServiceProvider.GetRequiredService<IUserProfileSeeder>();
             var seederUserRole = scope.ServiceProvider.GetRequiredService<IUserRoleSeeder>();
 
-            await seederApiUser.Seed();
+            var user = await seederApiUser.Seed();
+            await seederUserProfile.Seed(user);
             await seederUserRole.Seed();
             await seederSpace.Seed();
         }
