@@ -26,11 +26,6 @@ public sealed class ApiUserSeeder(ProjectHubDbContext dbContext, IConfiguration 
         ApiUser apiUser = new()
         {
             Id = configuration["UserAuth:UserId"],
-            Information = new()
-            {
-                FirstName = configuration["UserAuth:FirstName"],
-                LastName = configuration["UserAuth:LastName"]
-            },
             Email = email,
             EmailConfirmed = true,
             NormalizedEmail = email.ToUpper(),

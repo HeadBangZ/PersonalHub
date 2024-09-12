@@ -6,7 +6,9 @@ namespace ProjectHub.Domain.User.Entities;
 
 public sealed class ApiUser : IdentityUser
 {
-    public PersonalInfo? Information { get; set; }
+    public UserProfileId UserProfileId { get; set; }
+
+    public UserProfile UserProfile { get; set; }
 
     [DataType(DataType.DateTime)]
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
