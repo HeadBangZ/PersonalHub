@@ -16,13 +16,13 @@ internal class SpaceConfiguration : IEntityTypeConfiguration<Space>
             value => new SpaceId(value));
 
         builder.Property(s => s.Name)
-            .HasMaxLength(100);
+            .HasMaxLength(75);
 
         builder.HasIndex(s => s.Name);
 
         builder.Property(s => s.State)
             .HasConversion<string>()
-            .HasMaxLength(50);
+            .HasMaxLength(15);
 
         builder.HasMany(s => s.Sections)
             .WithOne()

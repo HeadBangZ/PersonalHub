@@ -1,6 +1,7 @@
 ﻿using ProjectHub.Domain.Common.Models;
 using ProjectHub.Domain.Workspace.Enums;
 using ProjectHub.Domain.Workspace.ValueObjects;
+using System.ComponentModel.DataAnnotations;
 
 namespace ProjectHub.Domain.Workspace.Entities;
 
