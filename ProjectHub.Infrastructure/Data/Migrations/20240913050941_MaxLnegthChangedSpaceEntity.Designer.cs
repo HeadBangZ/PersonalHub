@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectHub.Infrastructure.Data.Contexts;
 
@@ -12,9 +13,11 @@ using ProjectHub.Infrastructure.Data.Contexts;
 namespace ProjectHub.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ProjectHubDbContext))]
-    partial class PersonalHubDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240913050941_MaxLnegthChangedSpaceEntity")]
+    partial class MaxLnegthChangedSpaceEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

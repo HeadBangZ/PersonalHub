@@ -6,10 +6,10 @@ namespace ProjectHub.Application.DTOs.SpaceDtos;
 
 public record SpaceDtoResponse(
     Guid Id,
-    [StringLength(75)] string? Name,
+    string Name,
     string? Description,
-    IReadOnlyCollection<Section>? Sections,
-    ProgressState? State,
+    IReadOnlyCollection<Section> Sections,
+    ProgressState State,
     DateTime CreatedAt,
     DateTime? ModifiedAt
 );

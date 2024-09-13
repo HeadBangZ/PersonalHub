@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectHub.Infrastructure.Data.Contexts;
 
@@ -12,9 +13,11 @@ using ProjectHub.Infrastructure.Data.Contexts;
 namespace ProjectHub.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ProjectHubDbContext))]
-    partial class PersonalHubDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240913045345_MinorSpaceEntityMaxLengthMistake")]
+    partial class MinorSpaceEntityMaxLengthMistake
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,7 +55,7 @@ namespace ProjectHub.Infrastructure.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6c2196f5-c432-4635-9c90-25cd83fb7547",
+                            Id = "9158e0e2-1654-4a37-8777-10fa4292851c",
                             Name = "User",
                             NormalizedName = "USER"
                         },
@@ -567,8 +570,8 @@ namespace ProjectHub.Infrastructure.Data.Migrations
 
                     b.Property<string>("State")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
