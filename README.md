@@ -45,4 +45,6 @@ The Tests layer includes various tests to ensure the quality and correctness of 
   - Clean up dtos and figure out which fields are required and which are not
   - Entity properties "private set" how to handle
   - Add Error Handling
+  - Add Validators
+  - Add Middlewares
   - Change name from PersonalHub to ProjectHub (DONE)
