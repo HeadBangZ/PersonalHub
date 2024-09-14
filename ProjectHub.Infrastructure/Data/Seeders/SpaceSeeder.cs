@@ -28,9 +28,9 @@ public sealed class SpaceSeeder(ProjectHubDbContext dbContext, IConfiguration co
         var state = ProgressState.InProgress;
         var sections = new List<Section>()
                     {
-                    new(){
-                        Name = "Backlog",
-                        Description = "An accumulation of uncompleted work or matters needing to be dealt with",
+                        new(){
+                            Name = "Backlog",
+                            Description = "An accumulation of uncompleted work or matters needing to be dealt with",
                             Epics = [
                                 new ()
                                 {
@@ -38,13 +38,7 @@ public sealed class SpaceSeeder(ProjectHubDbContext dbContext, IConfiguration co
                                     Name = "Epic Story",
                                     Description = "This is gonna be great!",
                                     Features = [
-                                        new ()
-                                        {
-                                            EpicId = EpicId.Empty,
-                                            Name = "Registration",
-                                            Description = "It should be possible to register a user",
-                                            Activities =
-                                            [
+                                        new (Guid.Empty, "Registration", "It should be possible to register a user", [
                                                 new ()
                                                 {
                                                     Name = "HTML Form",
@@ -55,17 +49,8 @@ public sealed class SpaceSeeder(ProjectHubDbContext dbContext, IConfiguration co
                                                     Name = "Style Form",
                                                     Description = "The HTML form needs to look good",
                                                 }
-                                            ],
-                                            Importance = Priority.Low,
-                                            CreatedAt = DateTime.Now,
-                                        },
-                                        new()
-                                        {
-                                            EpicId = EpicId.Empty,
-                                            Name = "Login",
-                                            Description = "After registration should be able to login",
-                                            Activities =
-                                            [
+                                            ], Priority.Low, false),
+                                        new Feature(Guid.Empty, "Login", "After registration should be able to login", [
                                                 new()
                                                 {
                                                     Name = "HTML Form",
@@ -81,10 +66,7 @@ public sealed class SpaceSeeder(ProjectHubDbContext dbContext, IConfiguration co
                                                     Name = "Add JWT Token",
                                                     Description = "Add token to know who the user is",
                                                 }
-                                            ],
-                                            Importance = Priority.Low,
-                                            CreatedAt = DateTime.Now,
-                                        }
+                                            ], Priority.Low, false)
                                     ]
                                 }
                             ]

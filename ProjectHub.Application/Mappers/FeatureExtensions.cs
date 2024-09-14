@@ -23,6 +23,7 @@ public static class FeatureExtensions
     public static Feature MapCreateDtoToFeature(this CreateFeatureDtoRequest request)
     {
         return new Feature(
+           request.EpicId,
            request.Name,
            request.Description
         );

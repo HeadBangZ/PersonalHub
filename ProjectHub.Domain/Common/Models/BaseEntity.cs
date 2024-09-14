@@ -6,10 +6,10 @@ namespace ProjectHub.Domain.Common.Models;
 public abstract class BaseEntity
 {
     [DataType(DataType.DateTime)]
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; protected set; } = DateTime.UtcNow;
 
     [DataType(DataType.DateTime)]
-    public DateTime? ModifiedAt { get; set; }
+    public DateTime? ModifiedAt { get; protected set; }
 
     public void ApplyChanges<T>(IReadOnlyDictionary<string, object> changes, IDictionary<string, PropertyInfo> properties)
     {
