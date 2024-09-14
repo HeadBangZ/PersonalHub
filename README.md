@@ -42,9 +42,11 @@ The Tests layer includes various tests to ensure the quality and correctness of 
   
 ### Todos
   - Create Sprint Entity, figure out how it is related
-  - Clean up dtos and figure out which fields are required and which are not
-  - Entity properties "private set" how to handle
+  - Clean up dtos (DONE)
+  - Figure out which fields are required and which are not
+  - Entity properties "private set" how to handle (DONE)
   - Add Error Handling
   - Add Validators
   - Add Middlewares
+  - Add Exceptions
   - Change name from PersonalHub to ProjectHub (DONE)

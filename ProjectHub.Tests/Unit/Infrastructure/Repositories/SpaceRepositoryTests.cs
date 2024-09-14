@@ -4,130 +4,119 @@ using ProjectHub.Domain.Workspace.Entities;
 using ProjectHub.Domain.Workspace.Enums;
 using ProjectHub.Domain.Workspace.ValueObjects;
 using ProjectHub.Infrastructure.Data.Contexts;
+using ProjectHub.Infrastructure.Data.Seeders;
 using ProjectHub.Infrastructure.Repositories;
 using ProjectHub.Tests.Unit.Mocks;
+using ProjectHub.Tests.Unit.Seeder;
 
-namespace ProjectHub.Tests.Unit.Infrastructure.Repositories
+namespace ProjectHub.Tests.Unit.Infrastructure.Repositories;
+
+public class SpaceRepositoryTests : IAsyncLifetime
 {
-    public class SpaceRepositoryTests : IAsyncLifetime
+    private readonly SpaceRepository _spaceRepository;
+    private readonly ProjectHubDbContext _context;
+
+    public SpaceRepositoryTests()
     {
-        private readonly SpaceRepository _spaceRepository;
-        private readonly ProjectHubDbContext _context;
+        _context = MockDbContextFactory.CreateDbContext();
+        _spaceRepository = new SpaceRepository(_context);
+    }
 
-        public SpaceRepositoryTests()
-        {
-            _context = MockDbContextFactory.CreateDbContext();
-            _spaceRepository = new SpaceRepository(_context);
-        }
+    public async Task InitializeAsync()
+    {
+        var spaces = SpaceTestData.SeedData();
+        await _context.Spaces.AddRangeAsync(spaces);
+        await _context.SaveChangesAsync();
+    }
 
-        private async Task SeedDataAsync()
-        {
-            var spaces = new List<Space>()
-            {
-                new Space("Space 1", "Description Space 1", ProgressState.Completed, new List<Section>()),
-                new Space("Space 2", "Description Space 2", ProgressState.NotStarted, new List<Section>()),
-                new Space("Space 3", "Description Space 3", ProgressState.InProgress, new List<Section>()),
-                new Space("Space 4", "Description Space 4", ProgressState.NotStarted, new List<Section>()),
-            };
+    public async Task DisposeAsync()
+    {
+        _context.Spaces.RemoveRange(_context.Spaces);
+        await _context.SaveChangesAsync();
+    }
 
-            await _context.Spaces.AddRangeAsync(spaces);
-            await _context.SaveChangesAsync();
-        }
+    [Fact]
+    public async Task GetAllAsync_Successfully()
+    {
+        var entities = await _spaceRepository.GetAllAsync();
 
-        public async Task InitializeAsync()
-        {
-            await SeedDataAsync();
-        }
+        Assert.Equal(4, entities.Count);
+        Assert.Equal("Space 1", entities[0].Name);
+        Assert.Empty(entities[1].Sections);
+        Assert.Equal(ProgressState.InProgress, entities[2].State);
+        Assert.Equal("Description Space 4", entities[3].Description);
+    }
 
-        public async Task DisposeAsync()
-        {
-            _context.Spaces.RemoveRange(_context.Spaces);
-            await _context.SaveChangesAsync();
-        }
+    [Fact]
+    public async Task GetById_Failed()
+    {
+        var result = await _spaceRepository.GetAsync(SpaceId.Empty);
 
-        [Fact]
-        public async Task GetAllAsync_Successfully()
-        {
-            var entities = await _spaceRepository.GetAllAsync();
+        Assert.Null(result);
+    }
 
-            Assert.Equal(4, entities.Count);
-            Assert.Equal("Space 1", entities[0].Name);
-            Assert.Empty(entities[1].Sections);
-            Assert.Equal(ProgressState.InProgress, entities[2].State);
-            Assert.Equal("Description Space 4", entities[3].Description);
-        }
+    [Fact]
+    public async Task GetById_Successfully()
+    {
+        var space = SpaceTestData.CreateData("Space X", "Description Space X");
 
-        [Fact]
-        public async Task GetById_Failed()
-        {
-            var result = await _spaceRepository.GetAsync(SpaceId.Empty);
+        await _context.AddAsync(space);
+        await _context.SaveChangesAsync();
 
-            Assert.Null(result);
-        }
+        var result = await _spaceRepository.GetAsync(space.Id);
 
-        [Fact]
-        public async Task GetById_Successfully()
-        {
-            var space = new Space("Space X", "Description Space X");
+        Assert.NotNull(result);
+        Assert.Equal(typeof(Space), result.GetType());
+        Assert.NotEqual(Guid.Empty, result.Id.Id);
+        Assert.Equal("Space X", result.Name);
+        Assert.Equal("Description Space X", result.Description);
+        Assert.Equal(ProgressState.NotStarted, result.State);
+    }
 
-            await _context.AddAsync(space);
-            await _context.SaveChangesAsync();
+    [Fact]
+    public async Task Delete_Successfully()
+    {
+        var entities = await _spaceRepository.GetAllAsync();
 
-            var result = await _spaceRepository.GetAsync(space.Id);
+        Assert.True(entities.Any());
 
-            Assert.NotNull(result);
-            Assert.Equal(typeof(Space), result.GetType());
-            Assert.NotEqual(Guid.Empty, result.Id.Id);
-            Assert.Equal("Space X", result.Name);
-            Assert.Equal("Description Space X", result.Description);
-            Assert.Equal(ProgressState.NotStarted, result.State);
-        }
+        var id = entities.First().Id;
+        await _spaceRepository.DeleteAsync(id);
 
-        [Fact]
-        public async Task Delete_Successfully()
-        {
-            var entities = await _spaceRepository.GetAllAsync();
+        var updatedEntities = await _spaceRepository.GetAllAsync();
 
-            Assert.True(entities.Any());
+        Assert.Equal(entities.Count - 1, updatedEntities.Count);
+        Assert.DoesNotContain(updatedEntities, e => e.Id == id);
+    }
 
-            var id = entities.First().Id;
-            await _spaceRepository.DeleteAsync(id);
+    [Fact]
+    public async Task Update_Successfully()
+    {
+        var entities = await _spaceRepository.GetAllAsync();
 
-            var updatedEntities = await _spaceRepository.GetAllAsync();
+        Assert.True(entities.Any());
 
-            Assert.Equal(entities.Count - 1, updatedEntities.Count);
-            Assert.DoesNotContain(updatedEntities, e => e.Id == id);
-        }
+        var entity = entities.First();
+        var spaceId = entities.First().Id;
 
-        [Fact]
-        public async Task Update_Successfully()
-        {
-            var entities = await _spaceRepository.GetAllAsync();
+        var dto = new UpdateSpaceDtoRequest(spaceId.Id, "Hubba Bubba", "FizzBuzz", null, ProgressState.InProgress);
 
-            Assert.True(entities.Any());
+        var changes = DeltaFinder.GetChangedProperties(dto, entity);
 
-            var entity = entities.First();
-            var spaceId = entities.First().Id;
+        Assert.True(changes.Any());
+        Assert.Equal(3, changes.Count);
 
-            var dto = new UpdateSpaceDtoRequest(spaceId.Id, "Hubba Bubba", "FizzBuzz", null, ProgressState.InProgress);
+        var properties = DeltaFinder.GetPropertyDictionary<Space>();
 
-            var changes = DeltaFinder.GetChangedProperties(dto, entity);
+        entity.ApplyChanges<Space>(changes, properties);
 
-            Assert.True(changes.Any());
-            Assert.Equal(3, changes.Count);
+        await _spaceRepository.UpdateAsync(entity);
 
-            var properties = DeltaFinder.GetPropertyDictionary<Space>();
+        var updatedEntities = await _spaceRepository.GetAllAsync();
 
-            entity.ApplyChanges<Space>(changes, properties);
-
-            await _spaceRepository.UpdateAsync(entity);
-
-            var updatedEntities = await _spaceRepository.GetAllAsync();
-
-            Assert.Equal(entity.Name, updatedEntities.First().Name);
-            Assert.Equal(entity.Description, updatedEntities.First().Description);
-            Assert.Empty(updatedEntities.First().Sections);
-            Assert.Equal(entity.State, updatedEntities.First().State);
-        }
+        Assert.Equal(entity.Name, updatedEntities.First().Name);
+        Assert.Equal(entity.Description, updatedEntities.First().Description);
+        Assert.Empty(updatedEntities.First().Sections);
+        Assert.Equal(entity.State, updatedEntities.First().State);
     }
 }
