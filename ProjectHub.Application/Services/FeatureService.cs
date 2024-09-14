@@ -1,7 +1,9 @@
 ﻿using ProjectHub.Application.Contracts;
 using ProjectHub.Application.DTOs.FeatureDtos;
 using ProjectHub.Application.Mappers;
+using ProjectHub.Application.Utils;
 using ProjectHub.Domain.Contracts;
+using ProjectHub.Domain.Workspace.Entities;
 using ProjectHub.Domain.Workspace.ValueObjects;
 
 namespace ProjectHub.Application.Services;
@@ -64,10 +66,11 @@ public class FeatureService : IFeatureService
             throw new Exception($"Feature with ID - {id} was not found");
         }
 
-        var updatedFeature = request.MapDtoToFeature(existingFeature);
+        var changes = DeltaFinder.GetChangedProperties(request, existingFeature);
+        var properties = DeltaFinder.GetPropertyDictionary<Feature>();
 
-        updatedFeature.ModifiedAt = DateTime.Now;
+        existingFeature.ApplyChanges<Feature>(changes, properties);
 
-        await _featureRepository.UpdateAsync(updatedFeature);
+        await _featureRepository.UpdateAsync(existingFeature);
     }
 }
