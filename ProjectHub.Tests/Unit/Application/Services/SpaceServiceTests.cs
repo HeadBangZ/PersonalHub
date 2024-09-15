@@ -5,6 +5,7 @@ using ProjectHub.Application.DTOs.SpaceDtos;
 using ProjectHub.Application.Services;
 using ProjectHub.Domain.Contracts;
 using ProjectHub.Domain.Workspace.Entities;
+using ProjectHub.Infrastructure.Repositories;
 using ProjectHub.Tests.Unit.Seeder;
 
 namespace ProjectHub.Tests.Unit.Application.Services;
@@ -41,14 +42,51 @@ public class SpaceServiceTests : IAsyncLifetime
     [Fact]
     public async Task AddSpace_ThrowsException_WhenRepositoryFails()
     {
+        var exceptionMessage = "Repository Error";
+
         var dto = SpaceTestData.CreateSpaceDto("name", "dto description");
 
-        _spaceRepository.AddAsync(Arg.Any<Space>()).ThrowsAsync(new Exception("Repository Error"));
+        _spaceRepository.AddAsync(Arg.Any<Space>()).ThrowsAsync(new Exception(exceptionMessage));
 
         var exception = await Assert.ThrowsAsync<Exception>(() => _spaceService.AddSpace(dto));
 
-        Assert.Equal("Repository Error", exception.Message);
+        Assert.Equal(exceptionMessage, exception.Message);
 
         await _spaceRepository.Received(1).AddAsync(Arg.Any<Space>());
+    }
+
+    [Fact]
+    public async Task GetAllSpaces_Successfully()
+    {
+        var data = SpaceTestData.CreateMultipleEntityData(3);
+
+        var spaces = _spaceRepository.GetAllAsync().Returns(data);
+
+        var result = await _spaceService.GetAllSpaces();
+
+        Assert.NotNull(result);
+        Assert.Equal(3, result.Count);
+
+        for (int i = 0; i < data.Count; i++)
+        {
+            Assert.Equal(data[i].Name, result[i].Name);
+            Assert.Equal(data[i].Description, result[i].Description);
+        }
+
+        await _spaceRepository.Received(1).GetAllAsync();
+    }
+
+    [Fact]
+    public async Task GetAllSpaces_ThrowsException_WhenRepositoryFails()
+    {
+        var exceptionMessage = "Repository Error";
+
+        _spaceRepository.GetAllAsync().ThrowsAsync(new Exception(exceptionMessage));
+
+        var exception = await Assert.ThrowsAsync<Exception>(() => _spaceService.GetAllSpaces());
+
+        Assert.Equal(exceptionMessage, exception.Message);
+
+        await _spaceRepository.Received(1).GetAllAsync();
     }
 }
