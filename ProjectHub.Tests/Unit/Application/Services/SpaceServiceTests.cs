@@ -5,6 +5,7 @@ using ProjectHub.Application.DTOs.SpaceDtos;
 using ProjectHub.Application.Services;
 using ProjectHub.Domain.Contracts;
 using ProjectHub.Domain.Workspace.Entities;
+using ProjectHub.Domain.Workspace.ValueObjects;
 using ProjectHub.Infrastructure.Repositories;
 using ProjectHub.Tests.Unit.Seeder;
 
@@ -88,5 +89,37 @@ public class SpaceServiceTests : IAsyncLifetime
         Assert.Equal(exceptionMessage, exception.Message);
 
         await _spaceRepository.Received(1).GetAllAsync();
+    }
+
+    [Fact]
+    public async Task GetSpaceById_Successfully()
+    {
+        var spaces = SpaceTestData.SeedData();
+
+        var id = spaces.First().Id;
+
+        _spaceRepository.GetAsync(Arg.Any<SpaceId>()).Returns(Task.FromResult<Space?>(spaces.First()));
+
+        var result = await _spaceService.GetSpace(id.Id);
+
+        Assert.NotNull(result);
+        Assert.Equal(spaces.First().Name, result?.Name);
+        Assert.Equal(spaces.First().Description, result?.Description);
+    }
+
+    [Fact]
+    public async Task GetSpaceById_Failed()
+    {
+        var spaces = SpaceTestData.SeedData();
+
+        var id = Guid.NewGuid();
+
+        _spaceRepository.GetAsync(Arg.Any<SpaceId>()).Returns(Task.FromResult<Space?>(null));
+
+
+        var result = await _spaceService.GetSpace(id);
+
+        Assert.Null(result);
+
     }
 }
