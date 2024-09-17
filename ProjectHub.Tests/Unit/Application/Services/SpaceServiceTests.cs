@@ -120,6 +120,32 @@ public class SpaceServiceTests : IAsyncLifetime
         var result = await _spaceService.GetSpace(id);
 
         Assert.Null(result);
+    }
 
+    [Fact]
+    public async Task DeleteSpaceById_Successfully()
+    {
+        var spaces = SpaceTestData.SeedData();
+
+        var id = spaces.First().Id;
+
+        await _spaceService.DeleteSpace(id.Id);
+
+        await _spaceRepository.Received(1).DeleteAsync(id);
+    }
+
+    [Fact]
+    public async Task DeleteSpaceById_ThrowException_WhenRepositoryFails()
+    {
+        var exceptionMessage = "Repository Error";
+
+        var id = Guid.NewGuid();
+
+        _spaceRepository.DeleteAsync(Arg.Any<SpaceId>()).ThrowsAsync(new Exception(exceptionMessage));
+
+        var exception = await Assert.ThrowsAsync<Exception>(() => _spaceService.DeleteSpace(id));
+
+        Assert.Equal(exceptionMessage, exception.Message);
+        await _spaceRepository.Received(1).DeleteAsync(new SpaceId(id));
     }
 }
