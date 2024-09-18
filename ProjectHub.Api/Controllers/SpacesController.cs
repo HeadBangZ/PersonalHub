@@ -21,7 +21,7 @@ public class SpacesController : ControllerBase
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<ActionResult<Space>> PostSpace([FromBody] CreateSpaceDtoRequest request)
     {
-        var space = await _spaceService.AddSpace(request);
+        var space = await _spaceService.AddSpaceAsync(request);
 
         return CreatedAtAction(
             nameof(GetSpace),
@@ -36,7 +36,7 @@ public class SpacesController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<SpaceDtoResponse>> GetSpace([FromRoute] Guid id)
     {
-        var space = await _spaceService.GetSpace(id);
+        var space = await _spaceService.GetSpaceAsync(id);
 
         if (space == null)
         {
@@ -52,7 +52,7 @@ public class SpacesController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<SpaceDtoResponse>> GetAllSpaces()
     {
-        var spaces = await _spaceService.GetAllSpaces();
+        var spaces = await _spaceService.GetAllSpacesAsync();
 
         return Ok(spaces);
     }
@@ -69,7 +69,7 @@ public class SpacesController : ControllerBase
             return BadRequest("Id Mismatch");
         }
 
-        await _spaceService.UpdateSpace(id, request);
+        await _spaceService.UpdateSpaceAsync(id, request);
 
         return NoContent();
     }
@@ -80,14 +80,14 @@ public class SpacesController : ControllerBase
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> DeleteSpace([FromRoute] Guid id)
     {
-        var space = await _spaceService.GetSpace(id);
+        var space = await _spaceService.GetSpaceAsync(id);
 
         if (space == null)
         {
             return NotFound();
         }
 
-        await _spaceService.DeleteSpace(id);
+        await _spaceService.DeleteSpaceAsync(id);
 
         return NoContent();
     }

@@ -5,6 +5,7 @@ using ProjectHub.Application.DTOs.SpaceDtos;
 using ProjectHub.Application.Services;
 using ProjectHub.Domain.Contracts;
 using ProjectHub.Domain.Workspace.Entities;
+using ProjectHub.Domain.Workspace.Enums;
 using ProjectHub.Domain.Workspace.ValueObjects;
 using ProjectHub.Infrastructure.Repositories;
 using ProjectHub.Tests.Unit.Seeder;
@@ -30,7 +31,7 @@ public class SpaceServiceTests : IAsyncLifetime
     {
         var dto = SpaceTestData.CreateSpaceDto("name", "dto description");
 
-        var response = await _spaceService.AddSpace(dto);
+        var response = await _spaceService.AddSpaceAsync(dto);
 
         Assert.NotNull(response);
         Assert.Equal(typeof(SpaceDtoResponse), response.GetType());
@@ -49,7 +50,7 @@ public class SpaceServiceTests : IAsyncLifetime
 
         _spaceRepository.AddAsync(Arg.Any<Space>()).ThrowsAsync(new Exception(exceptionMessage));
 
-        var exception = await Assert.ThrowsAsync<Exception>(() => _spaceService.AddSpace(dto));
+        var exception = await Assert.ThrowsAsync<Exception>(() => _spaceService.AddSpaceAsync(dto));
 
         Assert.Equal(exceptionMessage, exception.Message);
 
@@ -63,7 +64,7 @@ public class SpaceServiceTests : IAsyncLifetime
 
         var spaces = _spaceRepository.GetAllAsync().Returns(data);
 
-        var result = await _spaceService.GetAllSpaces();
+        var result = await _spaceService.GetAllSpacesAsync();
 
         Assert.NotNull(result);
         Assert.Equal(3, result.Count);
@@ -84,7 +85,7 @@ public class SpaceServiceTests : IAsyncLifetime
 
         _spaceRepository.GetAllAsync().ThrowsAsync(new Exception(exceptionMessage));
 
-        var exception = await Assert.ThrowsAsync<Exception>(() => _spaceService.GetAllSpaces());
+        var exception = await Assert.ThrowsAsync<Exception>(() => _spaceService.GetAllSpacesAsync());
 
         Assert.Equal(exceptionMessage, exception.Message);
 
@@ -100,7 +101,7 @@ public class SpaceServiceTests : IAsyncLifetime
 
         _spaceRepository.GetAsync(Arg.Any<SpaceId>()).Returns(Task.FromResult<Space?>(spaces.First()));
 
-        var result = await _spaceService.GetSpace(id.Id);
+        var result = await _spaceService.GetSpaceAsync(id.Id);
 
         Assert.NotNull(result);
         Assert.Equal(spaces.First().Name, result?.Name);
@@ -117,7 +118,7 @@ public class SpaceServiceTests : IAsyncLifetime
         _spaceRepository.GetAsync(Arg.Any<SpaceId>()).Returns(Task.FromResult<Space?>(null));
 
 
-        var result = await _spaceService.GetSpace(id);
+        var result = await _spaceService.GetSpaceAsync(id);
 
         Assert.Null(result);
     }
@@ -129,7 +130,7 @@ public class SpaceServiceTests : IAsyncLifetime
 
         var id = spaces.First().Id;
 
-        await _spaceService.DeleteSpace(id.Id);
+        await _spaceService.DeleteSpaceAsync(id.Id);
 
         await _spaceRepository.Received(1).DeleteAsync(id);
     }
@@ -143,9 +144,43 @@ public class SpaceServiceTests : IAsyncLifetime
 
         _spaceRepository.DeleteAsync(Arg.Any<SpaceId>()).ThrowsAsync(new Exception(exceptionMessage));
 
-        var exception = await Assert.ThrowsAsync<Exception>(() => _spaceService.DeleteSpace(id));
+        var exception = await Assert.ThrowsAsync<Exception>(() => _spaceService.DeleteSpaceAsync(id));
 
         Assert.Equal(exceptionMessage, exception.Message);
         await _spaceRepository.Received(1).DeleteAsync(new SpaceId(id));
+    }
+
+    [Fact]
+    public async Task UpdateSpace_Successfully()
+    {
+        var spaces = SpaceTestData.SeedData();
+
+        var id = spaces.First().Id;
+        var dto = new UpdateSpaceDtoRequest(id.Id, "Updated Space", "Description!?", null, ProgressState.Completed);
+
+        _spaceRepository.GetAsync(Arg.Any<SpaceId>()).Returns(Task.FromResult<Space?>(spaces.First()));
+        _spaceRepository.UpdateAsync(Arg.Any<Space>()).Returns(Task.FromResult<Space?>(spaces.First()));
+
+        await _spaceService.UpdateSpaceAsync(id.Id, dto);
+
+        Assert.Equal(dto.Name, spaces.First().Name);
+        Assert.Equal(dto.Description, spaces.First().Description);
+        Assert.Equal(dto.State, spaces.First().State);
+
+        await _spaceRepository.Received(1).UpdateAsync(spaces.First());
+    }
+
+    [Fact]
+    public async Task UpdateSpace_ThrowException_WhenEntityNotExist()
+    {
+        var id = Guid.NewGuid();
+        var dto = new UpdateSpaceDtoRequest(id, "Updated Space", "Description!?", null, ProgressState.Completed);
+        var exceptionMessage = $"Space with ID - {id} was not found";
+
+        _spaceRepository.GetAsync(Arg.Any<SpaceId>()).Returns(Task.FromResult<Space?>(null));
+
+        var exception = await Assert.ThrowsAsync<Exception>(() => _spaceService.UpdateSpaceAsync(id, dto));
+
+        Assert.Equal(exceptionMessage, exception.Message);
     }
 }

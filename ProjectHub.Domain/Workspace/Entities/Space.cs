@@ -27,7 +27,7 @@ public sealed class Space : BaseEntity
     {
         Name = name;
         Description = description;
-        Sections = new List<Section>();
+        Sections = sections ?? new List<Section>();
         State = state;
     }
 }
