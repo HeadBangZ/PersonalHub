@@ -16,7 +16,7 @@ public class SpaceService : ISpaceService
         _spaceRepository = spaceRepository;
     }
 
-    public async Task<SpaceDtoResponse> AddSpace(CreateSpaceDtoRequest spaceDto)
+    public async Task<SpaceDtoResponse> AddSpaceAsync(CreateSpaceDtoRequest spaceDto)
     {
         var space = spaceDto.MapCreateDtoToSpace();
 
@@ -24,7 +24,7 @@ public class SpaceService : ISpaceService
         return space.MapSpaceToDto();
     }
 
-    public async Task<List<SpaceDtoResponse>> GetAllSpaces()
+    public async Task<List<SpaceDtoResponse>> GetAllSpacesAsync()
     {
         var spaceDtos = new List<SpaceDtoResponse>();
         var spaces = await _spaceRepository.GetAllAsync();
@@ -37,7 +37,7 @@ public class SpaceService : ISpaceService
         return spaceDtos;
     }
 
-    public async Task<SpaceDtoResponse?> GetSpace(Guid id)
+    public async Task<SpaceDtoResponse?> GetSpaceAsync(Guid id)
     {
         var space = await _spaceRepository.GetAsync(new SpaceId(id));
 
@@ -51,12 +51,12 @@ public class SpaceService : ISpaceService
         return spaceDto;
     }
 
-    public async Task DeleteSpace(Guid id)
+    public async Task DeleteSpaceAsync(Guid id)
     {
         await _spaceRepository.DeleteAsync(new SpaceId(id));
     }
 
-    public async Task UpdateSpace(Guid id, UpdateSpaceDtoRequest request)
+    public async Task UpdateSpaceAsync(Guid id, UpdateSpaceDtoRequest request)
     {
         var existingSpace = await _spaceRepository.GetAsync(new SpaceId(id));
 

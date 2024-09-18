@@ -4,9 +4,9 @@ namespace ProjectHub.Application.Contracts;
 
 public interface ISpaceService
 {
-    Task<SpaceDtoResponse> AddSpace(CreateSpaceDtoRequest request);
-    Task<SpaceDtoResponse?> GetSpace(Guid id);
-    Task<List<SpaceDtoResponse>> GetAllSpaces();
-    Task UpdateSpace(Guid id, UpdateSpaceDtoRequest request);
-    Task DeleteSpace(Guid id);
+    Task<SpaceDtoResponse> AddSpaceAsync(CreateSpaceDtoRequest request);
+    Task<SpaceDtoResponse?> GetSpaceAsync(Guid id);
+    Task<List<SpaceDtoResponse>> GetAllSpacesAsync();
+    Task UpdateSpaceAsync(Guid id, UpdateSpaceDtoRequest request);
+    Task DeleteSpaceAsync(Guid id);
 }
