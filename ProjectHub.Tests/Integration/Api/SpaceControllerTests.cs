@@ -2,7 +2,6 @@
 using ProjectHub.Api;
 using ProjectHub.Application.DTOs.SpaceDtos;
 using ProjectHub.Tests.Integration.Mocks;
-using System.Net;
 using System.Text;
 
 namespace ProjectHub.Tests.Integration.Api;
@@ -25,13 +24,8 @@ public class SpaceControllerTests : IClassFixture<ApiWebApplicationFactory<Progr
 
         var response = await _client.PostAsync("/api/spaces", json);
 
-        Console.WriteLine(response);
-
         //var responseContent = await response.Content.ReadAsStringAsync();
         //var created = JsonConvert.DeserializeObject<SpaceDtoResponse>(responseContent);
-
-        Console.WriteLine(response.StatusCode);
-        Console.WriteLine(HttpStatusCode.Created);
 
         //Assert.Equal(HttpStatusCode.Created, response.StatusCode);
 
