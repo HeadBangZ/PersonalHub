@@ -25,11 +25,12 @@ public class SpaceControllerTests : IClassFixture<ApiWebApplicationFactory<Progr
         var json = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
 
         var response = await _client.PostAsync("/api/spaces", json);
-        Console.WriteLine($"Response: {responseContent}");
-        Assert.Equal(HttpStatusCode.Created, response.StatusCode);
 
         var reponseContent = await response.Content.ReadAsStringAsync();
         var created = JsonConvert.DeserializeObject<SpaceDtoResponse>(reponseContent);
+        Console.WriteLine($"Response: {reponseContent}");
+
+        Assert.Equal(HttpStatusCode.Created, response.StatusCode);
 
         Assert.NotNull(created);
         Assert.Equal(request.Name, created.Name);
