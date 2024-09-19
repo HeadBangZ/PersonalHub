@@ -27,6 +27,9 @@ public class SpaceControllerTests : IClassFixture<ApiWebApplicationFactory<Progr
 
         try
         {
+            var contentType = response.Content.Headers.ContentType.MediaType;
+            Console.WriteLine($"Response Content Type: {contentType}");
+            Assert.Equal("application/json", contentType);
             var responseContent = await response.Content.ReadAsStringAsync();
             var created = JsonConvert.DeserializeObject<SpaceDtoResponse>(responseContent);
             Assert.NotNull(created);
