@@ -27,6 +27,10 @@ public class SpaceControllerTests : IClassFixture<ApiWebApplicationFactory<Progr
 
         var responseContent = await response.Content.ReadAsStringAsync();
         var created = JsonConvert.DeserializeObject<SpaceDtoResponse>(responseContent);
+
+        Console.WriteLine(response.StatusCode);
+        Console.WriteLine(HttpStatusCode.Created);
+
         //Assert.Equal(HttpStatusCode.Created, response.StatusCode);
 
         Assert.NotNull(created);
