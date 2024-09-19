@@ -25,6 +25,8 @@ public class SpaceControllerTests : IClassFixture<ApiWebApplicationFactory<Progr
 
         var response = await _client.PostAsync("/api/spaces", json);
 
+        Console.WriteLine(response);
+
         var responseContent = await response.Content.ReadAsStringAsync();
         var created = JsonConvert.DeserializeObject<SpaceDtoResponse>(responseContent);
 
