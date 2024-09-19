@@ -29,12 +29,12 @@ jobs:
         dotnet-version: 8.0.x
 
     - name: Execute unit tests
-      run: dotnet test
+      run: dotnet test -v diagnostic
 
     - name: Restore the application
-      run: dotnet restore $Solution_Name
+      run: dotnet restore $Solution_Name -v detailed
       working-directory: ${{ github.workspace }}
 
     - name: Build solution
-      run: dotnet build $Solution_Name
+      run: dotnet build $Solution_Name -v diagnostic
       working-directory: ${{ github.workspace }}
