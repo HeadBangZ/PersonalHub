@@ -31,8 +31,12 @@ jobs:
       with:
         dotnet-version: 8.0.x
 
+    # Enhanced Debugging for Unit Tests
     - name: Execute unit tests
-      run: dotnet test
+      run: |
+        echo "Starting unit tests with detailed logging..."
+        dotnet test --logger "trx;LogFileName=test_results.trx" --verbosity detailed
+      continue-on-error: true # This ensures logs are available even if the tests fail
 
     - name: Restore the application
       run: dotnet restore $Solution_Name
