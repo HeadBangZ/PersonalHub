@@ -35,6 +35,7 @@ public class GlobalExceptionHandlingMiddleware : IMiddleware
             };
 
             string json = JsonConvert.SerializeObject(problem);
+
             await context.Response.WriteAsync(json);
 
             _logger.LogInformation($"Response Content-Type: {context.Response.ContentType}");
