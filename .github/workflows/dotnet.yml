@@ -23,6 +23,9 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
+    - name: Debug
+      uses: raven-actions/debug@v1.1.0
+
     - name: Install .NET
       uses: actions/setup-dotnet@v4
       with:
