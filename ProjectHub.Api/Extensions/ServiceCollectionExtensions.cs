@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Converters;
 using ProjectHub.Api.Middlewares;
 using ProjectHub.Application.Contracts;
 using ProjectHub.Application.Services;
@@ -17,7 +18,6 @@ using ProjectHub.Infrastructure.Repositories.GenericRepositories;
 using ProjectHub.Infrastructure.Services;
 using Serilog;
 using System.Text;
-using System.Text.Json.Serialization;
 
 namespace ProjectHub.Api.Extensions;
 
@@ -56,9 +56,9 @@ public static class ServiceCollectionExtensions
         services.AddTransient<GlobalExceptionHandlingMiddleware>();
 
         services.AddControllers()
-            .AddJsonOptions(options =>
+            .AddNewtonsoftJson(options =>
             {
-                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                options.SerializerSettings.Converters.Add(new StringEnumConverter());
             });
 
         services.AddSwaggerGen(s =>
