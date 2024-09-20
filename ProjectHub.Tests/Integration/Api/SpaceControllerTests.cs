@@ -19,6 +19,7 @@ public class SpaceControllerTests : IClassFixture<ApiWebApplicationFactory<Progr
     [Fact]
     public async Task PostSpace_ShouldReturnCreated()
     {
+        // Testing if it works with Newtonsoft
         var request = new CreateSpaceDtoRequest("Test Space", "Test Description");
 
         var json = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
