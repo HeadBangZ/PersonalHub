@@ -1,0 +1,41 @@
+name: .NET
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+
+    # Use a Windows runner instead of Ubuntu
+    runs-on: windows-latest
+
+    env:
+      Solution_Name: ProjectHub.sln
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Install .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    - name: Execute unit tests
+      run: dotnet test
+
+    - name: Restore the application
+      run: dotnet restore $Solution_Name
+      working-directory: ${{ github.workspace }}
+
+    - name: Build solution
+      run: dotnet build $Solution_Name
+      working-directory: ${{ github.workspace }}
