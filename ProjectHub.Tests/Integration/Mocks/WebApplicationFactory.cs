@@ -28,7 +28,7 @@ public class ApiWebApplicationFactory<TStartup> : WebApplicationFactory<TStartup
 
             var mockConfiguration = Substitute.For<IConfiguration>();
 
-            services.AddSingleton<IConfiguration>(mockConfiguration);
+            services.AddSingleton(mockConfiguration);
 
             var sp = services.BuildServiceProvider();
 
