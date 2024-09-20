@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Net;
-using System.Text.Json;
 
 namespace ProjectHub.Api.Middlewares;
 
@@ -34,7 +34,7 @@ public class GlobalExceptionHandlingMiddleware : IMiddleware
                 Detail = "An internal server error has occured"
             };
 
-            string json = JsonSerializer.Serialize(problem);
+            string json = JsonConvert.SerializeObject(problem);
             await context.Response.WriteAsync(json);
 
             _logger.LogInformation($"Response Content-Type: {context.Response.ContentType}");
