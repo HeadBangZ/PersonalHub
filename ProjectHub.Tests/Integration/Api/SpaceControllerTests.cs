@@ -24,6 +24,9 @@ public class SpaceControllerTests : IClassFixture<ApiWebApplicationFactory<Progr
 
         var json = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
 
+        _client.DefaultRequestHeaders.Accept.Clear();
+        _client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
         var response = await _client.PostAsync("/api/spaces", json);
 
         var responseContent = await response.Content.ReadAsStringAsync();
