@@ -99,7 +99,7 @@ public class SpaceRepositoryTests : IAsyncLifetime
         var entity = entities.First();
         var spaceId = entities.First().Id;
 
-        var dto = new UpdateSpaceDtoRequest(spaceId.Id, "Hubba Bubba", "FizzBuzz", null, ProgressState.InProgress);
+        var dto = new UpdateSpaceDtoRequest(spaceId.Id, "Hubba Bubba", "FizzBuzz", ProgressState.InProgress);
 
         var changes = DeltaFinder.GetChangedProperties(dto, entity);
 

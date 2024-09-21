@@ -12,7 +12,9 @@ public sealed class Space : BaseEntity
 
     public string Description { get; private set; }
 
-    public IEnumerable<Section> Sections { get; private set; } = new List<Section>();
+
+    private readonly List<Section> _sections = new List<Section>();
+    public IReadOnlyCollection<Section> Sections => _sections.AsReadOnly();
 
     public ProgressState State { get; private set; } = ProgressState.NotStarted;
 
@@ -23,11 +25,18 @@ public sealed class Space : BaseEntity
         CreatedAt = DateTime.Now;
     }
 
-    public Space(string name, string description, ProgressState state, IEnumerable<Section> sections)
+    public Space(string name, string description, ProgressState state)
     {
         Name = name;
         Description = description;
-        Sections = sections ?? new List<Section>();
         State = state;
+    }
+
+    public void AddSections(IEnumerable<Section> sections)
+    {
+        foreach (var section in sections)
+        {
+            _sections.Add(section);
+        }
     }
 }

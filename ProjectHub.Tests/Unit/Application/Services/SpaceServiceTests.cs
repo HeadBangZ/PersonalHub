@@ -156,7 +156,7 @@ public class SpaceServiceTests : IAsyncLifetime
         var spaces = SpaceTestData.SeedData();
 
         var id = spaces.First().Id;
-        var dto = new UpdateSpaceDtoRequest(id.Id, "Updated Space", "Description!?", null, ProgressState.Completed);
+        var dto = new UpdateSpaceDtoRequest(id.Id, "Updated Space", "Description!?", ProgressState.Completed);
 
         _spaceRepository.GetAsync(Arg.Any<SpaceId>()).Returns(Task.FromResult<Space?>(spaces.First()));
         _spaceRepository.UpdateAsync(Arg.Any<Space>()).Returns(Task.FromResult<Space?>(spaces.First()));
@@ -174,13 +174,13 @@ public class SpaceServiceTests : IAsyncLifetime
     public async Task UpdateSpace_ThrowException_WhenEntityNotExist()
     {
         var id = Guid.NewGuid();
-        var dto = new UpdateSpaceDtoRequest(id, "Updated Space", "Description!?", null, ProgressState.Completed);
+        var dto = new UpdateSpaceDtoRequest(id, "Updated Space", "Description!?", ProgressState.Completed);
         var exceptionMessage = $"Space with ID - {id} was not found";
 
         _spaceRepository.GetAsync(Arg.Any<SpaceId>()).Returns(Task.FromResult<Space?>(null));
 
-        var exception = await Assert.ThrowsAsync<Exception>(() => _spaceService.UpdateSpaceAsync(id, dto));
+        var result = await _spaceService.UpdateSpaceAsync(id, dto);
 
-        Assert.Equal(exceptionMessage, exception.Message);
+        Assert.False(result);
     }
 }

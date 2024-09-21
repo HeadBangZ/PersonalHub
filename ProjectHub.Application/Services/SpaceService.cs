@@ -56,13 +56,13 @@ public class SpaceService : ISpaceService
         await _spaceRepository.DeleteAsync(new SpaceId(id));
     }
 
-    public async Task UpdateSpaceAsync(Guid id, UpdateSpaceDtoRequest request)
+    public async Task<bool> UpdateSpaceAsync(Guid id, UpdateSpaceDtoRequest request)
     {
         var existingSpace = await _spaceRepository.GetAsync(new SpaceId(id));
 
         if (existingSpace == null)
         {
-            throw new Exception($"Space with ID - {id} was not found");
+            return false;
         }
 
         var changes = DeltaFinder.GetChangedProperties(request, existingSpace);
@@ -71,5 +71,7 @@ public class SpaceService : ISpaceService
         existingSpace.ApplyChanges<Space>(changes, properties);
 
         await _spaceRepository.UpdateAsync(existingSpace);
+
+        return true;
     }
 }

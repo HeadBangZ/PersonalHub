@@ -73,9 +73,13 @@ public sealed class SpaceSeeder(ProjectHubDbContext dbContext, IConfiguration co
                         }
                     };
 
+
+
         List<Space> spaces = [
-            new(name, description, state, sections)
+            new(name, description, state)
         ];
+
+        spaces.First().AddSections(sections);
 
         return spaces;
     }
