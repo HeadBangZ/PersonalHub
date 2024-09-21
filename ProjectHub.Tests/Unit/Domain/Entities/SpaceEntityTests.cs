@@ -18,10 +18,10 @@ public class SpaceEntityTests : IAsyncLifetime
     {
         var spaces = new List<Space>()
             {
-                new Space("Project Hub", "Description Space 1", ProgressState.Completed, new List<Section>()),
-                new Space("Space 2", "Description Space 2", ProgressState.NotStarted, new List<Section>()),
-                new Space("Space 3", "Description Space 3", ProgressState.InProgress, new List<Section>()),
-                new Space("Document Management", "Description Space 4", ProgressState.NotStarted, new List<Section>()),
+                new Space("Project Hub", "Description Space 1", ProgressState.Completed),
+                new Space("Space 2", "Description Space 2", ProgressState.NotStarted),
+                new Space("Space 3", "Description Space 3", ProgressState.InProgress),
+                new Space("Document Management", "Description Space 4", ProgressState.NotStarted),
             };
 
         await _context.Spaces.AddRangeAsync(spaces);

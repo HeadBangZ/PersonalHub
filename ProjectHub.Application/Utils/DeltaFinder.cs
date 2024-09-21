@@ -29,7 +29,7 @@ public static class DeltaFinder
                 var sourceValue = sourceProperty.GetValue(source);
                 var targetValue = targetProperty.GetValue(target);
 
-                if (sourceValue != null && !sourceValue.Equals(targetValue))
+                if (sourceValue != null && !Equals(sourceValue, targetValue))
                 {
                     changes.Add(sourceProperty.Name, sourceValue);
                 }
@@ -41,7 +41,7 @@ public static class DeltaFinder
 
     private static PropertyInfo[] GetPropertyCache(Type type)
     {
-        return PropertyCache.GetOrAdd(type, type.GetProperties());
+        return PropertyCache.GetOrAdd(type, t => t.GetProperties(BindingFlags.Public | BindingFlags.Instance));
     }
 
     public static IDictionary<string, PropertyInfo> GetPropertyDictionary<T>()

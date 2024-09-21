@@ -357,6 +357,10 @@ _ReSharper*/
 # Test Reports
 /Reports
 
+# Docker
+/Dockerfile
+/docker-compose.yml
+
 #======================================================================================
 # The below section could possibly be removed as these should be ignored by the above.
 #======================================================================================

@@ -7,6 +7,6 @@ public interface ISpaceService
     Task<SpaceDtoResponse> AddSpaceAsync(CreateSpaceDtoRequest request);
     Task<SpaceDtoResponse?> GetSpaceAsync(Guid id);
     Task<List<SpaceDtoResponse>> GetAllSpacesAsync();
-    Task UpdateSpaceAsync(Guid id, UpdateSpaceDtoRequest request);
+    Task<bool> UpdateSpaceAsync(Guid id, UpdateSpaceDtoRequest request);
     Task DeleteSpaceAsync(Guid id);
 }
