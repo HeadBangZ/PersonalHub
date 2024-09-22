@@ -26,10 +26,6 @@ public class ApiWebApplicationFactory<TStartup> : WebApplicationFactory<TStartup
                 options.UseInMemoryDatabase("InMemoryDbForTesting");
             });
 
-            var mockConfiguration = Substitute.For<IConfiguration>();
-
-            services.AddSingleton(mockConfiguration);
-
             var sp = services.BuildServiceProvider();
 
             using (var scope = sp.CreateScope())

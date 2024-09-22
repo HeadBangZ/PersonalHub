@@ -13,12 +13,7 @@ namespace ProjectHub.Infrastructure.Data.Contexts
 {
     public class ProjectHubDbContext : IdentityDbContext<ApiUser>
     {
-        private readonly IConfiguration _configuration;
-
-        public ProjectHubDbContext(DbContextOptions<ProjectHubDbContext> options, IConfiguration configuration) : base(options)
-        {
-            _configuration = configuration;
-        }
+        public ProjectHubDbContext(DbContextOptions<ProjectHubDbContext> options) : base(options) { }
 
         // Shared
         public DbSet<Tag> Tags => Set<Tag>();
@@ -41,7 +36,7 @@ namespace ProjectHub.Infrastructure.Data.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfiguration(new RoleConfiguration(_configuration));
+            modelBuilder.ApplyConfiguration(new RoleConfiguration());
 
             CreateModelEpicTag(modelBuilder);
 

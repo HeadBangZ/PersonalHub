@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using ProjectHub.Domain.Workspace.Entities;
-using ProjectHub.Domain.Workspace.Enums;
-using ProjectHub.Domain.Workspace.ValueObjects;
 using ProjectHub.Infrastructure.Data.Contexts;
 
 namespace ProjectHub.Infrastructure.Data.Seeders;
@@ -15,22 +13,28 @@ public sealed class UserRoleSeeder(ProjectHubDbContext dbContext, IConfiguration
         {
             if (!dbContext.UserRoles.Any())
             {
-                var userRoles = GetUserRoles();
+                var userRoles = await GetUserRoles();
                 dbContext.UserRoles.AddRange(userRoles);
                 await dbContext.SaveChangesAsync();
             }
         }
     }
 
-    private IEnumerable<IdentityUserRole<string>> GetUserRoles()
+    private async Task<IEnumerable<IdentityUserRole<string>>> GetUserRoles()
     {
-        List<IdentityUserRole<string>> userRoles = [
-            new()
+        var userRoles = new List<IdentityUserRole<string>>();
+
+        var user = await dbContext.Users.FirstOrDefaultAsync(u => u.Email == configuration["UserAuth:Email"]);
+        var role = await dbContext.Roles.FirstOrDefaultAsync(r => r.NormalizedName == "OWNER");
+
+        if (user != null && role != null)
+        {
+            userRoles.Add(new IdentityUserRole<string>
             {
-                UserId = configuration["UserAuth:UserId"],
-                RoleId = configuration["UserAuth:RoleId"]
-            }
-        ];
+                UserId = user.Id,
+                RoleId = role.Id,
+            });
+        }
 
         return userRoles;
     }
