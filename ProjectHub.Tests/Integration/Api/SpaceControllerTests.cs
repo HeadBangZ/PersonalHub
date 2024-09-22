@@ -9,16 +9,10 @@ using System.Text;
 
 namespace ProjectHub.Tests.Integration.Api;
 
-public class SpaceControllerTests : IDisposable
+public class SpaceControllerTests : IAsyncLifetime
 {
     private ApiWebApplicationFactory _factory;
-    private readonly HttpClient _client;
-
-    public SpaceControllerTests()
-    {
-        _factory = new ApiWebApplicationFactory();
-        _client = _factory.CreateClient();
-    }
+    private HttpClient _client;
 
     [Fact]
     public async Task Get_Space_ShoudlReturnOk()
@@ -42,6 +36,19 @@ public class SpaceControllerTests : IDisposable
 
     public void Dispose()
     {
+
+    }
+
+    public async Task InitializeAsync()
+    {
+        _factory = new ApiWebApplicationFactory();
+        _client = _factory.CreateClient();
+
+        await Task.CompletedTask;
+    }
+
+    public async Task DisposeAsync()
+    {
         using (var scope = _factory.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<ProjectHubDbContext>();
@@ -50,6 +57,8 @@ public class SpaceControllerTests : IDisposable
 
         _client.Dispose();
         _factory.Dispose();
+
+        await Task.CompletedTask;
     }
 }
 
