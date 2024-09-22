@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using ProjectHub.Domain.User.Entities;
 using ProjectHub.Infrastructure.Data.Contexts;

@@ -7,7 +7,6 @@ using ProjectHub.Domain.Contracts;
 using ProjectHub.Domain.Workspace.Entities;
 using ProjectHub.Domain.Workspace.Enums;
 using ProjectHub.Domain.Workspace.ValueObjects;
-using ProjectHub.Infrastructure.Repositories;
 using ProjectHub.Tests.Unit.Seeder;
 
 namespace ProjectHub.Tests.Unit.Application.Services;
