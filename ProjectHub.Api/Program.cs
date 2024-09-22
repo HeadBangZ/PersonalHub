@@ -1,8 +1,6 @@
-using Microsoft.EntityFrameworkCore;
 using ProjectHub.Api.Extensions;
 using ProjectHub.Api.Middlewares;
 using ProjectHub.Domain.User.Entities;
-using ProjectHub.Infrastructure.Data.Contexts;
 using ProjectHub.Infrastructure.Data.Seeders;
 using ProjectHub.Infrastructure.Data.Seeders.ApiUsers;
 
@@ -10,7 +8,7 @@ namespace ProjectHub.Api;
 
 public class Program
 {
-    public static async Task Main(string[] args)
+    private static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 

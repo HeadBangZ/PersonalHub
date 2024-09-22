@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ProjectHub.Api;
+using ProjectHub.Api.Controllers;
 using ProjectHub.Infrastructure.Data.Contexts;
-using System.Data.Common;
+
 
 namespace ProjectHub.Tests.Integration.Suite.Mocks;
 
@@ -16,46 +16,39 @@ public class ApiWebApplicationFactory : WebApplicationFactory<Program>
     {
         builder.ConfigureServices(services =>
         {
-            var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(ProjectHubDbContext));
+            var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<ProjectHubDbContext>));
+
             if (descriptor != null)
             {
                 services.Remove(descriptor);
             }
 
-            services.AddSingleton<DbConnection>(container =>
+            services.AddDbContext<ProjectHubDbContext>(options =>
             {
-                var connection = new SqliteConnection("DataSource=:memory:");
-                connection.Open();
-
-                return connection;
+                options.UseInMemoryDatabase("TestDatabase");
             });
 
-            services.AddDbContext<ProjectHubDbContext>((container, options) =>
-            {
-                var connection = container.GetRequiredService<DbConnection>();
-                options.UseSqlite(connection);
-            });
+            services.AddControllersWithViews().AddApplicationPart(typeof(SpacesController).Assembly);
 
             var sp = services.BuildServiceProvider();
 
-            var scope = sp.CreateScope();
-            var appContext = scope.ServiceProvider.GetRequiredService<ProjectHubDbContext>();
-
-            try
+            using (var scope = sp.CreateScope())
             {
-                appContext.Database.EnsureCreated();
-            }
-            catch (Exception)
-            {
-                throw;
+                var db = scope.ServiceProvider.GetRequiredService<ProjectHubDbContext>();
+                db.Database.EnsureCreated();
             }
         });
-    }
 
-    public ProjectHubDbContext CreateDbContext()
-    {
-        var dbContext = Services.CreateScope().ServiceProvider.GetRequiredService<ProjectHubDbContext>();
-        dbContext.Database.EnsureCreated();
-        return dbContext;
+        builder.Configure(app =>
+        {
+            app.UseDeveloperExceptionPage();
+
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+        });
     }
 }

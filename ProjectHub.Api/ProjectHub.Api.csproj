@@ -26,5 +26,4 @@
 		<ProjectReference Include="..\ProjectHub.Application\ProjectHub.Application.csproj" />
 		<ProjectReference Include="..\ProjectHub.Infrastructure\ProjectHub.Infrastructure.csproj" />
 	</ItemGroup>
-
 </Project>
