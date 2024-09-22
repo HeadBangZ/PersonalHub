@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using ProjectHub.Domain.Workspace.Entities;
 using ProjectHub.Domain.Workspace.Enums;
-using ProjectHub.Domain.Workspace.ValueObjects;
 using ProjectHub.Infrastructure.Data.Contexts;
 
 namespace ProjectHub.Infrastructure.Data.Seeders;

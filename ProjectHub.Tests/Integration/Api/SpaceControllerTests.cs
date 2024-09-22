@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OpenApi.Writers;
 using Newtonsoft.Json;
 using ProjectHub.Application.DTOs.SpaceDtos;
 using ProjectHub.Infrastructure.Data.Contexts;
@@ -32,11 +31,6 @@ public class SpaceControllerTests : IAsyncLifetime
         var response = await _client.PostAsync("/api/spaces", json);
 
         Assert.Equal(HttpStatusCode.Created, response.StatusCode);
-    }
-
-    public void Dispose()
-    {
-
     }
 
     public async Task InitializeAsync()

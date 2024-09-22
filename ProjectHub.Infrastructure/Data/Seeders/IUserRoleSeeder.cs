@@ -1,7 +1,6 @@
-﻿namespace ProjectHub.Infrastructure.Data.Seeders
+﻿namespace ProjectHub.Infrastructure.Data.Seeders;
+
+public interface IUserRoleSeeder
 {
-    public interface IUserRoleSeeder
-    {
-        Task Seed();
-    }
+    Task Seed();
 }

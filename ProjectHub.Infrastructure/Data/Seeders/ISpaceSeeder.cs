@@ -1,7 +1,6 @@
-﻿namespace ProjectHub.Infrastructure.Data.Seeders
+﻿namespace ProjectHub.Infrastructure.Data.Seeders;
+
+public interface ISpaceSeeder
 {
-    public interface ISpaceSeeder
-    {
-        Task Seed();
-    }
+    Task Seed();
 }
