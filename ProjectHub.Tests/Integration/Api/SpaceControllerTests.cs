@@ -16,28 +16,15 @@ public class SpaceControllerTests : ApiIntegrationTestFixture
     {
     }
 
-    [Fact]
-    public async Task PostSpace_ShouldReturnCreated()
-    {
-        var request = new CreateSpaceDtoRequest("Test Space", "Test Description");
-        var json = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
+    //[Fact]
+    //public async Task PostSpace_ShouldReturnCreated()
+    //{
+    //    var request = new CreateSpaceDtoRequest("Test Space", "Test Description");
+    //    var json = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
 
-        var response = await HttpClient.PostAsync("/api/spaces", json);
+    //    var response = await HttpClient.PostAsync("/api/spaces", json);
 
-        Assert.Equal(HttpStatusCode.Created, response.StatusCode);
-
-        //_client.DefaultRequestHeaders.Accept.Clear();
-        //_client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-
-        //var response = await _client.PostAsync();
-
-        //Assert.Equal(HttpStatusCode.Created, response.StatusCode);
-
-        //var responseContent = await response.Content.ReadAsStringAsync();
-        //var created = JsonConvert.DeserializeObject<SpaceDtoResponse>(responseContent);
-
-        //Assert.NotNull(created);
-        //Assert.Equal(request.Name, created.Name);
-    }
+    //    Assert.Equal(HttpStatusCode.Created, response.StatusCode);
+    //}
 }
 

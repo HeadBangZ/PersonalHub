@@ -24,14 +24,13 @@ public sealed class UserRoleSeeder(ProjectHubDbContext dbContext, IConfiguration
     {
         var userRoles = new List<IdentityUserRole<string>>();
 
-        var user = await dbContext.Users.FirstOrDefaultAsync(u => u.Email == configuration["UserAuth:Email"]);
         var role = await dbContext.Roles.FirstOrDefaultAsync(r => r.NormalizedName == "OWNER");
 
-        if (user != null && role != null)
+        if (role != null)
         {
             userRoles.Add(new IdentityUserRole<string>
             {
-                UserId = user.Id,
+                UserId = configuration["UserAuth:UserId"],
                 RoleId = role.Id,
             });
         }

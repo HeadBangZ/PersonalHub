@@ -36,7 +36,6 @@ namespace ProjectHub.Infrastructure.Data.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfiguration(new RoleConfiguration());
 
             CreateModelEpicTag(modelBuilder);
 
