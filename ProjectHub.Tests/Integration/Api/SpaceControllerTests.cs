@@ -3,7 +3,7 @@ using Microsoft.OpenApi.Writers;
 using Newtonsoft.Json;
 using ProjectHub.Application.DTOs.SpaceDtos;
 using ProjectHub.Infrastructure.Data.Contexts;
-using ProjectHub.Tests.Integration.Suite.Mocks;
+using ProjectHub.Tests.Integration.Mocks;
 using System.Net;
 using System.Text;
 

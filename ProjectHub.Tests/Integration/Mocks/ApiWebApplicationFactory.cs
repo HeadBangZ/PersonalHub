@@ -8,7 +8,7 @@ using ProjectHub.Api.Controllers;
 using ProjectHub.Infrastructure.Data.Contexts;
 
 
-namespace ProjectHub.Tests.Integration.Suite.Mocks;
+namespace ProjectHub.Tests.Integration.Mocks;
 
 public class ApiWebApplicationFactory : WebApplicationFactory<Program>
 {
