@@ -1,6 +1,8 @@
+using Microsoft.EntityFrameworkCore;
 using ProjectHub.Api.Extensions;
 using ProjectHub.Api.Middlewares;
 using ProjectHub.Domain.User.Entities;
+using ProjectHub.Infrastructure.Data.Contexts;
 using ProjectHub.Infrastructure.Data.Seeders;
 using ProjectHub.Infrastructure.Data.Seeders.ApiUsers;
 
@@ -37,8 +39,10 @@ public class Program
             var seederApiUser = scope.ServiceProvider.GetRequiredService<IApiUserSeeder>();
             var seederUserProfile = scope.ServiceProvider.GetRequiredService<IUserProfileSeeder>();
             var seederUserRole = scope.ServiceProvider.GetRequiredService<IUserRoleSeeder>();
+            var seederRole = scope.ServiceProvider.GetRequiredService<IRoleSeeder>();
 
             var user = await seederApiUser.Seed();
+            await seederRole.Seed();
             await seederUserProfile.Seed(user);
             await seederUserRole.Seed();
             await seederSpace.Seed();
