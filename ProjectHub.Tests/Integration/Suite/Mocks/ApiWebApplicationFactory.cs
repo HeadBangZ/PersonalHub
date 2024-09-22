@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ProjectHub.Api;
+using ProjectHub.Api.Controllers;
 using ProjectHub.Infrastructure.Data.Contexts;
 
 
@@ -26,6 +28,8 @@ public class ApiWebApplicationFactory : WebApplicationFactory<Program>
                 options.UseInMemoryDatabase("TestDatabase");
             });
 
+            services.AddControllersWithViews().AddApplicationPart(typeof(SpacesController).Assembly);
+
             var sp = services.BuildServiceProvider();
 
             using (var scope = sp.CreateScope())
@@ -33,6 +37,18 @@ public class ApiWebApplicationFactory : WebApplicationFactory<Program>
                 var db = scope.ServiceProvider.GetRequiredService<ProjectHubDbContext>();
                 db.Database.EnsureCreated();
             }
+        });
+
+        builder.Configure(app =>
+        {
+            app.UseDeveloperExceptionPage();
+
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         });
     }
 }
