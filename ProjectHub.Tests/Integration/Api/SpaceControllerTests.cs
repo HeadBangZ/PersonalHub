@@ -14,7 +14,7 @@ public class SpaceControllerTests : IAsyncLifetime
     private HttpClient _client;
 
     [Fact]
-    public async Task Get_Space_ShoudlReturnOk()
+    public async Task Get_Spaces_ShoudlReturnOk()
     {
         var response = await _client.GetAsync("api/spaces");
 
@@ -31,6 +31,18 @@ public class SpaceControllerTests : IAsyncLifetime
         var response = await _client.PostAsync("/api/spaces", json);
 
         Assert.Equal(HttpStatusCode.Created, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task PostSpace_ShouldReturnBadRequest()
+    {
+
+        var request = new CreateSpaceDtoRequest("", "Test Description");
+        var json = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
+
+        var response = await _client.PostAsync("/api/spaces", json);
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
     }
 
     public async Task InitializeAsync()
