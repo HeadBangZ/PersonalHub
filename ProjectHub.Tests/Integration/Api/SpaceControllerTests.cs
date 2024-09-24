@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Azure.Core;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using ProjectHub.Application.DTOs.SpaceDtos;
 using ProjectHub.Infrastructure.Data.Contexts;
@@ -14,7 +15,7 @@ public class SpaceControllerTests : IAsyncLifetime
     private HttpClient _client;
 
     [Fact]
-    public async Task Get_Spaces_ShoudlReturnOk()
+    public async Task GetSpaces_ShoudlReturnOk()
     {
         var response = await _client.GetAsync("api/spaces");
 
@@ -43,6 +44,16 @@ public class SpaceControllerTests : IAsyncLifetime
         var response = await _client.PostAsync("/api/spaces", json);
 
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task GetSpaceById_ShouldReturnNotFound()
+    {
+        var request = Guid.NewGuid();
+        var json = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
+        var response = await _client.GetAsync("/api/spaces/{id:guid}");
+
+        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
     }
 
     public async Task InitializeAsync()
