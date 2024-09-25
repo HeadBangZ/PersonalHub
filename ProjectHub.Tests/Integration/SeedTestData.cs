@@ -1,15 +1,11 @@
 ﻿using ProjectHub.Domain.Workspace.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ProjectHub.Infrastructure.Data.Contexts;
 
 namespace ProjectHub.Tests.Integration
 {
     public class SeedTestData
     {
-        public static List<Space> CreateMultipleSpaceData(int count)
+        public static List<Space> CreateMultipleSpaceData(ProjectHubDbContext context, int count)
         {
             var spaces = new List<Space>();
 
@@ -21,13 +17,15 @@ namespace ProjectHub.Tests.Integration
                 spaces.Add(space);
             }
 
+            context.Spaces.AddRange(spaces);
+            context.SaveChanges();
+
             return spaces;
         }
 
         public static Space CreateData(string name, string description)
         {
             var space = new Space(name, description);
-
             return space;
         }
     }
