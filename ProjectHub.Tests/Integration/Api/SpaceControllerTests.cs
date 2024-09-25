@@ -50,11 +50,22 @@ public class SpaceControllerTests : IAsyncLifetime
     public async Task GetSpaceById_ShouldReturnNotFound()
     {
         var request = Guid.NewGuid();
-        var json = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
-        var response = await _client.GetAsync("/api/spaces/{id:guid}");
+        var response = await _client.GetAsync($"/api/spaces/{request}");
 
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
     }
+
+    [Fact]
+    //public async Task GetSpaceById_ShouldReturnOk()
+    //{
+    //    var spaces = SeedTestData.CreateMultipleSpaceData(1);
+    //    var id = spaces.First().Id;
+
+    //    var response = await _client.GetAsync($"api/spaces/{id}");
+
+    //    Assert.NotNull(response);
+    //    Assert.Equal(HttpStatusCode.OK, HttpStatusCode.OK);
+    //}
 
     public async Task InitializeAsync()
     {
