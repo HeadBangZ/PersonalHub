@@ -72,6 +72,15 @@ public class SpaceControllerTests : IAsyncLifetime
         }
     }
 
+    [Fact]
+    public async Task DeleteSpaceById_ShouldReturnNotFound()
+    {
+        var id = Guid.NewGuid();
+        var response = await _client.DeleteAsync($"/api/spaces/{id}");
+
+        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+    }
+
     public async Task InitializeAsync()
     {
         _factory = new ApiWebApplicationFactory();
