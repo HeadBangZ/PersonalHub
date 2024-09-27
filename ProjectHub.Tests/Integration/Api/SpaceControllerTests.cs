@@ -81,6 +81,23 @@ public class SpaceControllerTests : IAsyncLifetime
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
     }
 
+    [Fact]
+    public async Task DeleteSpaceById_ShouldReturnNoContent()
+    {
+        using (var scope = _factory.Services.CreateScope())
+        {
+            var context = scope.ServiceProvider.GetRequiredService<ProjectHubDbContext>();
+
+            var spaces = SeedTestData.CreateMultipleSpaceData(context, 1);
+            var id = spaces.First().Id;
+
+            var response = await _client.DeleteAsync($"/api/spaces/{id.Id}");
+
+            Assert.NotNull(response);
+            Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
+        }
+    }
+
     public async Task InitializeAsync()
     {
         _factory = new ApiWebApplicationFactory();
