@@ -1,5 +1,4 @@
-﻿using Azure.Core;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using ProjectHub.Application.DTOs.SpaceDtos;
 using ProjectHub.Infrastructure.Data.Contexts;
@@ -98,6 +97,69 @@ public class SpaceControllerTests : IAsyncLifetime
         }
     }
 
+    [Fact]
+    public async void UpdateSpaceById_NotValidated_ShouldReturnBadRequest()
+    {
+        using (var scope = _factory.Services.CreateScope())
+        {
+            var context = scope.ServiceProvider.GetRequiredService<ProjectHubDbContext>();
+            var spaces = SeedTestData.CreateMultipleSpaceData(context, 1);
+
+            var id = spaces.First().Id;
+            var dto = new UpdateSpaceDtoRequest(id.Id, "a", null, null);
+            var json = new StringContent(JsonConvert.SerializeObject(dto), Encoding.UTF8, "application/json");
+
+            var response = await _client.PutAsync($"/api/spaces/{id.Id}", json);
+
+            Assert.NotNull(response);
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+    }
+
+    [Fact]
+    public async void UpdateSpaceById_IdMismatch_ShouldReturnBadRequest()
+    {
+        using (var scope = _factory.Services.CreateScope())
+        {
+            var context = scope.ServiceProvider.GetRequiredService<ProjectHubDbContext>();
+            var spaces = SeedTestData.CreateMultipleSpaceData(context, 1);
+
+            var id = spaces.First().Id;
+            var dto = new UpdateSpaceDtoRequest(Guid.NewGuid(), "space updated", null, null);
+            var json = new StringContent(JsonConvert.SerializeObject(dto), Encoding.UTF8, "application/json");
+
+            var response = await _client.PutAsync($"/api/spaces/{id.Id}", json);
+
+            Assert.NotNull(response);
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+    }
+
+    [Fact]
+    public async void UpdateSpaceById_ShouldReturnNotFound()
+    {
+        using (var scope = _factory.Services.CreateScope())
+        {
+            var context = scope.ServiceProvider.GetRequiredService<ProjectHubDbContext>();
+            var spaces = SeedTestData.CreateMultipleSpaceData(context, 1);
+
+            var id = Guid.NewGuid();
+            var dto = new UpdateSpaceDtoRequest(id, "space updated", null, null);
+            var json = new StringContent(JsonConvert.SerializeObject(dto), Encoding.UTF8, "application/json");
+
+            var response = await _client.PutAsync($"/api/spaces/{id}", json);
+
+            Assert.NotNull(response);
+            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+        }
+    }
+
+    [Fact]
+    public async void UpdateSpaceById_ShouldReturnNoContent()
+    {
+
+    }
+
     public async Task InitializeAsync()
     {
         _factory = new ApiWebApplicationFactory();
@@ -120,5 +182,3 @@ public class SpaceControllerTests : IAsyncLifetime
         await Task.CompletedTask;
     }
 }
-
-
