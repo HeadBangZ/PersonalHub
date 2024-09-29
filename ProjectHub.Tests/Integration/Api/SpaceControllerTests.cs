@@ -157,7 +157,20 @@ public class SpaceControllerTests : IAsyncLifetime
     [Fact]
     public async void UpdateSpaceById_ShouldReturnNoContent()
     {
+        using (var scope = _factory.Services.CreateScope())
+        {
+            var context = scope.ServiceProvider.GetRequiredService<ProjectHubDbContext>();
+            var spaces = SeedTestData.CreateMultipleSpaceData(context, 1);
 
+            var id = spaces.First().Id;
+            var dto = new UpdateSpaceDtoRequest(id.Id, "space updated", null, null);
+            var json = new StringContent(JsonConvert.SerializeObject(dto), Encoding.UTF8, "application/json");
+
+            var response = await _client.PutAsync($"/api/spaces/{id.Id}", json);
+
+            Assert.NotNull(response);
+            Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
+        }
     }
 
     public async Task InitializeAsync()
