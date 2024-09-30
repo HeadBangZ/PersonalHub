@@ -13,7 +13,7 @@ internal class SpaceConfiguration : IEntityTypeConfiguration<Space>
 
         builder.Property(s => s.Id).HasConversion(
             spaceId => spaceId.Id,
-            value => new SpaceId(value));
+            value => new SpaceId(value)).IsRequired();
 
         builder.Property(s => s.Name)
             .HasMaxLength(75);

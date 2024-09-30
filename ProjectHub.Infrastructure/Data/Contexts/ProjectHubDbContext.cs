@@ -1,13 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using ProjectHub.Domain.Common.Entities;
 using ProjectHub.Domain.Common.ValueObjects;
 using ProjectHub.Domain.User.Entities;
 using ProjectHub.Domain.Workspace.Entities;
 using ProjectHub.Domain.Workspace.RelationShips;
 using ProjectHub.Domain.Workspace.ValueObjects;
-using ProjectHub.Infrastructure.Data.Configurations;
 
 namespace ProjectHub.Infrastructure.Data.Contexts
 {

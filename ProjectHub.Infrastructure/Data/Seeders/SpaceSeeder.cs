@@ -25,58 +25,60 @@ public sealed class SpaceSeeder(ProjectHubDbContext dbContext, IConfiguration co
         var name = "Personal Hub";
         var description = "Personal Hub an application used to manage projects";
         var state = ProgressState.InProgress;
-        var sections = new List<Section>()
-                    {
-                        new(){
-                            Name = "Backlog",
-                            Description = "An accumulation of uncompleted work or matters needing to be dealt with",
-                            Epics = [
-                                new ()
-                                {
-                                    AssignedToUserId = configuration["UserAuth:UserId"],
-                                    Name = "Epic Story",
-                                    Description = "This is gonna be great!",
-                                    Features = [
-                                        new (Guid.Empty, "Registration", "It should be possible to register a user", [
-                                                new ()
-                                                {
-                                                    Name = "HTML Form",
-                                                    Description = "A form for the user to add information",
-                                                },
-                                                new()
-                                                {
-                                                    Name = "Style Form",
-                                                    Description = "The HTML form needs to look good",
-                                                }
-                                            ], Priority.Low, false),
-                                        new Feature(Guid.Empty, "Login", "After registration should be able to login", [
-                                                new()
-                                                {
-                                                    Name = "HTML Form",
-                                                    Description = "A form for the user to add information",
-                                                },
-                                                new()
-                                                {
-                                                    Name = "Style Form",
-                                                    Description = "The HTML form needs to look good",
-                                                },
-                                                new()
-                                                {
-                                                    Name = "Add JWT Token",
-                                                    Description = "Add token to know who the user is",
-                                                }
-                                            ], Priority.Low, false)
-                                    ]
-                                }
-                            ]
-                        }
-                    };
 
-
+        var epics = new List<Epic>()
+        {
+            new ()
+            {
+                AssignedToUserId = configuration["UserAuth:UserId"],
+                Name = "Epic Story",
+                Description = "This is gonna be great!",
+                Features = [
+                    new (Guid.Empty, "Registration", "It should be possible to register a user", [
+                            new ()
+                            {
+                                Name = "HTML Form",
+                                Description = "A form for the user to add information",
+                            },
+                            new()
+                            {
+                                Name = "Style Form",
+                                Description = "The HTML form needs to look good",
+                            }
+                        ], Priority.Low, false),
+                    new Feature(Guid.Empty, "Login", "After registration should be able to login", [
+                            new()
+                            {
+                                Name = "HTML Form",
+                                Description = "A form for the user to add information",
+                            },
+                            new()
+                            {
+                                Name = "Style Form",
+                                Description = "The HTML form needs to look good",
+                            },
+                            new()
+                            {
+                                Name = "Add JWT Token",
+                                Description = "Add token to know who the user is",
+                            }
+                        ], Priority.Low, false)
+                ]
+            }
+        };
 
         List<Space> spaces = [
             new(name, description, state)
         ];
+        var id = spaces.First().Id;
+
+        var sections = new List<Section>()
+        {
+            new Section("Backlog", "An accumulation of uncompleted work or matters needing to be dealt with")
+        };
+
+        sections.First().SetSpaceId(id);
+        sections.First().AddEpics(epics);
 
         spaces.First().AddSections(sections);
 
