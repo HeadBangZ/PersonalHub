@@ -13,11 +13,11 @@ internal class SectionConfiguration : IEntityTypeConfiguration<Section>
 
         builder.Property(s => s.Id).HasConversion(
             sectionId => sectionId.Id,
-            value => new SectionId(value));
+            value => new SectionId(value)).IsRequired();
 
         builder.Property(s => s.SpaceId).HasConversion(
             spaceId => spaceId.Id,
-            value => new SpaceId(value));
+            value => new SpaceId(value)).IsRequired();
 
         builder.HasOne<Space>()
             .WithMany(s => s.Sections)
