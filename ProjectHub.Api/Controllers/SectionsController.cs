@@ -1,5 +1,6 @@
 ﻿using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
+using ProjectHub.Application.Contracts;
 
 namespace ProjectHub.Api.Controllers;
 
@@ -8,5 +9,10 @@ namespace ProjectHub.Api.Controllers;
 [ApiController]
 public class SectionsController : ControllerBase
 {
+    private readonly ISectionService _sectionService;
 
+    public SectionsController(ISectionService sectionService)
+    {
+        _sectionService = sectionService;
+    }
 }

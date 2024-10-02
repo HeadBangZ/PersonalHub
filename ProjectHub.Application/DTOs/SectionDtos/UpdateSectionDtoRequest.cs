@@ -2,7 +2,7 @@
 
 namespace ProjectHub.Application.DTOs.SectionDtos;
 
-public record UpdateSpaceDtoRequest(
+public record UpdateSectionDtoRequest(
     [Required] Guid Id,
     string Name,
     string Description
