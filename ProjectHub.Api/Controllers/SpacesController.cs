@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Mvc;
 using ProjectHub.Api.Validators.SpaceValidators;
 using ProjectHub.Application.Contracts;
 using ProjectHub.Application.DTOs.SpaceDtos;
@@ -7,7 +8,8 @@ using System.Text;
 
 namespace ProjectHub.Api.Controllers;
 
-[Route("api/spaces")]
+[ApiVersion(1)]
+[Route("api/v{v:apiVersion}/spaces")]
 [ApiController]
 public class SpacesController : ControllerBase
 {

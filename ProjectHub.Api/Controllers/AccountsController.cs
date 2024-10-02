@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Mvc;
 using ProjectHub.Application.Contracts;
 using ProjectHub.Application.DTOs.ApiUserDtos;
 
 namespace ProjectHub.Api.Controllers;
 
-[Route("api/accounts")]
+[ApiVersion(1)]
+[Route("api/v{v:apiVersion}/accounts")]
 [ApiController]
 public class AccountsController : ControllerBase
 {

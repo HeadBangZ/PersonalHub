@@ -6,11 +6,11 @@ using ProjectHub.Domain.Workspace.ValueObjects;
 
 namespace ProjectHub.Infrastructure.Repositories;
 
-public sealed class SectionRepository : GenericRepository<Section, SectionId>, ISectionRepository
+public sealed class SpaceRepository : GenericRepository<Space, SpaceId>, ISpaceRepository
 {
     private readonly ProjectHubDbContext _context;
 
-    public SectionRepository(ProjectHubDbContext context) : base(context)
+    public SpaceRepository(ProjectHubDbContext context) : base(context)
     {
         _context = context;
     }
