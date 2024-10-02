@@ -8,7 +8,6 @@ using System.Text;
 
 namespace ProjectHub.Api.Controllers;
 
-[ApiVersion(1)]
 [Route("api/v{v:apiVersion}/spaces")]
 [ApiController]
 public class SpacesController : ControllerBase

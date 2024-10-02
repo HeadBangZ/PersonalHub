@@ -6,7 +6,6 @@ using ProjectHub.Domain.Workspace.Entities;
 
 namespace ProjectHub.Api.Controllers;
 
-[ApiVersion(1)]
 [Route("api/v{v:apiVersion}/features")]
 [ApiController]
 public class FeaturesController : ControllerBase
