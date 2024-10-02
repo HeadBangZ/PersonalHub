@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -36,8 +37,9 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
         services.AddScoped<IAuthRepository, AuthRepository>();
-        services.AddScoped<IFeatureRepository, FeatureRepository>();
         services.AddScoped<ISpaceRepository, SpaceRepository>();
+        services.AddScoped<ISectionRepository, SectionRepository>();
+        services.AddScoped<IFeatureRepository, FeatureRepository>();
 
         return services;
     }
@@ -55,6 +57,20 @@ public static class ServiceCollectionExtensions
     {
         host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
         services.AddTransient<GlobalExceptionHandlingMiddleware>();
+
+        services.AddApiVersioning(options =>
+        {
+            options.DefaultApiVersion = new ApiVersion(1, 0);
+            options.ReportApiVersions = true;
+            options.AssumeDefaultVersionWhenUnspecified = true;
+            options.ApiVersionReader = ApiVersionReader.Combine(
+                new UrlSegmentApiVersionReader(),
+                new HeaderApiVersionReader("X-Api-Version"));
+        }).AddApiExplorer(options =>
+        {
+            options.GroupNameFormat = "'v'VVV";
+            options.SubstituteApiVersionInUrl = true;
+        });
 
         services.AddControllers()
             .AddNewtonsoftJson(options =>

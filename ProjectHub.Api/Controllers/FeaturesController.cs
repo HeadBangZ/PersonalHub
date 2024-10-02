@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Mvc;
 using ProjectHub.Application.Contracts;
 using ProjectHub.Application.DTOs.FeatureDtos;
 using ProjectHub.Domain.Workspace.Entities;
 
 namespace ProjectHub.Api.Controllers;
 
-[Route("api/features")]
+[ApiVersion(1)]
+[Route("api/v{v:apiVersion}/features")]
 [ApiController]
 public class FeaturesController : ControllerBase
 {
