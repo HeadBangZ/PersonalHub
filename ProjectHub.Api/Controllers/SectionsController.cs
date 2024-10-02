@@ -4,7 +4,6 @@ using ProjectHub.Application.Contracts;
 
 namespace ProjectHub.Api.Controllers;
 
-[ApiVersion(1)]
 [Route("api/v{v:apiVersion}/sections")]
 [ApiController]
 public class SectionsController : ControllerBase
