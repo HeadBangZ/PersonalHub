@@ -12,11 +12,12 @@ public class SpaceControllerTests : IAsyncLifetime
 {
     private ApiWebApplicationFactory _factory;
     private HttpClient _client;
+    private readonly string version = "v1";
 
     [Fact]
     public async Task GetSpaces_ShoudlReturnOk()
     {
-        var response = await _client.GetAsync("api/spaces");
+        var response = await _client.GetAsync($"api/{version}/spaces");
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }
@@ -28,7 +29,7 @@ public class SpaceControllerTests : IAsyncLifetime
         var request = new CreateSpaceDtoRequest("Test Space", "Test Description");
         var json = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
 
-        var response = await _client.PostAsync("/api/spaces", json);
+        var response = await _client.PostAsync($"api/{version}/spaces", json);
 
         Assert.Equal(HttpStatusCode.Created, response.StatusCode);
     }
@@ -40,7 +41,7 @@ public class SpaceControllerTests : IAsyncLifetime
         var request = new CreateSpaceDtoRequest("", "Test Description");
         var json = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
 
-        var response = await _client.PostAsync("/api/spaces", json);
+        var response = await _client.PostAsync($"api/{version}/spaces", json);
 
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
     }
@@ -49,7 +50,7 @@ public class SpaceControllerTests : IAsyncLifetime
     public async Task GetSpaceById_ShouldReturnNotFound()
     {
         var id = Guid.NewGuid();
-        var response = await _client.GetAsync($"/api/spaces/{id}");
+        var response = await _client.GetAsync($"api/{version}/spaces/{id}");
 
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
     }
@@ -64,7 +65,7 @@ public class SpaceControllerTests : IAsyncLifetime
             var spaces = SeedTestData.CreateMultipleSpaceData(context, 1);
             var id = spaces.First().Id;
 
-            var response = await _client.GetAsync($"/api/spaces/{id.Id}");
+            var response = await _client.GetAsync($"api/{version}/spaces/{id.Id}");
 
             Assert.NotNull(response);
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -75,7 +76,7 @@ public class SpaceControllerTests : IAsyncLifetime
     public async Task DeleteSpaceById_ShouldReturnNotFound()
     {
         var id = Guid.NewGuid();
-        var response = await _client.DeleteAsync($"/api/spaces/{id}");
+        var response = await _client.DeleteAsync($"api/{version}/spaces/{id}");
 
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
     }
@@ -90,7 +91,7 @@ public class SpaceControllerTests : IAsyncLifetime
             var spaces = SeedTestData.CreateMultipleSpaceData(context, 1);
             var id = spaces.First().Id;
 
-            var response = await _client.DeleteAsync($"/api/spaces/{id.Id}");
+            var response = await _client.DeleteAsync($"api/{version}/spaces/{id.Id}");
 
             Assert.NotNull(response);
             Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
@@ -109,7 +110,7 @@ public class SpaceControllerTests : IAsyncLifetime
             var dto = new UpdateSpaceDtoRequest(id.Id, "a", null, null);
             var json = new StringContent(JsonConvert.SerializeObject(dto), Encoding.UTF8, "application/json");
 
-            var response = await _client.PutAsync($"/api/spaces/{id.Id}", json);
+            var response = await _client.PutAsync($"api/{version}/spaces/{id.Id}", json);
 
             Assert.NotNull(response);
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
@@ -128,7 +129,7 @@ public class SpaceControllerTests : IAsyncLifetime
             var dto = new UpdateSpaceDtoRequest(Guid.NewGuid(), "space updated", null, null);
             var json = new StringContent(JsonConvert.SerializeObject(dto), Encoding.UTF8, "application/json");
 
-            var response = await _client.PutAsync($"/api/spaces/{id.Id}", json);
+            var response = await _client.PutAsync($"api/{version}/spaces/{id.Id}", json);
 
             Assert.NotNull(response);
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
@@ -147,7 +148,7 @@ public class SpaceControllerTests : IAsyncLifetime
             var dto = new UpdateSpaceDtoRequest(id, "space updated", null, null);
             var json = new StringContent(JsonConvert.SerializeObject(dto), Encoding.UTF8, "application/json");
 
-            var response = await _client.PutAsync($"/api/spaces/{id}", json);
+            var response = await _client.PutAsync($"api/{version}/spaces/{id}", json);
 
             Assert.NotNull(response);
             Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
@@ -166,7 +167,7 @@ public class SpaceControllerTests : IAsyncLifetime
             var dto = new UpdateSpaceDtoRequest(id.Id, "space updated", null, null);
             var json = new StringContent(JsonConvert.SerializeObject(dto), Encoding.UTF8, "application/json");
 
-            var response = await _client.PutAsync($"/api/spaces/{id.Id}", json);
+            var response = await _client.PutAsync($"api/{version}/spaces/{id.Id}", json);
 
             Assert.NotNull(response);
             Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
