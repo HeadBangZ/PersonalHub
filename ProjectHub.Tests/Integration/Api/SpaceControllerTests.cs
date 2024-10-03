@@ -62,7 +62,7 @@ public class SpaceControllerTests : IAsyncLifetime
         {
             var context = scope.ServiceProvider.GetRequiredService<ProjectHubDbContext>();
 
-            var spaces = SeedTestData.CreateMultipleSpaceData(context, 1);
+            var spaces = SeedTestData.CreateMultipleEntityData(context, 1, SeedTestData.CreateSpaceData);
             var id = spaces.First().Id;
 
             var response = await _client.GetAsync($"api/{version}/spaces/{id.Id}");
@@ -88,7 +88,7 @@ public class SpaceControllerTests : IAsyncLifetime
         {
             var context = scope.ServiceProvider.GetRequiredService<ProjectHubDbContext>();
 
-            var spaces = SeedTestData.CreateMultipleSpaceData(context, 1);
+            var spaces = SeedTestData.CreateMultipleEntityData(context, 1, SeedTestData.CreateSpaceData);
             var id = spaces.First().Id;
 
             var response = await _client.DeleteAsync($"api/{version}/spaces/{id.Id}");
@@ -104,7 +104,7 @@ public class SpaceControllerTests : IAsyncLifetime
         using (var scope = _factory.Services.CreateScope())
         {
             var context = scope.ServiceProvider.GetRequiredService<ProjectHubDbContext>();
-            var spaces = SeedTestData.CreateMultipleSpaceData(context, 1);
+            var spaces = SeedTestData.CreateMultipleEntityData(context, 1, SeedTestData.CreateSpaceData);
 
             var id = spaces.First().Id;
             var dto = new UpdateSpaceDtoRequest(id.Id, "a", null, null);
@@ -123,7 +123,7 @@ public class SpaceControllerTests : IAsyncLifetime
         using (var scope = _factory.Services.CreateScope())
         {
             var context = scope.ServiceProvider.GetRequiredService<ProjectHubDbContext>();
-            var spaces = SeedTestData.CreateMultipleSpaceData(context, 1);
+            var spaces = SeedTestData.CreateMultipleEntityData(context, 1, SeedTestData.CreateSpaceData);
 
             var id = spaces.First().Id;
             var dto = new UpdateSpaceDtoRequest(Guid.NewGuid(), "space updated", null, null);
@@ -142,7 +142,7 @@ public class SpaceControllerTests : IAsyncLifetime
         using (var scope = _factory.Services.CreateScope())
         {
             var context = scope.ServiceProvider.GetRequiredService<ProjectHubDbContext>();
-            var spaces = SeedTestData.CreateMultipleSpaceData(context, 1);
+            var spaces = SeedTestData.CreateMultipleEntityData(context, 1, SeedTestData.CreateSpaceData);
 
             var id = Guid.NewGuid();
             var dto = new UpdateSpaceDtoRequest(id, "space updated", null, null);
@@ -161,7 +161,7 @@ public class SpaceControllerTests : IAsyncLifetime
         using (var scope = _factory.Services.CreateScope())
         {
             var context = scope.ServiceProvider.GetRequiredService<ProjectHubDbContext>();
-            var spaces = SeedTestData.CreateMultipleSpaceData(context, 1);
+            var spaces = SeedTestData.CreateMultipleEntityData(context, 1, SeedTestData.CreateSpaceData);
 
             var id = spaces.First().Id;
             var dto = new UpdateSpaceDtoRequest(id.Id, "space updated", null, null);

@@ -48,6 +48,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<ISpaceService, SpaceService>();
+        services.AddScoped<ISectionService, SectionService>();
         services.AddScoped<IFeatureService, FeatureService>();
 
         return services;

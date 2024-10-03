@@ -59,19 +59,20 @@ public class SpaceServiceTests : IAsyncLifetime
     [Fact]
     public async Task GetAllSpaces_Successfully()
     {
-        var data = SpaceTestData.CreateMultipleEntityData(3);
+        var data = SpaceTestData.SeedData();
 
         var spaces = _spaceRepository.GetAllAsync().Returns(data);
 
         var result = await _spaceService.GetAllSpacesAsync();
 
         Assert.NotNull(result);
-        Assert.Equal(3, result.Count);
+        Assert.Equal(4, result.Count);
 
         for (int i = 0; i < data.Count; i++)
         {
             Assert.Equal(data[i].Name, result[i].Name);
             Assert.Equal(data[i].Description, result[i].Description);
+            Assert.Equal(data[i].State, result[i].State);
         }
 
         await _spaceRepository.Received(1).GetAllAsync();
