@@ -5,26 +5,26 @@ namespace ProjectHub.Tests.Integration
 {
     public class SeedTestData
     {
-        public static List<Space> CreateMultipleSpaceData(ProjectHubDbContext context, int count)
+        public static List<T> CreateMultipleEntityData<T>(ProjectHubDbContext context, int count, Func<int, T> createEntity) where T : class
         {
-            var spaces = new List<Space>();
+            var entities = new List<T>();
 
             for (int i = 0; i < count; i++)
             {
-                var name = $"Space {i}";
-                var description = $"Description for Space {i}";
-                var space = CreateData(name, description);
-                spaces.Add(space);
+                var space = createEntity(i);
+                entities.Add(space);
             }
 
-            context.Spaces.AddRange(spaces);
+            context.Set<T>().AddRange(entities);
             context.SaveChanges();
 
-            return spaces;
+            return entities;
         }
 
-        public static Space CreateData(string name, string description)
+        public static Space CreateSpaceData(int i)
         {
+            var name = $"Space {i}";
+            var description = $"Description for Space {i}";
             var space = new Space(name, description);
             return space;
         }

@@ -7,7 +7,7 @@ public record SectionDtoResponse(
     Guid SpaceId,
     string Name,
     string Description,
-    List<Epic> Epics,
+    IEnumerable<Epic> Epics,
     DateTime CreatedAt,
     DateTime? ModifiedAt
 );

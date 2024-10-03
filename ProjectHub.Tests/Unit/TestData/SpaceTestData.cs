@@ -19,21 +19,6 @@ namespace ProjectHub.Tests.Unit.Seeder
             return spaces;
         }
 
-        public static List<Space> CreateMultipleEntityData(int count)
-        {
-            var spaces = new List<Space>();
-
-            for (int i = 0; i < count; i++)
-            {
-                var name = $"Space {i}";
-                var description = $"Description for Space {i}";
-                var space = CreateData(name, description);
-                spaces.Add(space);
-            }
-
-            return spaces;
-        }
-
         public static Space CreateData(string name, string description)
         {
             var space = new Space(name, description);
