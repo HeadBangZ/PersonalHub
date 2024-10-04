@@ -18,7 +18,7 @@ public static class SectionExtensions
         );
     }
 
-    public static Section MapCreateDtoToSection(this Section request)
+    public static Section MapCreateDtoToSection(this CreateSectionDtoRequest request)
     {
         return new Section(
             request.Name,
