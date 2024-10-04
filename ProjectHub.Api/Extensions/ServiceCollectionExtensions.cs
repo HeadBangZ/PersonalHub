@@ -36,6 +36,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IRoleSeeder, RoleSeeder>();
 
         services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
+        services.AddScoped(typeof(IEntityExistenceVerfifier<,>), typeof(EntityExistenceVerfifier<,>));
         services.AddScoped<IAuthRepository, AuthRepository>();
         services.AddScoped<ISpaceRepository, SpaceRepository>();
         services.AddScoped<ISectionRepository, SectionRepository>();

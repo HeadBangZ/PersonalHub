@@ -2,6 +2,7 @@
 using ProjectHub.Application.DTOs.SectionDtos;
 using ProjectHub.Application.Mappers;
 using ProjectHub.Domain.Contracts;
+using ProjectHub.Domain.Workspace.Entities;
 using ProjectHub.Domain.Workspace.ValueObjects;
 
 namespace ProjectHub.Application.Services;
@@ -9,15 +10,28 @@ namespace ProjectHub.Application.Services;
 public class SectionService : ISectionService
 {
     private readonly ISectionRepository _sectionRepository;
-
-    public SectionService(ISectionRepository sectionRepository)
+    private readonly IEntityExistenceVerfifier<Space, SpaceId> _existenceVerifier;
+    public SectionService(ISectionRepository sectionRepository, IEntityExistenceVerfifier<Space, SpaceId> existenceVerifier)
     {
         _sectionRepository = sectionRepository;
+        _existenceVerifier = existenceVerifier;
     }
 
-    public Task<SectionDtoResponse> AddSectionAsync(CreateSectionDtoRequest request)
+    public async Task<SectionDtoResponse?> AddSectionAsync(CreateSectionDtoRequest request)
     {
-        throw new NotImplementedException();
+        var spaceId = new SpaceId(request.SpaceId);
+
+        if (!await _existenceVerifier.ExistsAsync(spaceId))
+        {
+            return null;
+        }
+
+        var section = request.MapCreateDtoToSection();
+        section.SetSpaceId(spaceId);
+
+        await _sectionRepository.AddAsync(section);
+
+        return section.MapSectionToDto();
     }
 
     public Task DeleteSectionAsync(Guid id)
@@ -25,9 +39,17 @@ public class SectionService : ISectionService
         throw new NotImplementedException();
     }
 
-    public Task<List<SectionDtoResponse>> GetAllSectionAsync()
+    public async Task<List<SectionDtoResponse>> GetAllSectionAsync()
     {
-        throw new NotImplementedException();
+        var sectionDtos = new List<SectionDtoResponse>();
+        var sections = await _sectionRepository.GetAllAsync();
+
+        foreach (var section in sections)
+        {
+            sectionDtos.Add(section.MapSectionToDto());
+        }
+
+        return sectionDtos;
     }
 
     public async Task<SectionDtoResponse?> GetSectionAsync(Guid id)
